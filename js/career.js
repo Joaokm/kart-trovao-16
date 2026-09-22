@@ -1,7 +1,7 @@
 /* Save versionado, economia e campeonato. Não depende do DOM nem da corrida. */
 (function () {
   "use strict";
-  var KEY="kart-trovao-16-v2", storageOK=true;
+  var KEY="kart-trovao-16-v2", storageOK=true, POINTS=[15,12,10,8,6,4,2,1];
   function fresh() { return {version:2,bolts:150,wins:0,races:0,cups:{},records:{},parts:[0,0,0],paint:0,settings:{volume:70,crt:true,motion:true},activeCup:null}; }
   function integer(n,min,max,fallback) { return Number.isInteger(n)&&n>=min&&n<=max?n:fallback; }
   function clean(raw) {
@@ -51,8 +51,7 @@
     var out={reward:reward,championship:null,unlock:[]};
     var a=data.activeCup;
     if(race.mode==="cup"&&a&&a.stage===race.cupStage&&race.trackId===a.cup*10+a.stage) {
-      var points=[15,12,10,8,6,4,2,1];
-      race.karts.forEach(function(k){var i=a.drivers.indexOf(k.di);if(i>=0)a.scores[i]+=k.finished?points[k.pos-1]:0;});
+      race.karts.forEach(function(k){var i=a.drivers.indexOf(k.di);if(i>=0)a.scores[i]+=k.finished?POINTS[k.pos-1]:0;});
       a.stage++;out.championship={cup:a.cup,stage:a.stage,table:standings(a),done:a.stage===10};
       if(a.stage===10){
         var table=standings(a),playerRow=table.find(function(r){return r.driver===a.player;});
@@ -67,6 +66,18 @@
     if(data.wins===5&&finished&&p.pos===1)out.unlock.push("IARA FLUXO");
     save();return out;
   }
+  /* GP online: só pontos entre amigos, nunca toca em activeCup nem em data.cups.
+     A tabela é indexada pelo slot do grid (0..7), porque dois amigos podem usar o mesmo piloto.
+     No online, quem não termina em 300 s pontua pela posição em que estava. */
+  var GP_LEGS=[[0,1,2,3],[4,5,6,7],[6,7,8,9]];
+  KT.GP={POINTS:POINTS,LEGS:GP_LEGS,
+    tracks:function(liga,tamanho,parte){return (tamanho===10?[0,1,2,3,4,5,6,7,8,9]:GP_LEGS[parte]).map(function(i){return liga*10+i;});},
+    label:function(c){return KT.CUPS[c.liga].name+' · '+(c.tamanho===10?'liga completa':'parte '+(c.parte+1));},
+    score:function(gp,positions){gp.last=positions.map(function(p){return POINTS[p-1]||0;});gp.last.forEach(function(v,i){gp.scores[i]+=v;});var w=positions.indexOf(1);if(w>=0)gp.wins[w]++;gp.stage++;},
+    table:function(gp){return gp.scores.map(function(s,i){return {slot:i,entry:gp.entries[i],points:s,last:gp.last[i],wins:gp.wins[i]};})
+      .sort(function(a,b){return b.points-a.points||b.wins-a.wins||b.last-a.last||a.slot-b.slot;})
+      .map(function(r,_,all){r.place=1+all.filter(function(o){return o.points>r.points;}).length;return r;});}
+  };
   var paints=[null,"#f5bf49","#61dfce","#f47eb1","#b4a1f5","#eeeae0"];
   KT.Career={get data(){return data;},get storageOK(){return storageOK;},save:save,clean:clean,won:won,unlockedCup:unlockedCup,unlockedDriver:unlockedDriver,legend:legend,beginCup:beginCup,cupConfig:cupConfig,standings:standings,finish:finish,
     price:function(i){return [120,180,260][data.parts[i]]||0;},

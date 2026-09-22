@@ -33,11 +33,13 @@ Para desenvolvimento, rode `node ferramentas/serve.js` e abra `http://127.0.0.1:
 4. Os amigos abrem o convite ou usam **Entrar na sala**.
 5. Com pelo menos duas pessoas na sala, o anfitrião clica em **Iniciar corrida**.
 
+**Grand Prix online:** em **Formato**, o anfitrião escolhe **Grand Prix**, a liga e o tamanho: 4 pistas (parte 1, 2 ou 3 da liga) ou a liga completa com 10. Cada corrida soma 15, 12, 10, 8, 6, 4, 2 e 1 pontos do 1º ao 8º, inclusive para a IA. Quem não termina em 5 minutos pontua pela posição em que estava. Entre as corridas aparece a classificação acumulada; depois da última, o pódio. Quem sai no meio continua na tabela, pilotado pela IA. Ninguém entra no meio do GP. O GP online não altera as copas do modo solo.
+
 Até quatro humanos participam. A IA preenche os lugares restantes. Peças padrão para todos. Quem desconectar é substituído por IA; se o anfitrião sair, a conexão termina para todos. Depois do resultado, o anfitrião pode voltar à mesma sala e iniciar outra partida.
 
 O jogo usa WebRTC e sinalização do PeerServer Cloud. A simulação roda no anfitrião; os convidados enviam controles e recebem posições e resultados. Não há câmera, microfone, cadastro ou chat. Mantenha a aba do anfitrião em primeiro plano. O modo online não pausa.
 
-**Limites:** internet e disponibilidade do serviço de sinalização são necessárias. Redes que impedem conexão direta podem exigir TURN. A opção de servidor próprio fica em `js/online-config.js`. Não existe migração automática de anfitrião nem reconexão no meio da corrida; entre novamente quando a sala voltar ao lobby. O modo solo continua funcionando sem esses serviços.
+**Limites:** internet e disponibilidade do serviço de sinalização são necessárias. Para jogar entre redes diferentes é preciso configurar TURN em `js/online-config.js`; o passo a passo está em [PUBLICAR.md](PUBLICAR.md). Não existe migração automática de anfitrião nem reconexão no meio da corrida; entre novamente quando a sala voltar ao lobby. O modo solo continua funcionando sem esses serviços.
 
 **127.0.0.1 e localhost não são links públicos.** Para jogar de computadores em redes diferentes, publique o jogo. Veja `PUBLICAR.md`.
 

@@ -32,7 +32,8 @@ Comparação de oito sementes com seis karts e três voltas. O comportamento inc
 
 ## Limites conhecidos
 
-- Online depende de PeerServer Cloud e da viabilidade da conexão WebRTC. Não há TURN próprio incluído.
+- Online depende de PeerServer Cloud e da viabilidade da conexão WebRTC. Entre redes diferentes, é preciso preencher `iceUrl` em `js/online-config.js` com um TURN (Metered ou Cloudflare, passo a passo no PUBLICAR.md). Sem isso, a reserva é o TURN público do PeerJS, que costuma estar fora do ar.
+- GP online (22/09/2026): testado com 4 jogadores reais em 4 corridas no mesmo computador, incluindo saída no meio e atrasado recusado. Falta testar com amigos em redes diferentes, depois de configurar o TURN.
 - O anfitrião deve manter a aba aberta e em primeiro plano. Não há migração de anfitrião nem retorno durante uma corrida já iniciada.
 - Gamepad foi implementado para o mapeamento padrão. A confirmação com controle físico depende de hardware disponível.
 - Save é local ao navegador, com exportação/importação manual; não há conta nem sincronização em nuvem.

@@ -292,6 +292,9 @@ KT.Kart = (function () {
   };
 
   Kart.prototype.onLap = function (race) {
+    /* no piloto automatico pos-chegada o kart cruza a linha de novo; sem isto o
+       finishTime era regravado e o vencedor caia de posicao no online (que espera todos) */
+    if (this.finished) return;
     var t = race.time - this.lapStart;
     this.lapTimes.push(t);
     if (this.bestLap == null || t < this.bestLap) this.bestLap = t;

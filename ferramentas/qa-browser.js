@@ -44,8 +44,42 @@ document.getElementById('online').onclick=async()=>{
     await waitFor(()=>host.Game.state==='results',90000);
     await waitFor(()=>clients[1].Game.state==='results'&&clients[2].Game.state==='results');
     assert(clients[1].race.karts.every((k,i)=>k.pos===host.race.karts[i].pos),'resultado idêntico entre anfitrião e convidados');
+    assert(host.race.karts.every(k=>!k.finished||k.lapTimes.length===host.race.totalLaps),'volta extra no piloto automático não regrava a chegada');
     host.Net.backLobby();await waitFor(()=>clients[1].Net.phase==='lobby');assert(true,'sala pode ser reutilizada depois da corrida');
     host.Net.leave();await waitFor(()=>clients[1].Net.phase==='error');assert(true,'saída do anfitrião é comunicada');
     report('ONLINE: TODOS OS TESTES PASSARAM');
   }catch(e){report('FALHA ONLINE: '+e.stack);}finally{clearInterval(simulationTimer);clients.forEach(k=>k&&k.Net.leave());}
+};
+/* GP de 4 corridas: todos com o mesmo piloto (a tabela é por slot), um amigo sai no meio e um atrasado tenta entrar. */
+document.getElementById('gp').onclick=async()=>{
+  const clients=frames.map(f=>f.contentWindow.KT);
+  let simulationTimer=null;
+  try{
+    await ready;clients.forEach(k=>{k.Net.leave();k.Game.menu();});const host=clients[0],tracks=host.GP.tracks(0,4,0);
+    await host.Net.create('Host GP',1,{pista:tracks[0],nivel:0,voltas:1,espelho:false,gp:{liga:0,tamanho:4,parte:0}});await waitFor(()=>host.Net.phase==='lobby');
+    for(let i=1;i<4;i++){await clients[i].Net.join(host.Net.code,'Amigo '+i,1);await waitFor(()=>clients[i].Net.phase==='lobby');}
+    await waitFor(()=>host.Net.players.length===4);assert(true,'4 jogadores na sala do GP, todos com o mesmo piloto');
+    simulationTimer=setInterval(()=>clients.slice(0,4).forEach(k=>{if(k.Game.state==='race')k.simular(1);}),16);
+    for(let s=0;s<4;s++){
+      assert(s===0?host.Net.start():host.Net.next(),'corrida '+(s+1)+' largou');
+      assert(host.race.trackId===tracks[s],'corrida '+(s+1)+' na pista certa da liga');
+      host.race.karts.forEach(k=>{k.ai=true;k.remoteInput=null;});
+      await waitFor(()=>host.Game.state==='results',120000);
+      const live=[1,2,3].filter(i=>!(s>=2&&i===3));
+      await waitFor(()=>live.every(i=>clients[i].Game.state==='results'&&clients[i].Net.gp&&clients[i].Net.gp.stage===s+1),20000);
+      const g=host.Net.gp;
+      assert(g.stage===s+1&&g.scores.reduce((a,b)=>a+b,0)===58*(s+1),'pontos somados após a corrida '+(s+1));
+      assert(live.every(i=>clients[i].Net.gp.scores.join()===g.scores.join()),'convidados têm a mesma tabela');
+      if(s===1){
+        clients[3].Net.leave();await waitFor(()=>host.Net.gp.entries[3].left&&clients[1].Net.gp.entries[3].left);assert(true,'quem sai vira IA e continua na tabela');
+        await clients[4].Net.join(host.Net.code,'Atrasado',2);await waitFor(()=>clients[4].Net.phase==='error');assert(/GP em andamento/.test(clients[4].Net.message),'atrasado é recusado com aviso de GP');
+      }
+    }
+    const doc=frames[1].contentWindow.document,podium=doc.querySelector('[data-action="gp-podium"]');
+    assert(podium,'convidado vê o botão do pódio');podium.click();
+    await waitFor(()=>doc.querySelectorAll('.podium-step').length===3);assert(true,'pódio com três degraus');
+    host.Net.backLobby();await waitFor(()=>clients[1].Net.phase==='lobby'&&!clients[1].Net.gp);assert(host.Net.gp===null,'volta à sala e zera o GP');
+    assert(clients.every(k=>!k.Career.data.activeCup),'GP online não mexe na copa solo');
+    report('GP: TODOS OS TESTES PASSARAM');
+  }catch(e){report('FALHA GP: '+e.stack);}finally{clearInterval(simulationTimer);clients.forEach(k=>k&&k.Net.leave());}
 };

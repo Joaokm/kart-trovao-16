@@ -278,6 +278,46 @@ teste("corridas completas: todos os karts terminam (6 e 8 karts)", () => {
   return sementes.length * 2 + " corridas";
 });
 
+teste("GP online: pistas por parte, pontos e empates", () => {
+  const G = KT.GP;
+  for (let liga = 0; liga < 3; liga++) for (let parte = 0; parte < 3; parte++) {
+    const t = G.tracks(liga, 4, parte);
+    exigir(t.length === 4 && new Set(t).size === 4 && t.every(id => Math.floor(id / 10) === liga), "liga " + liga + " parte " + parte + ": " + t);
+  }
+  exigir(G.tracks(1, 10, 0).join() === "10,11,12,13,14,15,16,17,18,19", "liga completa fora de ordem");
+  const z = () => [0, 0, 0, 0, 0, 0, 0, 0];
+  const gp = { stage: 0, scores: z(), last: z(), wins: z(), entries: z().map((_, i) => ({ name: "P" + i, driver: 1, human: i < 2, left: false })) };
+  G.score(gp, [1, 2, 3, 4, 5, 6, 7, 8]);
+  G.score(gp, [2, 1, 3, 4, 5, 6, 7, 8]);
+  exigir(gp.stage === 2 && gp.scores.reduce((a, b) => a + b, 0) === 116, "soma errada: " + gp.scores);
+  const t = G.table(gp);
+  exigir(t[0].place === 1 && t[1].place === 1 && t[2].place === 3, "empate não compartilha posição: " + t.map(r => r.place));
+  return "9 partes, 2 corridas pontuadas";
+});
+
+teste("GP online não mexe na copa solo", () => {
+  const antes = KT.Career.exportSave();
+  const copa = { cup: 0, stage: 3, level: 1, player: 1, drivers: [1, 2, 3, 4, 5, 6, 7, 0], scores: [9, 8, 7, 6, 5, 4, 3, 2] };
+  KT.Career.data.activeCup = JSON.parse(JSON.stringify(copa));
+  const k = { finished: true, pos: 1, di: 1 };
+  KT.Career.finish({ mode: "online", level: 0, player: k, karts: [k], trackId: 3, cupStage: 3 });
+  const depois = JSON.stringify(KT.Career.data.activeCup);
+  KT.Career.importSave(antes);
+  exigir(depois === JSON.stringify(copa), "activeCup mudou: " + depois);
+  return "activeCup intacta";
+});
+
+teste("chegada não é regravada na volta extra do piloto automático", () => {
+  /* No online a corrida espera todos, então o líder cruza a linha de novo no piloto automático. */
+  const k = new KT.Kart(0, false), race = { time: 30, totalLaps: 3, banner() {} };
+  k.lap = 3; k.lapStart = 20; k.lapTimes = [10, 10];
+  k.onLap(race);
+  exigir(k.finished && k.finishTime === 30, "não registrou a chegada");
+  race.time = 55; k.onLap(race);
+  exigir(k.finishTime === 30 && k.lapTimes.length === 3, "chegada regravada: finishTime " + k.finishTime + ", " + k.lapTimes.length + " voltas");
+  return "finishTime mantido em 30 s";
+});
+
 teste("originalidade: nenhum termo proibido no projeto", () => {
   const termos = fs.readFileSync(path.join(__dirname, "termos-proibidos.txt"), "utf8")
     .split(/\r?\n/).map(l => l.trim()).filter(l => l && !l.startsWith("#")).map(semAcento);

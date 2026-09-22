@@ -1,0 +1,142 @@
+/* ============================================================
+   Tema retrô: o menu fala a mesma língua da tela de título.
+   Carregado depois de style.css e sobrepõe só o visual.
+   Fontes pixeladas locais (OFL, ver css/fonts/), bordas em degrau,
+   botões com relevo de console e cursor ▶ na aba atual.
+   Press Start 2P só em múltiplos de 8px, senão o pixel borra.
+   ============================================================ */
+@font-face{font-family:'Press Start 2P';src:url(fonts/press-start-2p.woff2) format('woff2');font-display:swap;}
+@font-face{font-family:'VT323';src:url(fonts/vt323.woff2) format('woff2');font-display:swap;}
+
+#race-menu{
+  --px-bg:#10142a;--px-panel:#1b2144;--px-panel-2:#283066;--px-hover:#343d80;--px-line:#05060f;--px-hi:#5360b0;--px-lo:#0c1030;
+  --px-gold:#4a3d12;--px-gold-hi:#6b5a1c;--px-gold-lo:#2c2408;--px-off:#8088b4;--px-off-bg:#20264a;
+  --ink:#f4f0e0;--muted:#b4bbe0;--yellow:#ffd24a;--yellow-hover:#ffe07a;--yellow-hi:#fff0a8;--yellow-lo:#b98a12;
+  --red:#c8321e;--orange:#ff7a3c;--orange-hi:#ffb48a;--orange-lo:#a8431a;--silver-hi:#ffffff;--silver-lo:#6b7299;--cyan:#6fd3ff;--green:#7ee08a;
+  --px-display:'Press Start 2P',monospace;--px-body:'VT323',monospace;
+  background-color:var(--px-bg);
+  background-image:conic-gradient(var(--px-lo) 25%,transparent 0 50%,var(--px-lo) 0 75%,transparent 0);
+  background-size:8px 8px;
+  font-family:var(--px-body);font-size:20px;line-height:1.2;letter-spacing:.02em;
+}
+/* linhas de varredura por cima de tudo, como no canvas */
+#race-menu::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:5;
+  background:repeating-linear-gradient(to bottom,transparent 0 2px,rgba(0,0,0,.18) 2px 4px);}
+#race-menu *{border-radius:0!important;}
+#race-menu p,#race-menu label,#race-menu small,#race-menu td,#race-menu dl{font-family:var(--px-body);}
+#race-menu p{font-size:20px;line-height:1.25;}
+#race-menu small,#race-menu .online-help,#race-menu .track-note,#race-menu .setup-note,.page-heading p,.guide-layout dl,.part p{font-size:20px;}
+#race-menu label{font-size:20px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;}
+
+/* títulos com a sombra vermelha dura do logo */
+#race-menu h1,.result-page>h1{font-family:var(--px-display);font-size:24px!important;line-height:1.5;letter-spacing:0;color:var(--yellow);text-shadow:4px 4px 0 var(--red);margin-bottom:24px!important;}
+#race-menu h2{font-family:var(--px-display);font-size:16px;line-height:1.5;color:var(--cyan);text-shadow:2px 2px 0 var(--px-line);margin:24px 0 12px;}
+#race-menu h3,#race-menu .driver-heading h3{font-family:var(--px-display);font-size:8px;line-height:2;color:var(--ink);}
+.kicker,.section-top,.driver-heading span,.part-level{font-family:var(--px-display)!important;font-size:8px!important;line-height:2;letter-spacing:.08em;color:var(--yellow);}
+
+/* cabeçalho: logo em pixel e carteira como placar de fliperama */
+.menu-head{background:var(--px-panel);box-shadow:inset 0 -4px 0 var(--px-line),inset 0 4px 0 var(--px-hi);padding:16px 24px;}
+.brand-bolt{color:var(--yellow);text-shadow:4px 4px 0 var(--red);}
+.brand strong{font-family:var(--px-display);font-style:normal;font-size:16px;letter-spacing:0;line-height:1.5;color:var(--yellow);text-shadow:4px 4px 0 var(--red);}
+.brand strong em{color:var(--orange);}
+.brand div>span{font-family:var(--px-display);font-size:8px;color:var(--cyan);letter-spacing:.2em;margin-top:8px;}
+.wallet{background:var(--px-line);padding:8px 12px;box-shadow:0 0 0 4px var(--px-hi);}
+.wallet b{font-family:var(--px-display);font-size:16px;line-height:1.5;color:var(--yellow);}
+.wallet span{font-size:16px;color:var(--muted);text-transform:uppercase;}
+
+/* abas como lista de cartucho: a atual ganha o cursor piscando */
+.menu-tabs{background:var(--px-panel);border-bottom:0;box-shadow:inset 0 -4px 0 var(--px-line);padding:8px 24px 12px;gap:4px;}
+#race-menu .menu-tabs button{font-family:var(--px-body);font-size:20px;text-transform:uppercase;color:var(--muted);background:transparent;min-height:40px;padding:4px 12px;margin:0;box-shadow:none;}
+#race-menu .menu-tabs button:hover:not(:disabled){background:var(--px-panel-2);color:var(--ink);}
+#race-menu .menu-tabs button[aria-current]{background:var(--yellow);color:var(--px-line);box-shadow:inset -4px -4px 0 var(--yellow-lo),inset 4px 4px 0 var(--yellow-hi);}
+#race-menu .menu-tabs button[aria-current]::before{content:"▶ ";animation:px-blink 1s steps(1) infinite;}
+@keyframes px-blink{50%{visibility:hidden;}}
+
+/* botões e campos com relevo de console: luz em cima, sombra embaixo */
+#race-menu button,#race-menu select,.file-button{font-family:var(--px-body);font-size:20px;color:var(--ink);background:var(--px-panel-2);border:0;min-height:44px;padding:8px 12px;
+  box-shadow:0 0 0 4px var(--px-line),inset 4px 4px 0 var(--px-hi),inset -4px -4px 0 var(--px-lo);transition:none;}
+#race-menu button:hover:not(:disabled),#race-menu select:hover{background:var(--px-hover);}
+#race-menu button:active:not(:disabled){box-shadow:0 0 0 4px var(--px-line),inset 4px 4px 0 var(--px-lo),inset -4px -4px 0 var(--px-hi);transform:translateY(4px);}
+#race-menu button:disabled{color:var(--px-off);background:var(--px-off-bg);box-shadow:0 0 0 4px var(--px-line);}
+#race-menu select{appearance:none;padding-right:36px;
+  background-image:linear-gradient(45deg,transparent 50%,var(--yellow) 50%),linear-gradient(135deg,var(--yellow) 50%,transparent 50%);
+  background-position:calc(100% - 20px) 50%,calc(100% - 12px) 50%;background-size:8px 8px;background-repeat:no-repeat;}
+#race-menu select option{background:var(--px-panel);color:var(--ink);}
+#race-menu input[type=text],#race-menu input:not([type]),#race-menu input[readonly]{font-family:var(--px-body);font-size:20px;background:var(--px-line);color:var(--ink);border:0;padding:12px;
+  box-shadow:0 0 0 4px var(--px-hi),inset 4px 4px 0 var(--px-lo);}
+#race-menu button.primary{font-family:var(--px-display);font-size:16px;line-height:1.5;color:var(--px-line);background:var(--yellow);
+  box-shadow:0 0 0 4px var(--px-line),inset 4px 4px 0 var(--yellow-hi),inset -4px -4px 0 var(--yellow-lo),8px 8px 0 4px var(--px-line);}
+#race-menu button.primary:hover:not(:disabled){background:var(--yellow-hover);}
+#race-menu button.primary:active:not(:disabled){box-shadow:0 0 0 4px var(--px-line),inset 4px 4px 0 var(--yellow-lo),inset -4px -4px 0 var(--yellow-hi);transform:translate(8px,8px);}
+#race-menu button.primary:disabled{color:var(--px-off);background:var(--px-off-bg);box-shadow:0 0 0 4px var(--px-line);}
+#race-menu .start-race{padding:16px 20px;margin-top:16px;}
+#race-menu button:focus-visible,#race-menu select:focus-visible,#race-menu input:focus-visible,.file-button:focus-within{outline:4px solid var(--cyan);outline-offset:8px;}
+/* borda externa de 4px precisa de folga para não encostar no vizinho */
+.button-row,.track-controls{gap:16px;}
+.setup-fields{gap:16px 20px;}
+
+/* painéis com borda em degrau de pixel */
+.track-preview,.online-rules,.result-tip,.resume-cup,.empty-state{background:var(--px-panel);box-shadow:0 0 0 4px var(--px-line),inset 4px 4px 0 var(--px-hi),inset -4px -4px 0 var(--px-lo);}
+.track-preview{border-bottom:0;}
+.biome{font-size:20px;}
+.race-rules{font-size:20px;color:var(--cyan);}
+.driver-roster{gap:12px;}
+#race-menu .driver-button{background:var(--px-panel);min-height:76px;padding:8px 4px;}
+.driver-button span{font-size:16px;text-transform:uppercase;}
+#race-menu .driver-button small{font-size:16px;}
+#race-menu .driver-button[aria-pressed=true],#race-menu .cup-picker button[aria-pressed=true]{background:var(--px-gold);color:var(--yellow);box-shadow:0 0 0 4px var(--yellow),inset 4px 4px 0 var(--px-gold-hi),inset -4px -4px 0 var(--px-gold-lo);}
+.driver-stats span{font-size:16px;text-transform:uppercase;}
+.driver-stats meter{height:12px;accent-color:var(--green);}
+.cup-picker{gap:20px;}
+.cup-trophy{text-shadow:4px 4px 0 var(--px-line);}
+.stage-list{font-size:20px;}
+.stage-list li,.part,.online-players li,#race-menu td,#race-menu th,#race-menu .toggle{border-bottom:4px dotted var(--px-panel-2);}
+#race-menu table{font-size:20px;}
+#race-menu th{font-family:var(--px-display);font-size:8px;line-height:2;color:var(--cyan);text-transform:uppercase;}
+.player-row{background:var(--px-gold);color:var(--yellow);}
+.room-code{font-family:var(--px-display);font-size:24px;letter-spacing:.2em;color:var(--yellow);text-shadow:4px 4px 0 var(--red);}
+.online-players li>span:last-child{font-size:20px;color:var(--muted);}
+.player-dot{width:16px;height:16px;box-shadow:0 0 0 4px var(--px-line);}
+#race-menu .online-help{border-top:4px dotted var(--px-panel-2);}
+#race-menu .online-status{color:var(--cyan);}
+.result-reward{font-size:24px;color:var(--muted);}
+.result-reward b{color:var(--green);}
+.career-totals b{font-family:var(--px-display);font-size:16px;}
+.guide-layout dt{font-family:var(--px-display);font-size:8px;line-height:2;}
+.unlock-message{background:var(--px-panel);color:var(--green)!important;box-shadow:0 0 0 4px var(--green);}
+.menu-foot{font-size:16px;background:var(--px-panel);border-top:0;box-shadow:inset 0 4px 0 var(--px-line);color:var(--muted);text-transform:uppercase;}
+.menu-notice{font-family:var(--px-body);font-size:20px;background:var(--yellow);color:var(--px-line);border:0;box-shadow:0 0 0 4px var(--px-line),8px 8px 0 4px var(--px-line);}
+
+/* a fonte pixelada é mais larga: sem isto o select empurra a coluna para fora da tela */
+.menu-columns>*,.cup-detail>*,.garage-layout>*,.result-columns>*,.online-lobby>*{min-width:0;}
+#race-menu select{max-width:100%;text-overflow:ellipsis;}
+
+@media(max-width:750px){
+  #race-menu h1,.result-page>h1{font-size:16px!important;text-shadow:2px 2px 0 var(--red);}
+  #race-menu h2{font-size:8px;line-height:2;}
+  .brand strong{font-size:8px;line-height:2;text-shadow:2px 2px 0 var(--red);}
+  .menu-head{padding:12px;}
+  .menu-tabs{padding:8px 12px 12px;}
+  #race-menu button.primary{font-size:8px;line-height:2;}
+  .room-code{font-size:16px;}
+}
+
+/* Pódio do GP online: degraus 2º, 1º, 3º com o rosto do piloto em pixel. */
+.gp-podium{display:flex;justify-content:center;align-items:flex-end;gap:16px;margin:24px 0 32px;}
+.podium-step{flex:0 1 200px;display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center;min-width:0;}
+.podium-step canvas{width:64px;height:64px;image-rendering:pixelated;}
+.podium-step b{font-weight:normal;color:var(--ink);overflow-wrap:anywhere;}
+.podium-step span{color:var(--muted);}
+.podium-block{width:100%;display:flex;align-items:flex-start;justify-content:center;padding-top:16px;
+  font-family:var(--px-display);font-size:24px;color:var(--px-line);background:var(--muted);
+  box-shadow:0 0 0 4px var(--px-line),inset 4px 4px 0 var(--silver-hi),inset -4px -4px 0 var(--silver-lo);}
+.p1 .podium-block{height:160px;background:var(--yellow);box-shadow:0 0 0 4px var(--px-line),inset 4px 4px 0 var(--yellow-hi),inset -4px -4px 0 var(--yellow-lo);}
+.p2 .podium-block{height:112px;}
+.p3 .podium-block{height:72px;background:var(--orange);box-shadow:0 0 0 4px var(--px-line),inset 4px 4px 0 var(--orange-hi),inset -4px -4px 0 var(--orange-lo);}
+.p1 b{color:var(--yellow);}
+@media(max-width:750px){
+  .gp-podium{gap:8px;}
+  .podium-step canvas{width:40px;height:40px;}
+  .podium-block{font-size:16px;}
+  .p1 .podium-block{height:112px;}.p2 .podium-block{height:80px;}.p3 .podium-block{height:56px;}
+}
