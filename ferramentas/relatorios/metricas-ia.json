@@ -1,0 +1,61 @@
+{
+ "data": "2026-09-22T19:52:50.615Z",
+ "sementes": [
+  1000,
+  8919,
+  16838,
+  24757,
+  32676,
+  40595,
+  48514,
+  56433
+ ],
+ "k6": {
+  "corridas": 8,
+  "voltaMedia": 16.92,
+  "melhorVoltaMedia": 15.9,
+  "melhorVoltaMin": 15.12,
+  "tempoTotalMedio": 51.93,
+  "diferencaPrimeiroUltimo": 6.9,
+  "foraPistaPct": 0.5,
+  "contatoPct": 11,
+  "freandoPct": 46.6,
+  "velRelMedia": 0.603,
+  "muroPorVolta": 0,
+  "derrapagensPorCorrida": 172.1,
+  "cargaNivel1": 386,
+  "cargaNivel2": 6,
+  "escudosOciososPct": 0,
+  "orbes": {
+   "disparadas": 49,
+   "acertou": 24,
+   "muro": 19,
+   "escudo": 6,
+   "expirou": 0
+  }
+ },
+ "k8": {
+  "corridas": 8,
+  "voltaMedia": 17.15,
+  "melhorVoltaMedia": 16.18,
+  "melhorVoltaMin": 15.05,
+  "tempoTotalMedio": 52.8,
+  "diferencaPrimeiroUltimo": 8.37,
+  "foraPistaPct": 0.8,
+  "contatoPct": 13.6,
+  "freandoPct": 45.9,
+  "velRelMedia": 0.598,
+  "muroPorVolta": 0,
+  "derrapagensPorCorrida": 261.6,
+  "cargaNivel1": 476,
+  "cargaNivel2": 9,
+  "escudosOciososPct": 0,
+  "orbes": {
+   "disparadas": 76,
+   "acertou": 39,
+   "muro": 23,
+   "escudo": 14,
+   "expirou": 0
+  }
+ }
+}

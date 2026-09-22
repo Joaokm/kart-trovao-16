@@ -1,0 +1,56 @@
+# Termos que NAO podem aparecer no jogo (codigo, textos, LEIAME).
+# O Kart Trovao 16 e 100% original: nada de nomes, itens, copas ou
+# jargoes proprios de jogos comerciais. Um termo por linha; a busca
+# ignora maiusculas/acentos e casa palavras inteiras.
+# Este arquivo e o unico lugar onde eles podem aparecer.
+
+# personagens e marcas
+mario
+luigi
+peach
+bowser
+koopa
+toad
+yoshi
+wario
+waluigi
+lakitu
+donkey kong
+diddy
+nintendo
+crash
+cortex
+coco bandicoot
+sonic
+tails
+eggman
+robotnik
+
+# copas, itens e jargoes
+cogumelo
+mushroom
+casco azul
+casco vermelho
+casco verde
+blue shell
+banana
+copa relampago
+copa cogumelo
+copa flor
+copa estrela
+copa especial
+copa folha
+copa casco
+copa banana
+lightning cup
+mini-turbo
+miniturbo
+super buzina
+super horn
+rainbow road
+estrada arco-iris
+wumpa
+50cc
+100cc
+150cc
+200cc

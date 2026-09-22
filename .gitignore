@@ -1,0 +1,5 @@
+backups/
+publicar/
+node_modules/
+*.log
+kart-trovao-progresso*.json
