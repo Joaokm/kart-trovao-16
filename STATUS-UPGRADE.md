@@ -2,7 +2,7 @@
 
 ## Escopo
 
-Roadmap de fases 0–7 implementado. Extra solicitado: salas com dois a quatro amigos e IA completando oito karts. Publicação no GitHub Pages em preparação.
+Roadmap de fases 0–7 implementado. Extra solicitado: salas com dois a quatro amigos e IA completando oito karts. [Jogo publicado no GitHub Pages](https://joaokm.github.io/kart-trovao-16/) e [código público](https://github.com/Joaokm/kart-trovao-16).
 
 ## Testes executados
 
@@ -13,6 +13,8 @@ Roadmap de fases 0–7 implementado. Extra solicitado: salas com dois a quatro a
 - No teste online real, quatro jogadores conectaram por WebRTC. O quinto foi recusado. Controles chegaram ao anfitrião, posições retornaram ao convidado, a IA assumiu uma desconexão, resultados coincidiram, a sala pôde ser reutilizada e a saída do anfitrião foi comunicada.
 
 Os testes de navegador usam instâncias isoladas com saves em memória. As conexões WebRTC foram realizadas entre instâncias no mesmo computador; ainda é necessário testar com amigos em redes diferentes.
+
+Em 22/09/2026, a publicação foi confirmada pelo GitHub Pages. No endereço público HTTPS, uma segunda aba entrou pelo convite e ambas iniciaram a corrida. Renderização conferida e nenhum erro ou aviso registrado no console do anfitrião nessa verificação.
 
 ## IA no Circuito Vulcano
 

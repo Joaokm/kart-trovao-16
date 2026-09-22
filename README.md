@@ -2,6 +2,8 @@
 
 Jogo original de corrida arcade em pixel art, no navegador.
 
+**[Jogar agora](https://joaokm.github.io/kart-trovao-16/)**
+
 **30 circuitos · 3 copas · 12 pilotos · até 4 amigos online + IA**
 
 Abra `index.html` para jogar solo offline. Para jogar com amigos, abra a versão publicada, escolha **Jogar com amigos**, crie uma sala e compartilhe o convite. O anfitrião inicia quando todos estiverem conectados.

@@ -1,5 +1,7 @@
 # Publicar o Kart Trovão 16
 
+Versão publicada: **[Jogar Kart Trovão 16](https://joaokm.github.io/kart-trovao-16/)**. Repositório: [Joaokm/kart-trovao-16](https://github.com/Joaokm/kart-trovao-16).
+
 O jogo é um site estático e pode ser publicado no GitHub Pages sem build.
 
 ## Arquivos necessários

@@ -109,7 +109,7 @@ Scripts clássicos compartilham `KT` para funcionar por `file://`. Não existe f
 | 5 · Perigos, itens e Copa Ciclone | Implementada |
 | 6 · Oficina, fantasma e Copa Trovão | Implementada |
 | 7 · Temas musicais, controle, opções e foto | Implementada |
-| Extra solicitado · Online para 4 amigos + IA | Implementado; publicação depende do repositório |
+| Extra solicitado · Online para 4 amigos + IA | Implementado e publicado no GitHub Pages |
 
 Versão anterior preservada em `backups/pre-upgrade-fase0.zip`.
 
