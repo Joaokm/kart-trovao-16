@@ -3,3 +3,5 @@ publicar/
 node_modules/
 *.log
 kart-trovao-progresso*.json
+.wrangler/
+.dev.vars

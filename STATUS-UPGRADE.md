@@ -10,9 +10,9 @@ Roadmap de fases 0–7 implementado. Extra solicitado: salas com dois a quatro a
 - Onze grupos do upgrade passaram. Foram **240 corridas** com oito karts, cobrindo todas as 30 pistas, quatro dificuldades e dois sentidos. Todos terminaram.
 - Compras, limite de peças, validação de saves, pontuação, retomada, desbloqueios, recompensas sem duplicação, interpolação do fantasma e novos itens foram verificados.
 - No navegador real, os menus, compra pela interface, corrida até o resultado, contrarrelógio, fantasma na segunda tentativa, pausa, foto e geração de PNG passaram.
-- No teste online real, quatro jogadores conectaram por WebRTC. O quinto foi recusado. Controles chegaram ao anfitrião, posições retornaram ao convidado, a IA assumiu uma desconexão, resultados coincidiram, a sala pôde ser reutilizada e a saída do anfitrião foi comunicada.
+- No teste online real (ainda com WebRTC, antes do servidor de salas), quatro jogadores conectaram. O quinto foi recusado. Controles chegaram ao anfitrião, posições retornaram ao convidado, a IA assumiu uma desconexão, resultados coincidiram, a sala pôde ser reutilizada e a saída do anfitrião foi comunicada.
 
-Os testes de navegador usam instâncias isoladas com saves em memória. As conexões WebRTC foram realizadas entre instâncias no mesmo computador; ainda é necessário testar com amigos em redes diferentes.
+Os testes de navegador usam instâncias isoladas com saves em memória. Essas conexões foram entre instâncias no mesmo computador.
 
 Em 22/09/2026, a publicação foi confirmada pelo GitHub Pages. No endereço público HTTPS, uma segunda aba entrou pelo convite e ambas iniciaram a corrida. Renderização conferida e nenhum erro ou aviso registrado no console do anfitrião nessa verificação.
 
@@ -87,9 +87,9 @@ QA: 11/11 na regressão e 13/13 no upgrade; o hash de determinismo continua `a11
 
 ## Limites conhecidos
 
-- Online depende de PeerServer Cloud e da viabilidade da conexão WebRTC. Entre redes diferentes, quando a ligação direta falha, é preciso preencher `iceUrl` em `js/online-config.js` com um TURN (Metered ou Cloudflare, passo a passo no PUBLICAR.md). Sem isso, a reserva é o TURN público do PeerJS, que costuma estar fora do ar.
+- Online passa pelo servidor de salas em `servidor/` (Cloudflare Worker) desde 24/09/2026, versão de protocolo 5. Depende da cota diária do plano grátis; conta e publicação no PUBLICAR.md.
 - GP online (22/09/2026): testado com 4 jogadores reais em 4 corridas no mesmo computador, incluindo saída no meio e atrasado recusado. Falta testar com amigos em redes diferentes.
-- Em 24/09/2026 ficou decidido testar primeiro só com STUN, sem publicar chave de TURN. Há uma conta no Metered pronta como reserva (500 MB por mês, sem cartão). Alternativas, consumo estimado e o estado da conta estão no PUBLICAR.md, na seção "Jogar entre redes diferentes".
+- Em 24/09/2026 o WebRTC (STUN e depois TURN do Metered) não ligou dois jogadores em redes diferentes. O PeerJS saiu e o online foi para o servidor de salas. Com ele, as baterias online (11) e GP (23) passaram localmente contra `wrangler dev`; falta o teste com amigos em redes diferentes.
 - O anfitrião deve manter a aba aberta e em primeiro plano. Não há migração de anfitrião nem retorno durante uma corrida já iniciada.
 - Gamepad foi implementado para o mapeamento padrão. A confirmação com controle físico depende de hardware disponível.
 - Save é local ao navegador, com exportação/importação manual; não há conta nem sincronização em nuvem.

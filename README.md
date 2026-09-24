@@ -22,4 +22,4 @@ node ferramentas/qa.js
 node ferramentas/qa-upgrade.js
 ```
 
-Sem instalação de dependências para o modo solo. O online carrega a cópia incluída de PeerJS 1.5.5 (MIT), usa sinalização pública e depende de conexão WebRTC entre os participantes. Redes restritas podem exigir TURN; detalhes em `PUBLICAR.md`.
+Sem instalação de dependências para o modo solo. O online passa pelo servidor de salas em `servidor/` (Cloudflare Worker), que funciona entre redes diferentes; publicação em `PUBLICAR.md`.

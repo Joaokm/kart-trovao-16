@@ -329,7 +329,7 @@ teste("originalidade: nenhum termo proibido no projeto", () => {
   (function varrer(dir) {
     for (const nome of fs.readdirSync(dir)) {
       const p = path.join(dir, nome);
-      if (nome === "node_modules" || nome === ".git" || nome === "relatorios" || nome === "referencia") continue;
+      if (nome === "node_modules" || nome === ".wrangler" || nome === ".git" || nome === "relatorios" || nome === "referencia") continue;
       if (fs.statSync(p).isDirectory()) varrer(p);
       else if (/\.(js|html|css|md)$/i.test(nome)) arquivos.push(p);
     }

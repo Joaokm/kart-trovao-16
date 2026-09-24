@@ -1,47 +1,42 @@
-/* Salas de 2–4 amigos + IA. WebRTC em estrela; anfitrião simula a corrida.
-   PeerJS 1.5.5 (MIT) é carregado apenas ao abrir uma conexão online. */
+/* Salas de 2–4 amigos + IA, em estrela pelo servidor de salas (servidor/): o anfitrião simula a corrida
+   e o servidor só repassa as mensagens. */
 (function(){
   'use strict';
-  /* VERSION 4: pistas esticadas (fase 2). VERSION 3: GP online. PREFIX fica em v2 para quem está desatualizado achar a sala e ler o aviso de versão. */
-  var VERSION=4,MAX=4,PREFIX='kart16-v2-',gp=null,source=typeof document!=='undefined'&&document.currentScript?document.currentScript.src:'';
-  var peer=null,links=new Map(),role='',phase='idle',code='',myId='',roster=[],settings={},message='',generation=0,epoch=0;
-  var target=null,lastSequence=-1,sequence=0,sendClock=0,lastHeard=0,inputClock=0,inputSequence=0,timeout=null,loading=null,pingTimer=null,latency=0;
+  /* VERSION 5: salas pelo servidor de salas (servidor/), sem PeerJS. VERSION 4: pistas esticadas. VERSION 3: GP online. */
+  var VERSION=5,MAX=4,gp=null,keepalive=0;
+  var socket=null,welcomed=false,links=new Map(),role='',phase='idle',code='',myId='',roster=[],settings={},message='',generation=0,epoch=0;
+  var target=null,lastSequence=-1,sequence=0,lastHeard=0,inputSequence=0,lastInputAt=0,lastInputKey='',lastSnapAt=0,timeout=null,pingTimer=null,latency=0;
   var fields=['x','y','ang','moveAng','sp','lap','pos','progress','idx','boost','spin','shield','slowTimer','hop','driftCharge','air','rescue','magnet','finishTime','lapStart','terrain'];
   var finite=function(n){return typeof n==='number'&&Number.isFinite(n);};
   var name=function(s){return String(s||'Piloto').replace(/[<>\x00-\x1f]/g,'').trim().slice(0,18)||'Piloto';};
   function notify(){if(KT.UI&&KT.UI.onlineChanged)KT.UI.onlineChanged();}
   /* force: mensagem de estado (sala, largada, chegada, tabela) não pode ser descartada com o buffer cheio */
-  function send(c,m,force){if(c&&c.open&&(force||c.bufferSize<8))try{c.send(m);}catch(e){/* close/error trata a perda */}}
-  function broadcast(m,force){links.forEach(function(c){send(c,m,force);});}
+  /* Tudo passa por um WebSocket só; bufferedAmount alto = conexão lenta, descarta snapshot em vez de acumular. */
+  function raw(text,force){if(socket&&socket.readyState===1&&(force||socket.bufferedAmount<16384))try{socket.send(text);}catch(e){/* onclose trata a perda */}}
+  function send(c,m,force){if(c&&c.open)c.send(m,force);}
+  function broadcast(m,force){if(role==='host')raw('*\t'+JSON.stringify(m),force);}
   function clearTimers(){clearTimeout(timeout);clearInterval(pingTimer);timeout=null;pingTimer=null;}
-  function load(){if(typeof window.Peer==='function')return Promise.resolve();if(loading)return loading;loading=new Promise(function(resolve,reject){var script=document.createElement('script');script.src=new URL('vendor/peerjs.min.js',source).href;script.onload=resolve;script.onerror=function(){loading=null;reject(Error('Não foi possível carregar a conexão online.'));};document.head.appendChild(script);});return loading;}
-  /* Sem TURN, só conecta quem está na mesma rede ou atrás de NAT simples. iceUrl devolve credenciais
-     temporárias ({iceServers:[...]} ou a lista direta, formato Metered). A reserva é STUN mais o TURN
-     público do PeerJS (o mesmo do padrão da biblioteca), instável: não conta como retransmissão garantida. */
-  var STUN=[{urls:'stun:stun.cloudflare.com:3478'},{urls:'stun:stun.l.google.com:19302'}],relay=false;
-  var FALLBACK=STUN.concat([{urls:['turn:eu-0.turn.peerjs.com:3478','turn:us-0.turn.peerjs.com:3478'],username:'peerjs',credential:'peerjsp'}]);
-  /* só stun/turn/turns, TURN com credencial em texto, no máximo 10; porta 53 sai porque o navegador bloqueia e atrasa o ICE */
-  function clean(list){return list.map(function(s){var u=s&&[].concat(s.urls).filter(function(x){return typeof x==='string'&&/^(stun|turns?):/.test(x)&&!/:53([?/]|$)/.test(x);});return u&&u.length?Object.assign({},s,{urls:u.slice(0,8)}):null;})
-    .filter(function(s){return s&&(!isTurn(s)||typeof s.username==='string'&&typeof s.credential==='string');}).slice(0,10)
-    .map(function(s){return isTurn(s)?{urls:s.urls,username:s.username,credential:s.credential}:{urls:s.urls};});}
-  function iceServers(){
-    var cfg=KT.ONLINE_CONFIG||{},fixed=cfg.iceServers||cfg.config&&cfg.config.iceServers;relay=false;
-    if(Array.isArray(fixed)){fixed=clean(fixed);relay=fixed.some(isTurn);return Promise.resolve(fixed.concat(FALLBACK));}
-    if(!cfg.iceUrl)return Promise.resolve(FALLBACK);
-    var abort=typeof AbortController==='function'?new AbortController():null,timer;
-    var giveUp=new Promise(function(resolve){timer=setTimeout(function(){if(abort)abort.abort();resolve(FALLBACK);},6000);});
-    var ask=fetch(cfg.iceUrl,{cache:'no-store',signal:abort&&abort.signal}).then(function(r){if(!r.ok)throw Error(r.status);return r.json();}).then(function(j){
-      var list=clean(Array.isArray(j)?j:j&&Array.isArray(j.iceServers)?j.iceServers:[]);
-      if(!list.length)throw Error('vazio');relay=list.some(isTurn);return list.concat(STUN);
-    }).catch(function(){return FALLBACK;});
-    return Promise.race([ask,giveUp]).then(function(list){clearTimeout(timer);return list;});
-  }
-  function noLink(){return relay?'Não deu para ligar com o anfitrião, nem pela retransmissão. Tente de novo em instantes.':'A sala existe, mas as redes não se ligaram direto. Para jogar entre redes diferentes, configure o TURN (veja PUBLICAR.md).';}
-  function isTurn(s){return [].concat(s.urls).some(function(u){return /^turns?:/.test(u);});}
+  /* Link com a mesma cara da conexão do PeerJS (peer, open, on, send, close), para o resto do arquivo não depender do transporte.
+     out é o prefixo de destino: id+'\t' no anfitrião, vazio no convidado. close() do anfitrião derruba o convidado no servidor. */
+  function link(id,out){var h={},l={peer:id,open:true,
+    on:function(e,f){(h[e]=h[e]||[]).push(f);},emit:function(e,x){(h[e]||[]).slice().forEach(function(f){f(x);});},
+    send:function(m,force){raw(out+JSON.stringify(m),force);},
+    close:function(){if(!l.open)return;l.open=false;if(role==='host')raw('\t'+JSON.stringify({r:'kick',id:id}),true);l.emit('close');}};return l;}
+  /* Endereço do servidor de salas. ?relay= só vale em localhost: um convite forjado não desvia o tráfego de ninguém. */
+  function relayUrl(){var cfg=KT.ONLINE_CONFIG||{},url=cfg.relayUrl||'';
+    try{if(typeof location!=='undefined'&&/^(localhost|127\.0\.0\.1)$/.test(location.hostname)){var q=new URLSearchParams(location.search).get('relay');if(q&&/^wss?:\/\//.test(q))url=q;}}catch(e){/* sem location */}
+    return url.replace(/\/+$/,'');}
   function randomCode(){var bytes=new Uint8Array(8);crypto.getRandomValues(bytes);var chars='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';return Array.from(bytes,function(b){return chars[b%chars.length];}).join('');}
-  function leave(reason){generation++;clearTimers();phase='idle';role='';target=null;gp=null;links.forEach(function(c){try{c.close();}catch(e){}});links.clear();if(peer){peer.destroy();peer=null;}roster=[];code='';message=reason||'';notify();}
+  function leave(reason){generation++;clearTimers();phase='idle';role='';target=null;gp=null;links.clear();if(socket){var s=socket;socket=null;s.onclose=s.onmessage=null;try{s.close(1000);}catch(e){}}roster=[];code='';message=reason||'';notify();}
   function fail(text){leave(text);phase='error';if(KT.Game&&KT.Game.state==='race')KT.Game.menu(true);notify();}
-  function errorText(e){return ({'peer-unavailable':'Sala não encontrada. Confira o código e se o anfitrião está conectado.','network':'Não foi possível alcançar o serviço de salas. Confira sua internet.','server-error':'O serviço de salas está indisponível. Tente novamente.','socket-error':'Falha no serviço de salas. Tente novamente.','webrtc':'A conexão direta falhou. Tente outra rede; redes restritas podem precisar de TURN.','unavailable-id':'Esse código já está em uso. Crie outra sala.','browser-incompatible':'Este navegador não suporta a conexão online.'})[e.type]||'Conexão interrompida. Tente entrar novamente.';}
+  function closeText(ev){var c=ev&&ev.code;
+    if(c===4004)return 'Sala não encontrada. Confira o código; se o anfitrião acabou de atualizar o jogo, atualize esta página (Ctrl+F5).';
+    if(c===4009)return 'Esse código já está em uso. Crie outra sala.';
+    if(c===4013)return 'Sala lotada. Entre em outra sala.';
+    if(c===4001)return 'Você foi removido da sala: a conexão demorou para responder. Entre novamente.';
+    if(c===4008)return 'Conexão encerrada por excesso de mensagens. Entre novamente.';
+    if(!welcomed)return 'Não foi possível alcançar o serviço de salas. Confira sua internet; se persistir, o limite diário pode ter acabado.';
+    return role==='host'?'A conexão com o serviço de salas caiu. A sala foi encerrada.':'O anfitrião saiu ou a conexão foi perdida. Crie ou entre em outra sala.';}
   function lobby(){broadcast({t:'lobby',v:VERSION,code:code,players:roster,settings:settings},true);notify();}
   function drop(c){
     if(!links.has(c.peer))return;links.delete(c.peer);
@@ -52,7 +47,7 @@
       if(index>=0&&gp&&Number.isInteger(roster[index].slot)){var e=gp.entries[roster[index].slot];e.human=false;e.left=true;}
       roster=roster.filter(function(p){return p.id!==c.peer;});
       if(phase==='lobby')lobby();else {broadcast({t:'players',players:roster},true);if(gp)broadcast({t:'gp',gp:wire(gp)},true);notify();ready();}
-    }else if(phase==='connecting')fail(noLink());
+    }else if(phase==='connecting')fail(closeText());
     else fail('O anfitrião saiu ou a conexão foi perdida. Crie ou entre em outra sala.');
   }
   function validSettings(s){return s&&Number.isInteger(s.pista)&&s.pista>=0&&s.pista<30&&Number.isInteger(s.nivel)&&s.nivel>=0&&s.nivel<4&&Number.isInteger(s.voltas)&&s.voltas>=1&&s.voltas<=5&&(s.gp==null||validGpCfg(s.gp));}
@@ -128,38 +123,46 @@
   function ready(){if(role!=='host'||phase!=='loading')return;var pending=false;links.forEach(function(c){if(c.joined&&c.ready!==epoch)pending=true;});if(!pending){clearTimeout(timeout);phase='racing';message='Corrida em andamento';broadcast(packet(KT.race));}}
   /* Largada comum à corrida avulsa e a cada etapa do GP; os slots já estão em roster[i].slot. */
   function launch(pista,drivers){
-    epoch++;sequence=0;sendClock=0;phase='loading';
+    epoch++;sequence=0;phase='loading';
     var cfg=Object.assign({},settings,{pista:pista,drivers:drivers,karts:8,slotJogador:0,jogador:drivers[0],modo:'online',network:true,semente:KT.novaSemente()});
     KT.Game.start(cfg);
     roster.slice(1).forEach(function(p){var k=KT.race.karts[p.slot];k.ai=false;k.networkId=p.id;k.remoteInput={throttle:0,brake:0,steer:0,drift:false,useItem:false};});
     var m={t:'prepare',epoch:epoch,cfg:cfg,players:roster};if(gp)m.gp=wire(gp);broadcast(m,true);
     timeout=setTimeout(function(){links.forEach(function(c){if(c.ready!==epoch)c.close();});ready();},12000);ready();return true;
   }
-  /* Reconecta só a sinalização; se o anfitrião sumiu de verdade, o ping de 15 s do convidado avisa. */
-  function rejoin(gen){setTimeout(function(){if(gen===generation&&peer&&!peer.destroyed&&peer.disconnected)try{peer.reconnect();}catch(e){/* nova tentativa no próximo disconnected */}},2000);}
+  /* Mensagens do servidor: 'pong' do keepalive, "\t"+controle, e dados do jogo (id+"\t"+json no anfitrião, json no convidado). */
+  function receive(text,nick,driver){
+    lastHeard=Date.now();if(text==='pong')return;
+    var tab=text.indexOf('\t'),m;try{m=JSON.parse(tab<0?text:text.slice(tab+1));}catch(e){return;}
+    if(tab===0){control(m,nick,driver);return;}
+    if(role==='host'){var c=tab>0&&links.get(text.slice(0,tab));if(c&&c.open)c.emit('data',m);}
+    else if(tab<0){var h=links.get('host');if(h)h.emit('data',m);}
+  }
+  function control(m,nick,driver){
+    if(!m||typeof m.id!=='string')return;
+    if(m.r==='welcome'&&!welcomed){welcomed=true;myId=m.id;
+      if(role==='host'){phase='lobby';roster=[{id:myId,name:name(nick),driver:driver}];message='Sala criada. Compartilhe o convite.';clearTimeout(timeout);notify();}
+      else{var h=link('host','');links.set('host',h);bind(h);send(h,{t:'join',v:VERSION,name:name(nick),driver:driver},true);}}
+    /* o open vem depois do accept: o caminho de recusa registra c.on('open') */
+    else if(m.r==='open'&&role==='host'){var c=link(m.id,m.id+'\t');accept(c);c.emit('open');}
+    else if(m.r==='close'&&role==='host'){var l=links.get(m.id);if(l&&l.open){l.open=false;l.emit('close');}}
+  }
   function beginConnection(host,room,nick,driver,cfg){
-    leave();var gen=generation;role=host?'host':'client';phase='connecting';message='Conectando ao serviço de salas...';notify();
-    return load().then(iceServers).then(function(ice){
-      if(gen!==generation)return;
-      code=host?randomCode():room;settings=cfg||{};
-      var options=Object.assign({debug:0},KT.ONLINE_CONFIG||{});delete options.iceUrl;delete options.iceServers;
-      options.config=Object.assign({},options.config,{iceServers:ice});
-      peer=new window.Peer(host?PREFIX+code:undefined,options);
-      /* Com a sala de pé, os links WebRTC seguem vivos sem o servidor de sinalização: erro de uma negociação
-         (convidado que fechou a aba, atrasado recusado) ou queda do websocket não derruba todo mundo. */
-      peer.on('error',function(e){if(gen!==generation)return;
-        if(phase!=='connecting'&&phase!=='error'){if(e.type==='peer-unavailable'||e.type==='webrtc')return;if(/^(network|disconnected|socket-error|socket-closed|server-error)$/.test(e.type)){rejoin(gen);return;}}
-        fail(errorText(e));});
-      peer.on('disconnected',function(){if(gen===generation&&phase!=='connecting')rejoin(gen);});
-      peer.on('connection',accept);
-      peer.on('open',function(id){
-        if(gen!==generation)return;myId=id;lastHeard=Date.now();
-        if(host){phase='lobby';roster=[{id:id,name:name(nick),driver:driver}];message='Sala criada. Compartilhe o convite.';clearTimeout(timeout);notify();}
-        else {var c=peer.connect(PREFIX+room,{reliable:true,serialization:'json',metadata:{game:'Kart Trovao',v:VERSION}});links.set(c.peer,c);bind(c);c.on('open',function(){send(c,{t:'join',v:VERSION,name:name(nick),driver:driver});});}
-        pingTimer=setInterval(function(){if(role==='client'){var c=links.values().next().value;send(c,{t:'ping',time:Date.now()});if(Date.now()-lastHeard>15000)fail('O anfitrião deixou de responder. Tente entrar novamente.');}},2000);
-      });
-      timeout=setTimeout(function(){if(gen===generation&&phase==='connecting')fail(role==='client'&&links.size?noLink():'A sala não respondeu. Confira a internet, o código e se o anfitrião está online.');},16000);
-    }).catch(function(e){if(gen===generation)fail(e.message);});
+    leave();var gen=generation,base=relayUrl(),ws;role=host?'host':'client';phase='connecting';message='Conectando ao serviço de salas...';notify();
+    if(!base){fail('O online não está configurado nesta versão. Atualize a página (Ctrl+F5).');return Promise.resolve();}
+    if(typeof WebSocket!=='function'){fail('Este navegador não suporta a conexão online.');return Promise.resolve();}
+    code=host?randomCode():room;settings=cfg||{};welcomed=false;lastHeard=Date.now();keepalive=0;
+    try{ws=new WebSocket(base+'/v1/sala/'+code+'?papel='+role.replace('client','guest'));}catch(e){fail(closeText());return Promise.resolve();}
+    socket=ws;
+    ws.onmessage=function(ev){if(gen===generation&&typeof ev.data==='string')receive(ev.data,nick,driver);};
+    ws.onclose=function(ev){if(gen!==generation)return;socket=null;fail(closeText(ev));};
+    /* Convidado pinga o anfitrião (15 s sem nada = falha); o anfitrião manda 'ping' ao servidor a cada 24 s para a conexão ociosa não cair. */
+    pingTimer=setInterval(function(){
+      if(role==='client'&&welcomed){send(links.get('host'),{t:'ping',time:Date.now()});if(Date.now()-lastHeard>15000)fail('O anfitrião deixou de responder. Tente entrar novamente.');}
+      else if(role==='host'){if(++keepalive%12===0)raw('ping');if(Date.now()-lastHeard>60000)fail('A conexão com o serviço de salas caiu. A sala foi encerrada.');}
+    },2000);
+    timeout=setTimeout(function(){if(gen===generation&&phase==='connecting')fail('A sala não respondeu. Confira a internet, o código e se o anfitrião está online.');},16000);
+    return Promise.resolve();
   }
   KT.Net={
     get phase(){return phase;},get host(){return role==='host';},get active(){return phase==='loading'||phase==='racing';},get client(){return role==='client';},get code(){return code;},get players(){return roster;},get settings(){return settings;},get message(){return message;},get latency(){return latency;},get connected(){return !!role&&phase!=='error'&&phase!=='idle';},MAX:MAX,
@@ -184,12 +187,15 @@
       if(role==='host'){links.forEach(function(c){if(Date.now()-c.lastInput>600){var p=roster.find(function(p){return p.id===c.peer;}),k=p&&r.karts[p.slot];if(k&&!k.ai)k.remoteInput={throttle:0,brake:1,steer:0,drift:false,useItem:false};}});return phase==='loading';}
       if(role!=='client')return false;
       if(phase==='loading')return true;
-      inputClock+=dt;
-      if(inputClock>=1/30||I.hit('item')){inputClock=0;send(links.values().next().value,{t:'input',epoch:epoch,seq:inputSequence++,c:{up:I.held('up'),down:I.held('down'),steer:I.axisX(),drift:I.held('drift'),item:I.hit('item')}});}
+      /* Pelo relógio, não pelos passos: recuperar atraso não dispara rajada. Manda quando o controle muda (até 20/s),
+         item na hora, e repete a cada 200 ms para o anfitrião não frear o kart (ele freia após 600 ms sem input). */
+      var now=Date.now(),ctl={up:I.held('up'),down:I.held('down'),steer:Math.round(I.axisX()*8)/8,drift:I.held('drift'),item:I.hit('item')},key=JSON.stringify(ctl);
+      if(ctl.item||now-lastInputAt>=50&&(key!==lastInputKey||now-lastInputAt>=200)){lastInputAt=now;lastInputKey=key;send(links.get('host'),{t:'input',epoch:epoch,seq:inputSequence++,c:ctl});}
       if(target){var was=r.state;applySnapshot(r,target,Math.min(1,dt*24));if(was==='countdown'&&r.state==='race')KT.Audio.music('theme'+KT.THEMES[KT.Track.definition.theme].tune);KT.Audio.engineUpdate(r.player.rpm(),r.player.drifting,false);}
       return true;
     },
-    afterStep:function(dt,r){if(role!=='host'||phase!=='racing')return;sendClock+=dt;if(sendClock>=1/20){sendClock=0;broadcast(packet(r));}},
+    /* 15 snapshots/s pelo relógio; o convidado suaviza entre eles em applySnapshot */
+    afterStep:function(dt,r){if(role!=='host'||phase!=='racing')return;var now=Date.now();if(now-lastSnapAt>=66){lastSnapAt=Math.max(lastSnapAt+66,now-66);broadcast(packet(r));}},
     finish:function(r){if(role!=='host')return;var m=packet(r,'finish');if(gp&&gp.scored!==epoch){gp.scored=epoch;KT.GP.score(gp,r.karts.map(function(k){return k.pos;}));}if(gp)m.gp=wire(gp);broadcast(m,true);phase='results';},
     get gp(){return gp;},
     get mySlot(){var me=roster.find(function(p){return p.id===myId;});return me&&Number.isInteger(me.slot)?me.slot:-1;},

@@ -4,7 +4,7 @@ const frameBox=document.getElementById('frames'),log=document.getElementById('lo
 function report(s){log.textContent+='\n'+s;}
 function waitFor(fn,timeout=18000){const begin=Date.now();return new Promise((resolve,reject)=>{const timer=setInterval(()=>{try{if(fn()){clearInterval(timer);resolve();}else if(Date.now()-begin>timeout){clearInterval(timer);reject(Error('Tempo esgotado: '+fn.toString()));}}catch(e){clearInterval(timer);reject(e);}},100);});}
 function assert(c,s){if(!c)throw Error(s);report('OK '+s);}
-for(let i=0;i<5;i++){const f=document.createElement('iframe');f.src='qa-frame.html?id='+i;f.title='Jogador de teste '+i;frameBox.appendChild(f);frames.push(f);}
+for(let i=0;i<5;i++){const f=document.createElement('iframe');f.src='qa-frame.html?id='+i+(new URLSearchParams(location.search).get('relay')?'&relay='+encodeURIComponent(new URLSearchParams(location.search).get('relay')):'');f.title='Jogador de teste '+i;frameBox.appendChild(f);frames.push(f);}
 const ready=waitFor(()=>frames.every(f=>f.contentWindow.KT&&f.contentWindow.KT.Game&&f.contentWindow.KT.Game.state!=='boot'));
 ready.then(()=>report('Pronto. Escolha uma bateria de testes.')).catch(e=>report('ERRO '+e.message));
 document.getElementById('solo').onclick=async()=>{
@@ -29,7 +29,7 @@ document.getElementById('online').onclick=async()=>{
     await host.Net.create('Host QA',1,{pista:1,nivel:0,voltas:1,espelho:false});await waitFor(()=>host.Net.phase==='lobby');
     report('Sala real criada: '+host.Net.code);
     for(let i=1;i<4;i++){await clients[i].Net.join(i===1?host.Net.invite():host.Net.code,'Amigo '+i,i+1);await waitFor(()=>clients[i].Net.phase==='lobby');}
-    await waitFor(()=>host.Net.players.length===4);assert(true,'4 jogadores conectados por WebRTC');
+    await waitFor(()=>host.Net.players.length===4);assert(true,'4 jogadores conectados pelo servidor de salas');
     await clients[4].Net.join(host.Net.code,'Quinto jogador',5);await waitFor(()=>clients[4].Net.phase==='error');assert(host.Net.players.length===4,'quinto jogador é recusado');
     host.Net.start();await waitFor(()=>clients.slice(0,4).every(k=>k.Net.phase==='racing'));
     simulationTimer=setInterval(()=>clients.slice(0,4).forEach(k=>{if(k.Game.state==='race')k.simular(1);}),16);

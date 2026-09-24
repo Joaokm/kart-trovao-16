@@ -6,7 +6,7 @@ O jogo é um site estático e pode ser publicado no GitHub Pages sem build.
 
 ## Arquivos necessários
 
-`index.html`, `.nojekyll`, `css/` e `js/` (incluindo `js/vendor/`). Os caminhos são relativos e funcionam em `https://USUARIO.github.io/REPOSITORIO/`.
+`index.html`, `.nojekyll`, `css/` e `js/`. Os caminhos são relativos e funcionam em `https://USUARIO.github.io/REPOSITORIO/`.
 
 Não envie `backups/` ou saves exportados. São desnecessários para o jogo.
 
@@ -23,58 +23,34 @@ Referência: [configuração da origem do GitHub Pages](https://docs.github.com/
 
 ## Online
 
-GitHub Pages entrega os arquivos. PeerServer Cloud faz a sinalização e WebRTC conecta os participantes. O anfitrião simula a partida e envia snapshots aos outros três jogadores. Os lugares vazios ficam com IA.
+GitHub Pages entrega os arquivos. As mensagens da partida passam pelo servidor de salas em `servidor/`: um Cloudflare Worker com um Durable Object por sala, que só repassa texto entre o anfitrião e os convidados. O anfitrião simula a corrida e envia 15 snapshots por segundo; os convidados mandam o controle quando ele muda, e a cada 200 ms no mínimo. Os lugares vazios ficam com IA.
 
-Para usar sinalização própria, configure `js/online-config.js` com `host`, `port`, `path` e `secure`, conforme a [API oficial do PeerJS](https://peerjs.com/client/api/peer).
+Por que não ligação direta: em 24/09/2026 o PeerJS com WebRTC não ligou dois jogadores em redes diferentes, nem com STUN nem com o TURN do Metered (a credencial funcionava no teste Trickle ICE e mesmo assim o amigo não entrou). O servidor de salas usa uma conexão comum de site, que passa por 4G, CGNAT e rede de empresa.
 
-## Jogar entre redes diferentes (TURN)
+### Publicar o servidor de salas
 
-Sem TURN, a sala só liga jogadores da mesma rede ou atrás de roteador simples. 4G, internet com CGNAT e rede de empresa ou faculdade bloqueiam a ligação direta: o amigo acha a sala e o jogo avisa "A sala existe, mas as redes não se ligaram direto". Os servidores TURN que vêm no PeerJS estão fora do ar, por isso o jogo precisa de um próprio.
+Precisa de Node 20 e de uma conta grátis na Cloudflare (não pede cartão; ao passar da cota o serviço recusa conexões, não cobra).
 
-O jogo busca credenciais temporárias no endereço de `iceUrl`, em `js/online-config.js`. Se esse endereço falhar, ele segue só com STUN e continua funcionando na mesma rede.
+```
+cd servidor
+npm install
+npx wrangler login
+npm run deploy
+```
 
-### Qual caminho usar
+Na primeira vez a Cloudflare pede para registrar um subdomínio `workers.dev`. O deploy mostra o endereço `https://kart-trovao-salas.SUBDOMINIO.workers.dev`. Cole em `relayUrl`, em `js/online-config.js`, trocando `https` por `wss`, e publique o site.
 
-| Caminho | Custo | O que cada jogador faz | Quando usar |
-|---|---|---|---|
-| Só STUN (padrão atual) | zero | nada | Primeiro teste. Duas casas com internet fixa comum costumam ligar direto. |
-| Rede virtual: Radmin VPN, ZeroTier ou Tailscale | zero, sem limite de dados | instala o programa e entra na mesma rede virtual antes de jogar | Quando o STUN falhar. Para o navegador, todos ficam na mesma rede e a ligação é direta. Ainda não testado com o jogo. |
-| TURN da Cloudflare (opção 2 abaixo) | grátis até 1000 GB/mês | nada | Quando o jogo tiver mais gente e ninguém quiser instalar programa. A chave fica escondida no Worker. |
-| TURN do Metered (opção 1 abaixo) | 500 MB/mês sem cartão; 20 GB/mês com cartão | nada | Solução rápida. A chave fica visível no site. |
+Se o jogo mudar de endereço, acrescente a nova origem em `ORIGENS`, no `servidor/wrangler.toml`, e rode `npm run deploy` de novo.
 
-### Quanto o TURN consome
+O wrangler fica fixo na 4.86.0 porque as versões novas exigem Node 22.
 
-O TURN só entra quando a ligação direta falha. Aí todo o tráfego daquele jogador passa pelo servidor e conta na franquia.
+### Quanto cabe no plano grátis
 
-O anfitrião manda o estado dos 8 karts 20 vezes por segundo (`js/network.js`, `afterStep`). Cada envio leva 21 campos numéricos por kart, com 4 casas decimais, além de itens e caixas: de 3 a 4 KB. Isso dá cerca de 60 a 80 KB/s, ou uns 250 MB por hora para cada amigo retransmitido. A conta saiu do código e ainda não foi medida. O painel do provedor mostra o consumo real depois da primeira partida.
+O plano grátis dá 100 mil requisições por dia a Durable Objects, e cada 20 mensagens recebidas contam como uma. Bytes não contam. Pela conta do código (ainda não medida no painel), uma corrida de 4 jogadores gera cerca de 40 mensagens por segundo, ou 7 mil requisições por hora: umas 14 horas por dia. Com 2 jogadores, o dobro. Há também um teto de 13.000 GB-s de Durable Object por dia, cerca de 28 horas de sala ativa. A cota renova à 0h UTC (21h de Brasília). O servidor limita cada IP a 20 conexões por minuto e cada conexão a 30 mensagens por segundo, mas quem quiser gastar a cota de propósito, com muitos IPs, ainda consegue: aí o online para até a renovação, sem cobrança. O painel da Cloudflare, em **Workers & Pages → kart-trovao-salas**, mostra o consumo real.
 
-Com 500 MB, a franquia rende cerca de 2 horas com um amigo retransmitido, ou 40 minutos com três. Arredondar os números, mandar só os campos que mudaram e baixar para 15 envios por segundo deve reduzir esse volume de 5 a 10 vezes. Não foi implementado.
+### Testar localmente
 
-### Estado em 24/09/2026
-
-- Só STUN falhou no primeiro teste entre redes diferentes: o amigo achava a sala e caía ao conectar.
-- O TURN do Metered foi testado em 24/09/2026: a credencial gerava candidato `relay` no teste Trickle ICE, mas o amigo continuou sem entrar e a mensagem de erro não foi registrada. A credencial foi removida do jogo e apagada no painel; o jogo voltou a usar só STUN.
-- Deixar o repositório privado não esconde a chave. No plano grátis do GitHub, repositório privado tira o GitHub Pages do ar. Nos planos pagos o site continua público, e o navegador de cada jogador precisa baixar a chave para conectar.
-
-### Opção 1: Metered (mais simples, 20 GB por mês grátis)
-
-1. Crie uma conta em [metered.ca](https://www.metered.ca/tools/openrelay/) e um app TURN.
-2. No painel, copie o endereço de credenciais, no formato `https://SEUAPP.metered.live/api/v1/turn/credentials?apiKey=SUA_CHAVE`.
-3. No GitHub, abra `js/online-config.js`, clique no lápis e cole o endereço entre as aspas de `iceUrl`. Salve com **Commit changes**.
-
-A chave fica visível no site. Quem copiar consegue gastar a sua franquia, mas não acessa mais nada da conta. Só consome franquia o jogador que não conseguiu ligação direta; o consumo aparece no painel do Metered.
-
-### Opção 2: Cloudflare (1000 GB por mês grátis, chave escondida)
-
-1. No painel da Cloudflare, abra **Realtime → TURN** e crie uma chave. Guarde o ID e o token.
-2. Em **Workers**, crie um Worker e cole o conteúdo de `ferramentas/turn-cloudflare-worker.js`.
-3. Em **Settings → Variables**, cadastre os secrets `TURN_KEY_ID` e `TURN_KEY_TOKEN`.
-4. Se o jogo não estiver em `https://joaokm.github.io`, troque `ORIGEM` no Worker.
-5. Cole o endereço do Worker (`https://NOME.SUBDOMINIO.workers.dev/`) em `iceUrl`.
-6. Em **Security → WAF → Rate limiting rules**, limite o endereço do Worker a 10 pedidos por minuto por IP. O Worker recusa pedidos que não vêm do jogo, mas um script consegue imitar o navegador; o limite impede que alguém gaste a cota em loop.
-7. Crie um alerta de uso em **Notifications** para saber se o consumo disparar.
-
-Na opção 1, cadastre no `iceUrl` só a chave da rota de credenciais, nunca a chave secreta da conta. Se o painel do Metered oferecer restrição de domínio ou validade da credencial, ative.
+Em um terminal, `cd servidor && npm run dev`; em outro, `node ferramentas/serve.js`. Abra `http://127.0.0.1:8080/?relay=ws://127.0.0.1:8787`. O `?relay=` só vale em localhost. `node ferramentas/qa-relay.js` testa o servidor sozinho.
 
 ## Teste após publicar
 

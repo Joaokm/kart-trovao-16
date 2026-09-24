@@ -1,0 +1,23 @@
+# Servidor de salas do Kart Trovão 16: repassa as mensagens entre o anfitrião e os convidados.
+name = "kart-trovao-salas"
+main = "src/index.js"
+compatibility_date = "2026-05-01"
+
+# localhost fica também em produção: permite testar o jogo local contra o servidor publicado.
+[vars]
+ORIGENS = "https://joaokm.github.io,http://127.0.0.1:8080,http://localhost:8080"
+
+[[durable_objects.bindings]]
+name = "SALAS"
+class_name = "Sala"
+
+# Plano grátis só aceita Durable Object com SQLite.
+[[migrations]]
+tag = "v1"
+new_sqlite_classes = ["Sala"]
+
+# 20 conexões por minuto por IP: 4 amigos atrás do mesmo roteador cabem com folga.
+[[ratelimits]]
+name = "LIMITE_IP"
+namespace_id = "1601"
+simple = { limit = 20, period = 60 }
