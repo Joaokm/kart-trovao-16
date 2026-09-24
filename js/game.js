@@ -282,6 +282,15 @@
     var speed = Math.abs(k.sp);
     var rv = KT.rngVis, R = KT.randV;
 
+    /* poeira ao andar na grama ou nas cinzas */
+    if ((k.terrain === KT.Track.T.GRAMA || k.terrain === KT.Track.T.CINZAS) && Math.abs(k.sp) > 60 && rv() < 0.45) {
+      race.particles.push({
+        x: k.x - Math.sin(k.ang) * 9, y: k.y - Math.cos(k.ang) * 9, z: 2,
+        vx: R(-25, 25) - Math.sin(k.ang) * 30, vy: R(-25, 25) - Math.cos(k.ang) * 30, vz: R(10, 35),
+        life: 0.4, max: 0.4, size: 3, col: KT.THEMES[KT.Track.definition.theme].soil
+      });
+    }
+
     /* faiscas da Carga Trovao. O nivel aparece na cor E na forma:
        nivel 1 = centelhas finas amarelo-eletrico; nivel 2 = brasas de magma
        maiores e em dobro. */
@@ -551,7 +560,8 @@
   }
 
   function drawKart(k, pr) {
-    var s = pr.scale;
+    /* kart colado na câmera não vira um bloco gigante */
+    var s = Math.min(pr.scale, 3.2);
     var dw = Math.max(4, Math.round(30 * s));
     var dh = Math.max(3, Math.round(22.5 * s));
     var rel = KT.angDiff(k.ang, cam.ang);
@@ -896,6 +906,11 @@
     document.getElementById("loading").style.display = "none";
     state = "title";
     stateT = 0;
+
+    /* ?demo ou ?demo=N: corrida na pista N com a IA no volante do jogador,
+       para conferir visual e HUD sem jogar. Não grava progresso. */
+    var demo = typeof location !== "undefined" && /[?&]demo(?:=(\d+))?/.exec(location.search);
+    if (demo) KT.Game.start({ jogadorIA: true, teste: true, pista: +(demo[1] || 0), voltas: 3 });
   }
 
   /* ============================================================
@@ -917,8 +932,26 @@
     irPara("race");
   }
 
+  /* riscos de velocidade nas laterais durante o impulso; posição derivada do tempo, sem sorteio */
+  function speedLines() {
+    var p = race.player;
+    if (!p || p.boost <= 0 || race.state !== "race" || !KT.Career.data.settings.motion) return;
+    var fase = Math.floor(race.time * 24);
+    ctx.save();
+    ctx.globalAlpha = 0.55 * KT.clamp(p.boost / 0.4, 0, 1);
+    ctx.fillStyle = "#fff6d8";
+    for (var i = 0; i < 12; i++) {
+      var h = ((i * 73 + fase * 37) % 97) / 97, lado = i % 2 ? 1 : -1;
+      var y = cam.horizon + 14 + h * (H - cam.horizon - 24), len = 14 + ((i * 29 + fase * 11) % 18);
+      var x = lado < 0 ? 4 + ((i * 17 + fase * 7) % 26) : W - 4 - len - ((i * 17 + fase * 7) % 26);
+      ctx.fillRect(x, Math.round(y), len, 1);
+    }
+    ctx.restore();
+  }
+
   function drawRaceScreen() {
     drawWorld(true);
+    speedLines();
     KT.HUD.draw(ctx, race, W, H);
   }
 

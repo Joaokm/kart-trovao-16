@@ -81,7 +81,9 @@
 .biome{font-size:20px;}
 .race-rules{font-size:20px;color:var(--cyan);}
 .driver-roster{gap:12px;}
-#race-menu .driver-button{background:var(--px-panel);min-height:76px;padding:8px 4px;}
+#race-menu .driver-button{background:var(--px-panel);min-height:84px;padding:8px 4px;}
+/* retrato 24×24 em 2× exato: pixel nítido */
+.driver-button canvas{width:48px;height:48px;}
 .driver-button span{font-size:16px;text-transform:uppercase;}
 #race-menu .driver-button small{font-size:16px;}
 #race-menu .driver-button[aria-pressed=true],#race-menu .cup-picker button[aria-pressed=true]{background:var(--px-gold);color:var(--yellow);box-shadow:0 0 0 4px var(--yellow),inset 4px 4px 0 var(--px-gold-hi),inset -4px -4px 0 var(--px-gold-lo);}

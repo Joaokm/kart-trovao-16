@@ -110,6 +110,30 @@ KT.Track = (function () {
     ctx.stroke();
   }
 
+  /* Faixas de grama cortada, alternando dois tons a cada 10 amostras: dão noção de velocidade.
+     A base contínua fica por baixo e cobre as frestas das curvas. */
+  function faixasGrama(x, cor) {
+    var claro = KT.Sprites.shade(cor, 0.07);
+    x.lineWidth = 2 * EDGE_G; x.lineCap = "butt";
+    for (var i = 0; i < N; i++) {
+      if (Math.floor(i / 10) % 2) continue;
+      var a = pts[i], b = pts[(i + 1) % N];
+      x.strokeStyle = claro; x.beginPath(); x.moveTo(a.x, a.y); x.lineTo(b.x, b.y); x.stroke();
+    }
+  }
+
+  /* tracejado branco no meio do asfalto */
+  function tracejado(x) {
+    x.save(); x.globalAlpha = 0.5; x.strokeStyle = "#f2f2fa"; x.lineWidth = 2; x.lineCap = "butt";
+    for (var i = 0; i < N; i += 8) {
+      if ((i / 8) % 2) continue;
+      x.beginPath(); x.moveTo(pts[i].x, pts[i].y);
+      for (var k = 1; k <= 4; k++) { var q = pts[(i + k) % N]; x.lineTo(q.x, q.y); }
+      x.stroke();
+    }
+    x.restore();
+  }
+
   /* ---------- textura visual do mapa ---------- */
   function buildTexture() {
     var c = KT.makeCanvas(SIZE, SIZE);
@@ -146,6 +170,7 @@ KT.Track = (function () {
     strokeAll(x, "#4c434e", 2 * EDGE_A);
     /* faixa de grama */
     strokeAll(x, "#2c4a30", 2 * EDGE_G);
+    faixasGrama(x, "#2c4a30");
 
     /* zebras vermelhas e brancas */
     x.lineJoin = "round"; x.lineCap = "butt";
@@ -203,6 +228,8 @@ KT.Track = (function () {
     x.globalAlpha = 1;
     x.restore();
 
+    tracejado(x);
+
     /* faixas de turbo */
     for (var b2 = 0; b2 < boostPads.length; b2++) {
       var pp = pts[boostPads[b2]];
@@ -242,10 +269,10 @@ KT.Track = (function () {
       x.globalCompositeOperation="source-over";
       x.fillStyle=theme.ground;x.fillRect(0,0,SIZE,SIZE);
       strokeAll(x,theme.soil,2*EDGE_A+12);
-      strokeAll(x,theme.grass,2*EDGE_G);
+      strokeAll(x,theme.grass,2*EDGE_G);faixasGrama(x,theme.grass);
       x.lineWidth=2*EDGE;x.lineCap="butt";
       for(i=0;i<N;i++){var pa=pts[i],pb=pts[(i+1)%N];x.strokeStyle=Math.floor(i/9)%2?"#e8ebed":theme.curb;x.beginPath();x.moveTo(pa.x,pa.y);x.lineTo(pb.x,pb.y);x.stroke();}
-      strokeAll(x,"#dce2e1",ROAD);strokeAll(x,theme.road,ROAD-6);
+      strokeAll(x,"#dce2e1",ROAD);strokeAll(x,theme.road,ROAD-6);tracejado(x);
       for(i=0;i<14000*escala*largura;i++){var pp2=pts[(rv()*N)|0],lat2=KT.randV(-EDGE_A,EDGE_A);x.fillStyle=Math.abs(lat2)<HALF?"#ffffff":"#101f2b";x.globalAlpha=.12;x.fillRect(pp2.x+Math.cos(pp2.ang)*lat2,pp2.y-Math.sin(pp2.ang)*lat2,2,2);}x.globalAlpha=1;
       /* Turbo, chegada e setores perigosos pertencem à geometria da pista. */
       boostPads.forEach(function(idx){var p=pts[idx];x.save();x.translate(p.x,p.y);x.rotate(-p.ang);x.fillStyle="#18232e";x.fillRect(-HALF+8,-16,ROAD-16,32);for(var a=0;a<3;a++){x.fillStyle=theme.accent;x.beginPath();x.moveTo(-HALF+12,-10+a*9);x.lineTo(0,-15+a*9);x.lineTo(HALF-12,-10+a*9);x.lineWidth=3;x.strokeStyle=theme.accent;x.stroke();}x.restore();});

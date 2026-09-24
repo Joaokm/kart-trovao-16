@@ -5,8 +5,11 @@ KT.Scenery={
     g.addColorStop(0,theme.sky[0]);g.addColorStop(1,theme.sky[1]);ctx.fillStyle=g;ctx.fillRect(0,0,W,cam.horizon+2);
     var off=KT.normAng(cam.ang)/KT.TAU*640;
     var night=theme.prop==="tower"||theme.prop==="antenna";
-    if(night){ctx.fillStyle="#d8dfe8";for(var s=0;s<28;s++)ctx.fillRect(((s*89-off*.12)%W+W)%W,8+(s*17)%55,1,1);}
+    var t=KT.race?KT.race.time:0,motion=KT.Career.data.settings.motion;
+    if(night){ctx.fillStyle="#d8dfe8";for(var s=0;s<28;s++){ctx.globalAlpha=motion?.45+.55*Math.abs(Math.sin(t*1.3+s*2.1)):1;ctx.fillRect(((s*89-off*.12)%W+W)%W,8+(s*17)%55,1,1);}ctx.globalAlpha=1;}
     else {ctx.fillStyle=theme.prop==="ice"?"#d9f5f5":"#f9deb0";ctx.fillRect(246,20,21,17);ctx.fillRect(242,24,29,9);}
+    /* nuvens altas que andam devagar (paradas com movimento reduzido) */
+    if(!night&&theme.prop!=="cloud"){ctx.fillStyle="rgba(255,255,255,.28)";for(var c=0;c<6;c++){var span=W+90,cx=((c*127-off*.08+(motion?t*3:0))%span+span)%span-45,cy=10+(c*23)%(cam.horizon-40);ctx.fillRect(Math.round(cx),cy,36,5);ctx.fillRect(Math.round(cx)+7,cy-3,20,3);}}
     for(var layer=0;layer<2;layer++){
       ctx.fillStyle=layer?theme.ground:theme.soil;
       for(var i=-2;i<15;i++){

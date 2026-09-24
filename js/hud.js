@@ -6,10 +6,11 @@ KT.HUD = (function () {
 
   var mini = null, miniBox = { x: 0, y: 0, w: 62, h: 62 };
   var bounds = null;
-  var icons = null;
+  var icons = null, faces = [];
 
   function init() {
     icons = KT.Sprites.buildIcons();
+    faces = KT.DRIVERS.map(function (d) { return KT.Sprites.buildFace(d); });
     buildMinimap();
   }
 
@@ -72,14 +73,18 @@ KT.HUD = (function () {
     var p = race.player;
 
     /* ---- voltas e tempos ---- */
-    panel(ctx, 4, 4, 84, 32);
+    panel(ctx, 4, 4, 100, 32);
     KT.Font.draw(ctx, "VOLTA " + Math.max(1, p.lap) + "/" + race.totalLaps, 9, 9, "#ffd24a", 1, "#3a2a10");
     KT.Font.draw(ctx, KT.fmtTime(race.time), 9, 19, "#e8e8ff", 1, "#20203a");
-    KT.Font.draw(ctx, "MEL " + (p.bestLap ? KT.fmtTime(p.bestLap) : "--:--.--"), 9, 28, "#9aa0c8", 1);
+    KT.Font.draw(ctx, "MELHOR " + (p.bestLap ? KT.fmtTime(p.bestLap) : "--:--.--"), 9, 28, "#9aa0c8", 1);
 
     /* ---- posicao ---- */
     var posColor = p.pos === 1 ? "#ffd24a" : (p.pos <= 3 ? "#a8f0c0" : "#ff9a9a");
     KT.Font.right(ctx, p.pos + "º", W - 6, 6, posColor, 3, "#241028");
+    /* retrato do piloto ao lado da colocação */
+    var fx = W - 12 - KT.Font.width(p.pos + "º", 3) - 26;
+    panel(ctx, fx - 1, 5, 26, 26, posColor);
+    if (faces[p.di]) ctx.drawImage(faces[p.di], fx, 6);
     KT.Font.right(ctx, "DE " + race.karts.length, W - 6, 32, "#c0c4e8", 1, "#20203a");
 
     /* ---- item ---- */
@@ -112,11 +117,12 @@ KT.HUD = (function () {
     var sw = 92, sx = 6, sy = H - 20;
     panel(ctx, sx, sy, sw, 15);
     var frac = KT.clamp(Math.abs(p.sp) / (KT.Kart.TOP * 1.5), 0, 1);
+    /* blocos de 3 px com 1 px de folga; em impulso os blocos acesos ficam brancos-quentes */
     var bars = Math.round(frac * (sw - 8));
-    for (var i = 0; i < bars; i++) {
+    for (var i = 0; i + 3 <= bars; i += 4) {
       var t = i / (sw - 8);
-      ctx.fillStyle = t > 0.82 ? "#ff5a3c" : (t > 0.6 ? "#ffd24a" : "#5ce07a");
-      ctx.fillRect(sx + 4 + i, sy + 4, 1, 7);
+      ctx.fillStyle = p.boost > 0 ? "#fff0b0" : (t > 0.82 ? "#ff5a3c" : (t > 0.6 ? "#ffd24a" : "#5ce07a"));
+      ctx.fillRect(sx + 4 + i, sy + 4 + (t > 0.6 ? 0 : 1), 3, t > 0.6 ? 7 : 6);
     }
     KT.Font.right(ctx, Math.round(Math.abs(p.sp) * 1.08) + " KM/H", sx + sw - 3, H - 32, "#c0c4e8", 1, "#101024");
 
@@ -145,8 +151,10 @@ KT.HUD = (function () {
 
     /* ---- minimapa ---- */
     miniBox.x = W - miniBox.w - 4;
-    miniBox.y = H - miniBox.h - 4;
+    miniBox.y = 44;
+    ctx.save(); ctx.globalAlpha = 0.72;
     panel(ctx, miniBox.x - 2, miniBox.y - 2, miniBox.w + 4, miniBox.h + 4);
+    ctx.restore();
     ctx.drawImage(mini, miniBox.x, miniBox.y);
     for (var k2 = 0; k2 < race.karts.length; k2++) {
       var kk = race.karts[k2];
@@ -156,6 +164,11 @@ KT.HUD = (function () {
       ctx.fillStyle = kk.isPlayer ? "#ffffff" : kk.driver.cor;
       ctx.fillRect(Math.round(mp.x) - 1, Math.round(mp.y) - 1, 3, 3);
     }
+    /* o jogador por cima de todos, com anel piscando */
+    var me = mapPt(p.x, p.y);
+    if (Math.floor(race.time * 3) % 2 === 0) { ctx.fillStyle = "#ffd24a"; ctx.fillRect(Math.round(me.x) - 3, Math.round(me.y) - 3, 7, 7); }
+    ctx.fillStyle = "#100c18"; ctx.fillRect(Math.round(me.x) - 2, Math.round(me.y) - 2, 5, 5);
+    ctx.fillStyle = "#ffffff"; ctx.fillRect(Math.round(me.x) - 1, Math.round(me.y) - 1, 3, 3);
 
     /* ---- avisos centrais ---- */
     if (race.bannerText && race.bannerTime > 0) {

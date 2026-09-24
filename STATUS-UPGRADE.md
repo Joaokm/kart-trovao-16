@@ -76,6 +76,15 @@ O desenho não usa sorteio: o hash de determinismo do QA é o mesmo da fase 3 (`
 
 Muda só a aparência e o som, sem mexer em raio, tempo nem sorteio. `js/itens-arte.js` desenha a caixa como um cubo girando em 8 quadros e 4 tons, com halo pulsante. A caixa reaparece crescendo no último meio segundo e estoura em confete colorido. A Esfera de Plasma ganhou brilho girando e rastro, e o piche ganhou bolhas. Os seis poderes têm ícones novos, e a roleta do HUD mostra os seis passando e freando até o sorteado dar um salto. Mola e Ímã ganharam som próprio e só tocam para o jogador. O hash de determinismo continua `a1101d80`.
 
+## Fase 6: visual da pista, HUD e menus (24/09/2026)
+
+- **Pista:** a grama ganhou faixas de corte em dois tons a cada 10 amostras, e o asfalto um tracejado central. O céu diurno tem nuvens andando devagar e o noturno tem estrelas piscando; com "reduzir movimento" ligado, as duas animações param. Durante o impulso aparecem riscos de velocidade nas laterais, que também respeitam a opção. Andar na grama ou nas cinzas levanta poeira da cor do terreno. Um kart colado na câmera tem a escala limitada a 3,2× e não vira mais um bloco que tapa a tela.
+- **HUD:** o retrato do piloto fica ao lado da colocação, com moldura da cor da posição. "MEL" virou "MELHOR". O velocímetro é feito de blocos, que ficam brancos-quentes durante o impulso. O minimapa subiu para baixo da colocação e ficou translúcido, para não cobrir os karts; o jogador aparece por cima, com anel piscando.
+- **Menus:** o retrato do piloto passou para 48 px, 2× exato do sprite de 24 (antes 38 px, borrado). A prévia da Oficina está em 4× exato (128×96); antes o sprite era esticado. O foco (`:focus-visible`, contorno de 4 px) e o `prefers-reduced-motion` já existiam e foram conferidos.
+- **Ferramentas:** `?demo` ou `?demo=N` no endereço roda uma corrida com a IA no volante, para conferir o visual. `ferramentas/qa-frame.html` não carregava `animais.js` nem `itens-arte.js` desde a fase 4; foi corrigido, e o `qa-upgrade.js` ganhou um teste que compara a lista de scripts dele com a do `index.html`.
+
+QA: 11/11 na regressão e 13/13 no upgrade; o hash de determinismo continua `a1101d80`. No navegador, as baterias solo (17 verificações) e online com 4 jogadores reais (12 verificações) passaram.
+
 ## Limites conhecidos
 
 - Online depende de PeerServer Cloud e da viabilidade da conexão WebRTC. Entre redes diferentes, quando a ligação direta falha, é preciso preencher `iceUrl` em `js/online-config.js` com um TURN (Metered ou Cloudflare, passo a passo no PUBLICAR.md). Sem isso, a reserva é o TURN público do PeerJS, que costuma estar fora do ar.

@@ -1,5 +1,5 @@
 {
-  "date": "2026-09-24T19:09:04.943Z",
+  "date": "2026-09-24T19:27:48.572Z",
   "tests": [
     {
       "name": "30 traçados distintos, finitos e dentro do mapa",
@@ -27,6 +27,10 @@
     },
     {
       "name": "save inválido, obsoleto e dados corrompidos",
+      "ok": true
+    },
+    {
+      "name": "qa-frame.html carrega os mesmos scripts do index.html",
       "ok": true
     },
     {
