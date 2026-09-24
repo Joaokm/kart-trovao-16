@@ -74,13 +74,13 @@
     if(race.state!=="race"||this.finished||this.air>0)return;
     var Tk=KT.Track,def=Tk.definition;
     if(this.magnet>0){var target=null,distance=260;race.karts.forEach(function(k){if(k===this||k.progress<=this.progress)return;var d=Math.hypot(k.x-this.x,k.y-this.y);if(d<distance){target=k;distance=d;}},this);if(target){this.boost=Math.max(this.boost,.12);this.magnetTarget=target;}else this.magnetTarget=null;}
-    if(def.hazard==="wind"&&this.idx>280&&this.idx<500){var push=Math.sin(race.time*1.7)*19*dt;var a=Tk.pts[this.idx].ang;this.moveWithCollision(Math.cos(a)*push,-Math.sin(a)*push);}
+    if(def.hazard==="wind"&&this.idx>280&&this.idx<500){var push=Math.sin(race.time*1.7)*19*dt*this.fx.vento;var a=Tk.pts[this.idx].ang;this.moveWithCollision(Math.cos(a)*push,-Math.sin(a)*push);}
     if(def.hazard==="fall"&&this.idx>270&&this.idx<410&&Math.abs(Tk.lateralOffset(this.x,this.y,this.idx))>Tk.HALF+9){this.rescue=1.4;this.drifting=false;this.driftCharge=0;this.boost=0;if(this.isPlayer)race.banner("RESGATE! CUIDADO COM A BORDA",1.5);return;}
     for(var i=0;i<Tk.dangers.length;i++){
       var h=Tk.dangers[i];if(Math.hypot(this.x-h.x,this.y-h.y)>h.radius+7)continue;
-      if(h.kind==="ice"){this.iceTimer=.35;this.sp*=1-dt*.35;}
-      else if(h.kind==="water"||h.kind==="sand")this.sp*=1-dt*1.7;
-      else if(!this.dangerCooldown&&(h.kind!=="lava"||(race.time+h.phase)%4>2.2)){this.hit(h.kind==="oil"?"goo":"rock");this.dangerCooldown=1.5;}
+      if(h.kind==="ice"){this.iceTimer=.35;this.sp*=1-dt*.35*this.fx.geloFreio;}
+      else if(h.kind==="water"||h.kind==="sand")this.sp*=1-dt*1.7*(h.kind==="water"?this.fx.agua:this.fx.areia);
+      else if(!this.dangerCooldown&&(h.kind!=="lava"||(race.time+h.phase)%4>2.2)){this.hit(h.kind==="oil"||(h.kind==="lava"&&this.fx.lavaLeve)?"goo":"rock");this.dangerCooldown=1.5;}
     }
   };
 })();

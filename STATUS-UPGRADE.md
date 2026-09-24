@@ -45,6 +45,27 @@ O dono achou o kart rápido demais e a corrida curta. Mudanças:
 
 A regressão compara o Vulcano com escala 1 e largura 1 contra a referência original, com os mesmos hashes. As 240 corridas terminam.
 
+## Fase 3: pilotos animais (24/09/2026)
+
+Os 12 pilotos viraram animais, cada um com veículo, peso, velocidade de Carga Trovão e uma passiva própria. Os índices 0–11 não mudaram, e o save e o GP online continuam compatíveis. Os dados ficam em `KT.DRIVERS` e `KT.PASSIVAS` (`js/kart.js`). A arte nova entra na fase 4.
+
+| # | Piloto | Animal · veículo | Passiva |
+|---|---|---|---|
+| 0 | Zeca Turbo | Leão · Muscle car Juba | Juba de Aço: perde 20% menos velocidade nas trombadas |
+| 1 | Luna Volt | Raposa · Esportivo Cauda de Fogo | Faro: pega caixas 30% mais de longe |
+| 2 | Kika Neon | Coelha · Buggy Cenoura | Salto de Largada: janela maior para a largada relâmpago |
+| 3 | Bruto Ferro | Rinoceronte · Trator Blindado | Casco Grosso: grama e cinzas seguram 20% menos |
+| 4 | Dr. Parafuso | Castor · Engenhoca de Madeira | Mãos de Mecânico: sai do rodopio 25% mais rápido |
+| 5 | Tainá Vento | Arara · Planador de Folhas | Asas: o vento empurra 60% menos |
+| 6 | Bento Maré | Tartaruga-marinha · Hidroplano Casco | Nadador: água e areia seguram metade |
+| 7 | Nara Polar | Pinguim · Trenó Polar | Trenó: gruda no gelo e não perde velocidade nele |
+| 8 | Iara Fluxo | Boto-cor-de-rosa · Jet-ski Anfíbio | Anfíbio: a água quase não segura |
+| 9 | Dona Brasa | Dragão-de-komodo · Kart Fornalha | Pele de Brasa: lava só desacelera, sem rodopio |
+| 10 | Caio Ciclone | Falcão · Aerokart de Asas | Mergulho: faixas de turbo empurram 25% mais tempo |
+| 11 | Maestra Raio | Onça-pintada · Kart Relâmpago | Bote: a Carga Trovão mais rápida do grid |
+
+Equilíbrio medido com cada piloto sozinho, IA no volante, nível ÁS, 3 voltas numa pista de cada perigo (9 pistas). O tempo em relação à média vai de −3,9% (rinoceronte) a +4,3% (castor). Com os pilotos antigos, a mesma medição dava de −4,5% a +5,3%. A medição não inclui trombadas nem itens, onde os leves e as passivas de corrida contam a favor.
+
 ## Limites conhecidos
 
 - Online depende de PeerServer Cloud e da viabilidade da conexão WebRTC. Entre redes diferentes, quando a ligação direta falha, é preciso preencher `iceUrl` em `js/online-config.js` com um TURN (Metered ou Cloudflare, passo a passo no PUBLICAR.md). Sem isso, a reserva é o TURN público do PeerJS, que costuma estar fora do ar.

@@ -234,8 +234,8 @@
         }
         /* troca de energia: quem vem mais rapido empurra */
         var push = Math.abs(a.sp - b.sp) * 0.16;
-        if (a.sp > b.sp) { a.sp -= push; b.sp += push * 0.6; }
-        else { b.sp -= push; a.sp += push * 0.6; }
+        if (a.sp > b.sp) { a.sp -= push * a.fx.choque; b.sp += push * 0.6; }
+        else { b.sp -= push * b.fx.choque; a.sp += push * 0.6; }
         if ((a.isPlayer || b.isPlayer) && push > 6) KT.Audio.play("bump");
       }
     }
@@ -255,7 +255,8 @@
         var kk = race.karts[k];
         if (kk.item || kk.itemRoll > 0) continue;
         var dx = kk.x - b.x, dy = kk.y - b.y;
-        if (dx * dx + dy * dy < 19 * 19) {
+        var alcance = 19 * kk.fx.faro;
+        if (dx * dx + dy * dy < alcance * alcance) {
           b.active = false; b.timer = 5;
           kk.itemRoll = 0.85;
           if (kk.isPlayer) KT.Audio.play("itemGet");
@@ -339,7 +340,7 @@
       var after = Math.ceil(race.countdown);
       if (after !== before && after >= 0) KT.Audio.play(after === 0 ? "go" : "count");
       /* largada relampago: segurar acelerador no fim da contagem */
-      if (race.countdown < 0.55 && race.countdown > 0 && KT.Input.held("up")) race.rocket = true;
+      if (race.countdown < (race.player ? race.player.fx.largada : 0.55) && race.countdown > 0 && KT.Input.held("up")) race.rocket = true;
       else if (race.countdown >= 0.75 && KT.Input.held("up")) race.rocket = false;
       if (race.countdown <= 0) {
         race.state = "race";

@@ -1,5 +1,5 @@
 {
-  "date": "2026-09-24T18:16:43.516Z",
+  "date": "2026-09-24T18:38:24.064Z",
   "tests": [
     {
       "name": "30 traçados distintos, finitos e dentro do mapa",
@@ -55,71 +55,71 @@
       "track": 0,
       "level": 0,
       "mirror": false,
-      "time": 41.33,
-      "offroad": 0.9375,
+      "time": 41.8,
+      "offroad": 0.22875,
       "walls": 0
     },
     {
       "track": 0,
       "level": 0,
       "mirror": true,
-      "time": 42.83,
-      "offroad": 0.24125,
+      "time": 40.95,
+      "offroad": 0,
       "walls": 0
     },
     {
       "track": 0,
       "level": 1,
       "mirror": false,
-      "time": 38.1,
-      "offroad": 0.475,
+      "time": 37.5,
+      "offroad": 0.6799999999999999,
       "walls": 0
     },
     {
       "track": 0,
       "level": 1,
       "mirror": true,
-      "time": 38.85,
-      "offroad": 0.5225,
+      "time": 38.18,
+      "offroad": 0.6812499999999999,
       "walls": 0
     },
     {
       "track": 0,
       "level": 2,
       "mirror": false,
-      "time": 36.32,
-      "offroad": 1.34375,
+      "time": 35.28,
+      "offroad": 2.16125,
       "walls": 0
     },
     {
       "track": 0,
       "level": 2,
       "mirror": true,
-      "time": 35.62,
-      "offroad": 1.47375,
+      "time": 35.67,
+      "offroad": 1.2762499999999999,
       "walls": 0
     },
     {
       "track": 0,
       "level": 3,
       "mirror": false,
-      "time": 35.9,
-      "offroad": 1.3087499999999999,
+      "time": 35.22,
+      "offroad": 0.5675,
       "walls": 0
     },
     {
       "track": 0,
       "level": 3,
       "mirror": true,
-      "time": 34.98,
-      "offroad": 0.76875,
+      "time": 34.65,
+      "offroad": 0.23,
       "walls": 0
     },
     {
       "track": 1,
       "level": 0,
       "mirror": false,
-      "time": 33.38,
+      "time": 32.4,
       "offroad": 0,
       "walls": 0
     },
@@ -127,7 +127,7 @@
       "track": 1,
       "level": 0,
       "mirror": true,
-      "time": 32.67,
+      "time": 33.08,
       "offroad": 0,
       "walls": 0
     },
@@ -135,7 +135,7 @@
       "track": 1,
       "level": 1,
       "mirror": false,
-      "time": 29.88,
+      "time": 30,
       "offroad": 0,
       "walls": 0
     },
@@ -143,31 +143,31 @@
       "track": 1,
       "level": 1,
       "mirror": true,
-      "time": 30.22,
-      "offroad": 0,
+      "time": 31.68,
+      "offroad": 0.82125,
       "walls": 0
     },
     {
       "track": 1,
       "level": 2,
       "mirror": false,
-      "time": 27.5,
-      "offroad": 0,
+      "time": 28.25,
+      "offroad": 0.04625,
       "walls": 0
     },
     {
       "track": 1,
       "level": 2,
       "mirror": true,
-      "time": 27.97,
-      "offroad": 0.185,
+      "time": 28.97,
+      "offroad": 0.2725,
       "walls": 0
     },
     {
       "track": 1,
       "level": 3,
       "mirror": false,
-      "time": 28.4,
+      "time": 27.17,
       "offroad": 0,
       "walls": 0
     },
@@ -175,220 +175,28 @@
       "track": 1,
       "level": 3,
       "mirror": true,
-      "time": 28.32,
-      "offroad": 0,
+      "time": 29.82,
+      "offroad": 0.5125,
       "walls": 0
     },
     {
       "track": 2,
       "level": 0,
       "mirror": false,
-      "time": 34.55,
-      "offroad": 0,
+      "time": 36.67,
+      "offroad": 0.59125,
       "walls": 0
     },
     {
       "track": 2,
       "level": 0,
       "mirror": true,
-      "time": 35.78,
-      "offroad": 0,
+      "time": 36.57,
+      "offroad": 0.695,
       "walls": 0
     },
     {
       "track": 2,
-      "level": 1,
-      "mirror": false,
-      "time": 31.22,
-      "offroad": 0,
-      "walls": 0
-    },
-    {
-      "track": 2,
-      "level": 1,
-      "mirror": true,
-      "time": 29.93,
-      "offroad": 0,
-      "walls": 0
-    },
-    {
-      "track": 2,
-      "level": 2,
-      "mirror": false,
-      "time": 29.23,
-      "offroad": 0,
-      "walls": 0
-    },
-    {
-      "track": 2,
-      "level": 2,
-      "mirror": true,
-      "time": 30.1,
-      "offroad": 0,
-      "walls": 0
-    },
-    {
-      "track": 2,
-      "level": 3,
-      "mirror": false,
-      "time": 28.65,
-      "offroad": 0,
-      "walls": 0
-    },
-    {
-      "track": 2,
-      "level": 3,
-      "mirror": true,
-      "time": 29.62,
-      "offroad": 0.08875,
-      "walls": 0
-    },
-    {
-      "track": 3,
-      "level": 0,
-      "mirror": false,
-      "time": 34.78,
-      "offroad": 0,
-      "walls": 0
-    },
-    {
-      "track": 3,
-      "level": 0,
-      "mirror": true,
-      "time": 34.22,
-      "offroad": 0,
-      "walls": 0
-    },
-    {
-      "track": 3,
-      "level": 1,
-      "mirror": false,
-      "time": 32.17,
-      "offroad": 0,
-      "walls": 0
-    },
-    {
-      "track": 3,
-      "level": 1,
-      "mirror": true,
-      "time": 31.08,
-      "offroad": 0,
-      "walls": 0
-    },
-    {
-      "track": 3,
-      "level": 2,
-      "mirror": false,
-      "time": 29.57,
-      "offroad": 0,
-      "walls": 0
-    },
-    {
-      "track": 3,
-      "level": 2,
-      "mirror": true,
-      "time": 30.68,
-      "offroad": 0.72625,
-      "walls": 0
-    },
-    {
-      "track": 3,
-      "level": 3,
-      "mirror": false,
-      "time": 28.03,
-      "offroad": 0,
-      "walls": 0
-    },
-    {
-      "track": 3,
-      "level": 3,
-      "mirror": true,
-      "time": 28.52,
-      "offroad": 0,
-      "walls": 0
-    },
-    {
-      "track": 4,
-      "level": 0,
-      "mirror": false,
-      "time": 34.98,
-      "offroad": 0,
-      "walls": 0
-    },
-    {
-      "track": 4,
-      "level": 0,
-      "mirror": true,
-      "time": 35.4,
-      "offroad": 0,
-      "walls": 0
-    },
-    {
-      "track": 4,
-      "level": 1,
-      "mirror": false,
-      "time": 33.27,
-      "offroad": 0,
-      "walls": 0
-    },
-    {
-      "track": 4,
-      "level": 1,
-      "mirror": true,
-      "time": 32.58,
-      "offroad": 0,
-      "walls": 0
-    },
-    {
-      "track": 4,
-      "level": 2,
-      "mirror": false,
-      "time": 30.1,
-      "offroad": 0.2375,
-      "walls": 0
-    },
-    {
-      "track": 4,
-      "level": 2,
-      "mirror": true,
-      "time": 30.92,
-      "offroad": 0,
-      "walls": 0
-    },
-    {
-      "track": 4,
-      "level": 3,
-      "mirror": false,
-      "time": 29,
-      "offroad": 0,
-      "walls": 0
-    },
-    {
-      "track": 4,
-      "level": 3,
-      "mirror": true,
-      "time": 28.98,
-      "offroad": 0,
-      "walls": 0
-    },
-    {
-      "track": 5,
-      "level": 0,
-      "mirror": false,
-      "time": 34,
-      "offroad": 0,
-      "walls": 0
-    },
-    {
-      "track": 5,
-      "level": 0,
-      "mirror": true,
-      "time": 35.8,
-      "offroad": 0,
-      "walls": 0
-    },
-    {
-      "track": 5,
       "level": 1,
       "mirror": false,
       "time": 32.62,
@@ -396,175 +204,47 @@
       "walls": 0
     },
     {
-      "track": 5,
+      "track": 2,
       "level": 1,
-      "mirror": true,
-      "time": 31.62,
-      "offroad": 0,
-      "walls": 0
-    },
-    {
-      "track": 5,
-      "level": 2,
-      "mirror": false,
-      "time": 28.37,
-      "offroad": 0,
-      "walls": 0
-    },
-    {
-      "track": 5,
-      "level": 2,
-      "mirror": true,
-      "time": 30.32,
-      "offroad": 0.2,
-      "walls": 0
-    },
-    {
-      "track": 5,
-      "level": 3,
-      "mirror": false,
-      "time": 29.65,
-      "offroad": 0.52375,
-      "walls": 0
-    },
-    {
-      "track": 5,
-      "level": 3,
-      "mirror": true,
-      "time": 30.35,
-      "offroad": 0.46375,
-      "walls": 0
-    },
-    {
-      "track": 6,
-      "level": 0,
-      "mirror": false,
-      "time": 33.48,
-      "offroad": 0,
-      "walls": 0
-    },
-    {
-      "track": 6,
-      "level": 0,
-      "mirror": true,
-      "time": 34.52,
-      "offroad": 0,
-      "walls": 0
-    },
-    {
-      "track": 6,
-      "level": 1,
-      "mirror": false,
-      "time": 31.62,
-      "offroad": 0,
-      "walls": 0
-    },
-    {
-      "track": 6,
-      "level": 1,
-      "mirror": true,
-      "time": 32.18,
-      "offroad": 0,
-      "walls": 0
-    },
-    {
-      "track": 6,
-      "level": 2,
-      "mirror": false,
-      "time": 29.02,
-      "offroad": 0,
-      "walls": 0
-    },
-    {
-      "track": 6,
-      "level": 2,
       "mirror": true,
       "time": 30.15,
       "offroad": 0,
       "walls": 0
     },
     {
-      "track": 6,
-      "level": 3,
-      "mirror": false,
-      "time": 27.57,
-      "offroad": 0,
-      "walls": 0
-    },
-    {
-      "track": 6,
-      "level": 3,
-      "mirror": true,
-      "time": 28.85,
-      "offroad": 0,
-      "walls": 0
-    },
-    {
-      "track": 7,
-      "level": 0,
-      "mirror": false,
-      "time": 36.85,
-      "offroad": 0.24875,
-      "walls": 0
-    },
-    {
-      "track": 7,
-      "level": 0,
-      "mirror": true,
-      "time": 37.33,
-      "offroad": 0,
-      "walls": 0
-    },
-    {
-      "track": 7,
-      "level": 1,
-      "mirror": false,
-      "time": 33.47,
-      "offroad": 0,
-      "walls": 0
-    },
-    {
-      "track": 7,
-      "level": 1,
-      "mirror": true,
-      "time": 37.3,
-      "offroad": 0.7637499999999999,
-      "walls": 0
-    },
-    {
-      "track": 7,
+      "track": 2,
       "level": 2,
       "mirror": false,
-      "time": 31.62,
+      "time": 28.83,
+      "offroad": 0.07625,
+      "walls": 0
+    },
+    {
+      "track": 2,
+      "level": 2,
+      "mirror": true,
+      "time": 28.72,
       "offroad": 0,
       "walls": 0
     },
     {
-      "track": 7,
-      "level": 2,
-      "mirror": true,
-      "time": 34.58,
-      "offroad": 0.32,
-      "walls": 0
-    },
-    {
-      "track": 7,
+      "track": 2,
       "level": 3,
       "mirror": false,
-      "time": 32.18,
-      "offroad": 0.26375,
+      "time": 29.35,
+      "offroad": 0.19,
       "walls": 0
     },
     {
-      "track": 7,
+      "track": 2,
       "level": 3,
       "mirror": true,
-      "time": 34.6,
-      "offroad": 0.175,
+      "time": 30.23,
+      "offroad": 0.7075,
       "walls": 0
     },
     {
-      "track": 8,
+      "track": 3,
       "level": 0,
       "mirror": false,
       "time": 33.9,
@@ -572,455 +252,711 @@
       "walls": 0
     },
     {
-      "track": 8,
+      "track": 3,
       "level": 0,
       "mirror": true,
-      "time": 33.85,
-      "offroad": 0,
+      "time": 35.7,
+      "offroad": 0.58625,
       "walls": 0
     },
     {
-      "track": 8,
+      "track": 3,
       "level": 1,
       "mirror": false,
-      "time": 31.33,
-      "offroad": 0,
-      "walls": 0
+      "time": 35.83,
+      "offroad": 2.26625,
+      "walls": 33
     },
     {
-      "track": 8,
+      "track": 3,
       "level": 1,
       "mirror": true,
-      "time": 31.08,
-      "offroad": 0.35625,
-      "walls": 0
-    },
-    {
-      "track": 8,
-      "level": 2,
-      "mirror": false,
-      "time": 28.82,
+      "time": 31.13,
       "offroad": 0,
       "walls": 0
     },
     {
-      "track": 8,
+      "track": 3,
       "level": 2,
-      "mirror": true,
-      "time": 30.22,
+      "mirror": false,
+      "time": 30.13,
       "offroad": 0,
       "walls": 0
     },
     {
-      "track": 8,
+      "track": 3,
+      "level": 2,
+      "mirror": true,
+      "time": 29.63,
+      "offroad": 0,
+      "walls": 0
+    },
+    {
+      "track": 3,
       "level": 3,
       "mirror": false,
-      "time": 28.33,
-      "offroad": 0.32999999999999996,
+      "time": 29.18,
+      "offroad": 0.3275,
       "walls": 0
     },
     {
-      "track": 8,
+      "track": 3,
       "level": 3,
       "mirror": true,
-      "time": 29.93,
-      "offroad": 0.72875,
+      "time": 27.83,
+      "offroad": 0.2525,
       "walls": 0
     },
     {
-      "track": 9,
+      "track": 4,
       "level": 0,
       "mirror": false,
-      "time": 38.4,
+      "time": 34.2,
       "offroad": 0,
       "walls": 0
     },
     {
-      "track": 9,
+      "track": 4,
       "level": 0,
       "mirror": true,
-      "time": 37.1,
+      "time": 34.62,
       "offroad": 0,
       "walls": 0
     },
     {
-      "track": 9,
+      "track": 4,
       "level": 1,
       "mirror": false,
-      "time": 35.13,
-      "offroad": 0.84125,
+      "time": 31.27,
+      "offroad": 0,
       "walls": 0
     },
     {
-      "track": 9,
+      "track": 4,
       "level": 1,
       "mirror": true,
-      "time": 36.52,
+      "time": 34.67,
+      "offroad": 0.6775,
+      "walls": 0
+    },
+    {
+      "track": 4,
+      "level": 2,
+      "mirror": false,
+      "time": 29.53,
       "offroad": 0,
       "walls": 0
     },
     {
-      "track": 9,
+      "track": 4,
       "level": 2,
+      "mirror": true,
+      "time": 30.45,
+      "offroad": 0.1125,
+      "walls": 0
+    },
+    {
+      "track": 4,
+      "level": 3,
       "mirror": false,
-      "time": 34.3,
+      "time": 29.13,
       "offroad": 0,
       "walls": 0
     },
     {
-      "track": 9,
-      "level": 2,
-      "mirror": true,
-      "time": 34.32,
-      "offroad": 0.61875,
-      "walls": 0
-    },
-    {
-      "track": 9,
-      "level": 3,
-      "mirror": false,
-      "time": 33.43,
-      "offroad": 1.19875,
-      "walls": 0
-    },
-    {
-      "track": 9,
+      "track": 4,
       "level": 3,
       "mirror": true,
-      "time": 31.95,
+      "time": 29.63,
       "offroad": 0.66625,
       "walls": 0
     },
     {
-      "track": 10,
+      "track": 5,
       "level": 0,
       "mirror": false,
-      "time": 35.25,
-      "offroad": 0,
+      "time": 37.17,
+      "offroad": 0.47,
       "walls": 0
     },
     {
-      "track": 10,
+      "track": 5,
       "level": 0,
       "mirror": true,
-      "time": 35.58,
-      "offroad": 0,
+      "time": 36.15,
+      "offroad": 0.59125,
       "walls": 0
     },
     {
-      "track": 10,
+      "track": 5,
       "level": 1,
       "mirror": false,
-      "time": 32.37,
-      "offroad": 0,
+      "time": 33.7,
+      "offroad": 0.69625,
       "walls": 0
     },
     {
-      "track": 10,
+      "track": 5,
       "level": 1,
       "mirror": true,
-      "time": 31.75,
-      "offroad": 0,
+      "time": 33.05,
+      "offroad": 0.84375,
       "walls": 0
     },
     {
-      "track": 10,
+      "track": 5,
       "level": 2,
+      "mirror": false,
+      "time": 28.27,
+      "offroad": 0,
+      "walls": 0
+    },
+    {
+      "track": 5,
+      "level": 2,
+      "mirror": true,
+      "time": 30.33,
+      "offroad": 0,
+      "walls": 0
+    },
+    {
+      "track": 5,
+      "level": 3,
+      "mirror": false,
+      "time": 29.7,
+      "offroad": 0.2775,
+      "walls": 0
+    },
+    {
+      "track": 5,
+      "level": 3,
+      "mirror": true,
+      "time": 30.75,
+      "offroad": 0.36375,
+      "walls": 0
+    },
+    {
+      "track": 6,
+      "level": 0,
+      "mirror": false,
+      "time": 32.95,
+      "offroad": 0,
+      "walls": 0
+    },
+    {
+      "track": 6,
+      "level": 0,
+      "mirror": true,
+      "time": 34.15,
+      "offroad": 0,
+      "walls": 0
+    },
+    {
+      "track": 6,
+      "level": 1,
+      "mirror": false,
+      "time": 31.8,
+      "offroad": 0,
+      "walls": 0
+    },
+    {
+      "track": 6,
+      "level": 1,
+      "mirror": true,
+      "time": 32.52,
+      "offroad": 0.29,
+      "walls": 0
+    },
+    {
+      "track": 6,
+      "level": 2,
+      "mirror": false,
+      "time": 30.4,
+      "offroad": 0.0925,
+      "walls": 0
+    },
+    {
+      "track": 6,
+      "level": 2,
+      "mirror": true,
+      "time": 29.08,
+      "offroad": 0.00875,
+      "walls": 0
+    },
+    {
+      "track": 6,
+      "level": 3,
+      "mirror": false,
+      "time": 28.35,
+      "offroad": 0.50125,
+      "walls": 0
+    },
+    {
+      "track": 6,
+      "level": 3,
+      "mirror": true,
+      "time": 30.67,
+      "offroad": 0.68125,
+      "walls": 0
+    },
+    {
+      "track": 7,
+      "level": 0,
+      "mirror": false,
+      "time": 47.9,
+      "offroad": 3.12875,
+      "walls": 92
+    },
+    {
+      "track": 7,
+      "level": 0,
+      "mirror": true,
+      "time": 37.97,
+      "offroad": 0.3325,
+      "walls": 0
+    },
+    {
+      "track": 7,
+      "level": 1,
+      "mirror": false,
+      "time": 35.02,
+      "offroad": 0.69,
+      "walls": 0
+    },
+    {
+      "track": 7,
+      "level": 1,
+      "mirror": true,
+      "time": 38.37,
+      "offroad": 0.1675,
+      "walls": 0
+    },
+    {
+      "track": 7,
+      "level": 2,
+      "mirror": false,
+      "time": 31.82,
+      "offroad": 0.7775000000000001,
+      "walls": 0
+    },
+    {
+      "track": 7,
+      "level": 2,
+      "mirror": true,
+      "time": 33.6,
+      "offroad": 0.46625,
+      "walls": 0
+    },
+    {
+      "track": 7,
+      "level": 3,
+      "mirror": false,
+      "time": 31.95,
+      "offroad": 0.89,
+      "walls": 0
+    },
+    {
+      "track": 7,
+      "level": 3,
+      "mirror": true,
+      "time": 37.03,
+      "offroad": 1.00625,
+      "walls": 0
+    },
+    {
+      "track": 8,
+      "level": 0,
+      "mirror": false,
+      "time": 33.25,
+      "offroad": 0,
+      "walls": 0
+    },
+    {
+      "track": 8,
+      "level": 0,
+      "mirror": true,
+      "time": 34.25,
+      "offroad": 0,
+      "walls": 0
+    },
+    {
+      "track": 8,
+      "level": 1,
       "mirror": false,
       "time": 30.82,
       "offroad": 0,
       "walls": 0
     },
     {
-      "track": 10,
-      "level": 2,
+      "track": 8,
+      "level": 1,
       "mirror": true,
-      "time": 31.55,
-      "offroad": 0.40875,
-      "walls": 0
-    },
-    {
-      "track": 10,
-      "level": 3,
-      "mirror": false,
-      "time": 29.65,
-      "offroad": 0.08625,
-      "walls": 0
-    },
-    {
-      "track": 10,
-      "level": 3,
-      "mirror": true,
-      "time": 30.93,
-      "offroad": 0.435,
-      "walls": 0
-    },
-    {
-      "track": 11,
-      "level": 0,
-      "mirror": false,
-      "time": 37.4,
+      "time": 31,
       "offroad": 0,
       "walls": 0
     },
     {
-      "track": 11,
-      "level": 0,
+      "track": 8,
+      "level": 2,
+      "mirror": false,
+      "time": 29.98,
+      "offroad": 0.31625,
+      "walls": 0
+    },
+    {
+      "track": 8,
+      "level": 2,
       "mirror": true,
-      "time": 35.8,
+      "time": 29.53,
       "offroad": 0,
       "walls": 0
     },
     {
-      "track": 11,
-      "level": 1,
+      "track": 8,
+      "level": 3,
       "mirror": false,
-      "time": 30.47,
-      "offroad": 0.26,
-      "walls": 0
-    },
-    {
-      "track": 11,
-      "level": 1,
-      "mirror": true,
-      "time": 31.08,
-      "offroad": 0.52125,
-      "walls": 0
-    },
-    {
-      "track": 11,
-      "level": 2,
-      "mirror": false,
-      "time": 29.72,
+      "time": 28.37,
       "offroad": 0,
       "walls": 0
     },
     {
-      "track": 11,
-      "level": 2,
-      "mirror": true,
-      "time": 30.78,
-      "offroad": 1.18,
-      "walls": 0
-    },
-    {
-      "track": 11,
-      "level": 3,
-      "mirror": false,
-      "time": 28.57,
-      "offroad": 0.425,
-      "walls": 0
-    },
-    {
-      "track": 11,
+      "track": 8,
       "level": 3,
       "mirror": true,
-      "time": 30.72,
-      "offroad": 2.25,
+      "time": 29.8,
+      "offroad": 0,
       "walls": 0
     },
     {
-      "track": 12,
+      "track": 9,
       "level": 0,
       "mirror": false,
-      "time": 34.65,
-      "offroad": 0.27,
+      "time": 38.33,
+      "offroad": 0,
       "walls": 0
     },
     {
-      "track": 12,
+      "track": 9,
       "level": 0,
       "mirror": true,
-      "time": 35.95,
-      "offroad": 0.025,
+      "time": 38.67,
+      "offroad": 0,
       "walls": 0
     },
     {
-      "track": 12,
+      "track": 9,
       "level": 1,
       "mirror": false,
+      "time": 35.27,
+      "offroad": 0.19,
+      "walls": 0
+    },
+    {
+      "track": 9,
+      "level": 1,
+      "mirror": true,
+      "time": 37.47,
+      "offroad": 0.825,
+      "walls": 0
+    },
+    {
+      "track": 9,
+      "level": 2,
+      "mirror": false,
+      "time": 31.33,
+      "offroad": 0,
+      "walls": 0
+    },
+    {
+      "track": 9,
+      "level": 2,
+      "mirror": true,
+      "time": 34.9,
+      "offroad": 0.745,
+      "walls": 0
+    },
+    {
+      "track": 9,
+      "level": 3,
+      "mirror": false,
+      "time": 32.05,
+      "offroad": 1.0925,
+      "walls": 0
+    },
+    {
+      "track": 9,
+      "level": 3,
+      "mirror": true,
+      "time": 33.87,
+      "offroad": 0,
+      "walls": 0
+    },
+    {
+      "track": 10,
+      "level": 0,
+      "mirror": false,
+      "time": 36,
+      "offroad": 0,
+      "walls": 0
+    },
+    {
+      "track": 10,
+      "level": 0,
+      "mirror": true,
+      "time": 36.15,
+      "offroad": 0,
+      "walls": 0
+    },
+    {
+      "track": 10,
+      "level": 1,
+      "mirror": false,
+      "time": 32.1,
+      "offroad": 0.22,
+      "walls": 0
+    },
+    {
+      "track": 10,
+      "level": 1,
+      "mirror": true,
+      "time": 32.75,
+      "offroad": 0.23875,
+      "walls": 0
+    },
+    {
+      "track": 10,
+      "level": 2,
+      "mirror": false,
+      "time": 34.2,
+      "offroad": 1.46,
+      "walls": 2
+    },
+    {
+      "track": 10,
+      "level": 2,
+      "mirror": true,
+      "time": 29.4,
+      "offroad": 0,
+      "walls": 0
+    },
+    {
+      "track": 10,
+      "level": 3,
+      "mirror": false,
+      "time": 30.7,
+      "offroad": 0.5025,
+      "walls": 0
+    },
+    {
+      "track": 10,
+      "level": 3,
+      "mirror": true,
       "time": 31.6,
-      "offroad": 0.28375,
+      "offroad": 0.29875,
       "walls": 0
     },
     {
-      "track": 12,
+      "track": 11,
+      "level": 0,
+      "mirror": false,
+      "time": 34.78,
+      "offroad": 0,
+      "walls": 0
+    },
+    {
+      "track": 11,
+      "level": 0,
+      "mirror": true,
+      "time": 35,
+      "offroad": 0,
+      "walls": 0
+    },
+    {
+      "track": 11,
+      "level": 1,
+      "mirror": false,
+      "time": 31.48,
+      "offroad": 0,
+      "walls": 0
+    },
+    {
+      "track": 11,
       "level": 1,
       "mirror": true,
-      "time": 31.55,
-      "offroad": 0.34125,
+      "time": 31.52,
+      "offroad": 0.5075,
       "walls": 0
     },
     {
-      "track": 12,
+      "track": 11,
       "level": 2,
       "mirror": false,
+      "time": 30.53,
+      "offroad": 0.6074999999999999,
+      "walls": 0
+    },
+    {
+      "track": 11,
+      "level": 2,
+      "mirror": true,
+      "time": 30.7,
+      "offroad": 1.42625,
+      "walls": 0
+    },
+    {
+      "track": 11,
+      "level": 3,
+      "mirror": false,
+      "time": 29.78,
+      "offroad": 2.4225000000000003,
+      "walls": 0
+    },
+    {
+      "track": 11,
+      "level": 3,
+      "mirror": true,
       "time": 29.92,
-      "offroad": 1.5287499999999998,
+      "offroad": 0,
+      "walls": 0
+    },
+    {
+      "track": 12,
+      "level": 0,
+      "mirror": false,
+      "time": 34.22,
+      "offroad": 0.13125,
+      "walls": 0
+    },
+    {
+      "track": 12,
+      "level": 0,
+      "mirror": true,
+      "time": 35.27,
+      "offroad": 0,
+      "walls": 0
+    },
+    {
+      "track": 12,
+      "level": 1,
+      "mirror": false,
+      "time": 32.8,
+      "offroad": 2.2874999999999996,
+      "walls": 0
+    },
+    {
+      "track": 12,
+      "level": 1,
+      "mirror": true,
+      "time": 32.22,
+      "offroad": 0.9624999999999999,
+      "walls": 0
+    },
+    {
+      "track": 12,
+      "level": 2,
+      "mirror": false,
+      "time": 30.77,
+      "offroad": 0.51125,
       "walls": 0
     },
     {
       "track": 12,
       "level": 2,
       "mirror": true,
-      "time": 28.63,
-      "offroad": 0.35375,
+      "time": 28.93,
+      "offroad": 0,
       "walls": 0
     },
     {
       "track": 12,
       "level": 3,
       "mirror": false,
-      "time": 29.7,
-      "offroad": 1.28625,
+      "time": 28.7,
+      "offroad": 0.52,
       "walls": 0
     },
     {
       "track": 12,
       "level": 3,
       "mirror": true,
-      "time": 29.48,
-      "offroad": 1.49875,
+      "time": 28.67,
+      "offroad": 0.4875,
       "walls": 0
     },
     {
       "track": 13,
       "level": 0,
       "mirror": false,
-      "time": 36.1,
-      "offroad": 0,
+      "time": 38.78,
+      "offroad": 0.32625,
       "walls": 0
     },
     {
       "track": 13,
       "level": 0,
       "mirror": true,
-      "time": 36.35,
-      "offroad": 0,
+      "time": 35.85,
+      "offroad": 0.22875,
       "walls": 0
     },
     {
       "track": 13,
       "level": 1,
       "mirror": false,
-      "time": 33.77,
-      "offroad": 0.50875,
+      "time": 33.82,
+      "offroad": 0.3475,
       "walls": 0
     },
     {
       "track": 13,
       "level": 1,
       "mirror": true,
-      "time": 33.18,
-      "offroad": 0,
+      "time": 31.98,
+      "offroad": 0.13625,
       "walls": 0
     },
     {
       "track": 13,
       "level": 2,
       "mirror": false,
-      "time": 32.5,
-      "offroad": 1.7875,
+      "time": 31.43,
+      "offroad": 0.36875,
       "walls": 0
     },
     {
       "track": 13,
       "level": 2,
       "mirror": true,
-      "time": 32.9,
-      "offroad": 0.8262499999999999,
+      "time": 31.03,
+      "offroad": 0.95,
       "walls": 0
     },
     {
       "track": 13,
       "level": 3,
       "mirror": false,
-      "time": 30.62,
-      "offroad": 1.06375,
+      "time": 32.77,
+      "offroad": 1.8,
       "walls": 0
     },
     {
       "track": 13,
       "level": 3,
       "mirror": true,
-      "time": 30.62,
-      "offroad": 1.4475,
+      "time": 31.02,
+      "offroad": 0.265,
       "walls": 0
     },
     {
       "track": 14,
       "level": 0,
       "mirror": false,
-      "time": 34.18,
+      "time": 34.03,
       "offroad": 0,
       "walls": 0
     },
     {
       "track": 14,
-      "level": 0,
-      "mirror": true,
-      "time": 34.32,
-      "offroad": 0,
-      "walls": 0
-    },
-    {
-      "track": 14,
-      "level": 1,
-      "mirror": false,
-      "time": 31.67,
-      "offroad": 0,
-      "walls": 0
-    },
-    {
-      "track": 14,
-      "level": 1,
-      "mirror": true,
-      "time": 32.78,
-      "offroad": 0,
-      "walls": 0
-    },
-    {
-      "track": 14,
-      "level": 2,
-      "mirror": false,
-      "time": 30.73,
-      "offroad": 0.42125,
-      "walls": 0
-    },
-    {
-      "track": 14,
-      "level": 2,
-      "mirror": true,
-      "time": 30.55,
-      "offroad": 0.7375,
-      "walls": 0
-    },
-    {
-      "track": 14,
-      "level": 3,
-      "mirror": false,
-      "time": 30,
-      "offroad": 0.96875,
-      "walls": 0
-    },
-    {
-      "track": 14,
-      "level": 3,
-      "mirror": true,
-      "time": 29.45,
-      "offroad": 0.73875,
-      "walls": 0
-    },
-    {
-      "track": 15,
-      "level": 0,
-      "mirror": false,
-      "time": 34,
-      "offroad": 0,
-      "walls": 0
-    },
-    {
-      "track": 15,
       "level": 0,
       "mirror": true,
       "time": 34.7,
@@ -1028,122 +964,186 @@
       "walls": 0
     },
     {
-      "track": 15,
+      "track": 14,
       "level": 1,
       "mirror": false,
-      "time": 31.75,
-      "offroad": 0,
+      "time": 31.93,
+      "offroad": 0.7625,
       "walls": 0
     },
     {
-      "track": 15,
+      "track": 14,
       "level": 1,
       "mirror": true,
-      "time": 31.7,
+      "time": 31.98,
       "offroad": 0,
       "walls": 0
     },
     {
-      "track": 15,
+      "track": 14,
       "level": 2,
       "mirror": false,
-      "time": 29,
+      "time": 30.85,
       "offroad": 0,
       "walls": 0
     },
     {
-      "track": 15,
+      "track": 14,
       "level": 2,
       "mirror": true,
-      "time": 28.52,
+      "time": 30.2,
       "offroad": 0,
       "walls": 0
     },
     {
-      "track": 15,
+      "track": 14,
       "level": 3,
       "mirror": false,
-      "time": 29.02,
-      "offroad": 0.22375,
-      "walls": 0
-    },
-    {
-      "track": 15,
-      "level": 3,
-      "mirror": true,
-      "time": 28.92,
-      "offroad": 0,
-      "walls": 0
-    },
-    {
-      "track": 16,
-      "level": 0,
-      "mirror": false,
-      "time": 33.83,
-      "offroad": 0,
-      "walls": 0
-    },
-    {
-      "track": 16,
-      "level": 0,
-      "mirror": true,
-      "time": 35.1,
-      "offroad": 0,
-      "walls": 0
-    },
-    {
-      "track": 16,
-      "level": 1,
-      "mirror": false,
-      "time": 31.63,
-      "offroad": 0,
-      "walls": 0
-    },
-    {
-      "track": 16,
-      "level": 1,
-      "mirror": true,
-      "time": 33.3,
-      "offroad": 0,
-      "walls": 0
-    },
-    {
-      "track": 16,
-      "level": 2,
-      "mirror": false,
-      "time": 30.87,
-      "offroad": 0.7024999999999999,
-      "walls": 0
-    },
-    {
-      "track": 16,
-      "level": 2,
-      "mirror": true,
       "time": 30.15,
-      "offroad": 1.96,
+      "offroad": 0.42625,
+      "walls": 0
+    },
+    {
+      "track": 14,
+      "level": 3,
+      "mirror": true,
+      "time": 28.57,
+      "offroad": 0.2725,
+      "walls": 0
+    },
+    {
+      "track": 15,
+      "level": 0,
+      "mirror": false,
+      "time": 33.75,
+      "offroad": 0,
+      "walls": 0
+    },
+    {
+      "track": 15,
+      "level": 0,
+      "mirror": true,
+      "time": 33.82,
+      "offroad": 0,
+      "walls": 0
+    },
+    {
+      "track": 15,
+      "level": 1,
+      "mirror": false,
+      "time": 31.27,
+      "offroad": 0.1625,
+      "walls": 0
+    },
+    {
+      "track": 15,
+      "level": 1,
+      "mirror": true,
+      "time": 31.43,
+      "offroad": 0.67125,
+      "walls": 0
+    },
+    {
+      "track": 15,
+      "level": 2,
+      "mirror": false,
+      "time": 28.48,
+      "offroad": 0,
+      "walls": 0
+    },
+    {
+      "track": 15,
+      "level": 2,
+      "mirror": true,
+      "time": 29.3,
+      "offroad": 0.405,
+      "walls": 0
+    },
+    {
+      "track": 15,
+      "level": 3,
+      "mirror": false,
+      "time": 28.5,
+      "offroad": 0,
+      "walls": 0
+    },
+    {
+      "track": 15,
+      "level": 3,
+      "mirror": true,
+      "time": 30.2,
+      "offroad": 0,
+      "walls": 0
+    },
+    {
+      "track": 16,
+      "level": 0,
+      "mirror": false,
+      "time": 38.73,
+      "offroad": 0.9637500000000001,
+      "walls": 0
+    },
+    {
+      "track": 16,
+      "level": 0,
+      "mirror": true,
+      "time": 35.45,
+      "offroad": 0,
+      "walls": 0
+    },
+    {
+      "track": 16,
+      "level": 1,
+      "mirror": false,
+      "time": 38.28,
+      "offroad": 1.9175,
+      "walls": 26
+    },
+    {
+      "track": 16,
+      "level": 1,
+      "mirror": true,
+      "time": 32.7,
+      "offroad": 1.1287500000000001,
+      "walls": 0
+    },
+    {
+      "track": 16,
+      "level": 2,
+      "mirror": false,
+      "time": 29.52,
+      "offroad": 0.135,
+      "walls": 0
+    },
+    {
+      "track": 16,
+      "level": 2,
+      "mirror": true,
+      "time": 29.52,
+      "offroad": 0,
       "walls": 0
     },
     {
       "track": 16,
       "level": 3,
       "mirror": false,
-      "time": 29.68,
-      "offroad": 0.805,
+      "time": 30.63,
+      "offroad": 1.315,
       "walls": 0
     },
     {
       "track": 16,
       "level": 3,
       "mirror": true,
-      "time": 30.1,
-      "offroad": 1.25,
+      "time": 29.22,
+      "offroad": 1.48625,
       "walls": 0
     },
     {
       "track": 17,
       "level": 0,
       "mirror": false,
-      "time": 34.52,
+      "time": 35.55,
       "offroad": 0,
       "walls": 0
     },
@@ -1151,7 +1151,7 @@
       "track": 17,
       "level": 0,
       "mirror": true,
-      "time": 33.95,
+      "time": 34.43,
       "offroad": 0,
       "walls": 0
     },
@@ -1159,372 +1159,180 @@
       "track": 17,
       "level": 1,
       "mirror": false,
-      "time": 32.8,
-      "offroad": 0.23875,
+      "time": 33.58,
+      "offroad": 0,
       "walls": 0
     },
     {
       "track": 17,
       "level": 1,
       "mirror": true,
-      "time": 33.57,
-      "offroad": 0.17,
+      "time": 32.55,
+      "offroad": 0.38125,
       "walls": 0
     },
     {
       "track": 17,
       "level": 2,
       "mirror": false,
+      "time": 31.05,
+      "offroad": 1.585,
+      "walls": 0
+    },
+    {
+      "track": 17,
+      "level": 2,
+      "mirror": true,
+      "time": 30.82,
+      "offroad": 1.4812500000000002,
+      "walls": 0
+    },
+    {
+      "track": 17,
+      "level": 3,
+      "mirror": false,
+      "time": 33.25,
+      "offroad": 1.40375,
+      "walls": 0
+    },
+    {
+      "track": 17,
+      "level": 3,
+      "mirror": true,
+      "time": 30.33,
+      "offroad": 0.41125,
+      "walls": 0
+    },
+    {
+      "track": 18,
+      "level": 0,
+      "mirror": false,
+      "time": 39.8,
+      "offroad": 1.065,
+      "walls": 0
+    },
+    {
+      "track": 18,
+      "level": 0,
+      "mirror": true,
+      "time": 34.6,
+      "offroad": 0.43625,
+      "walls": 0
+    },
+    {
+      "track": 18,
+      "level": 1,
+      "mirror": false,
+      "time": 31.52,
+      "offroad": 0.095,
+      "walls": 0
+    },
+    {
+      "track": 18,
+      "level": 1,
+      "mirror": true,
+      "time": 31.25,
+      "offroad": 0,
+      "walls": 0
+    },
+    {
+      "track": 18,
+      "level": 2,
+      "mirror": false,
+      "time": 31.17,
+      "offroad": 1.44625,
+      "walls": 0
+    },
+    {
+      "track": 18,
+      "level": 2,
+      "mirror": true,
+      "time": 29.57,
+      "offroad": 0.32625,
+      "walls": 0
+    },
+    {
+      "track": 18,
+      "level": 3,
+      "mirror": false,
+      "time": 28.85,
+      "offroad": 0,
+      "walls": 0
+    },
+    {
+      "track": 18,
+      "level": 3,
+      "mirror": true,
       "time": 29.47,
-      "offroad": 0.52,
-      "walls": 0
-    },
-    {
-      "track": 17,
-      "level": 2,
-      "mirror": true,
-      "time": 30.13,
-      "offroad": 0.72875,
-      "walls": 0
-    },
-    {
-      "track": 17,
-      "level": 3,
-      "mirror": false,
-      "time": 29.8,
-      "offroad": 0.1375,
-      "walls": 0
-    },
-    {
-      "track": 17,
-      "level": 3,
-      "mirror": true,
-      "time": 30.47,
-      "offroad": 0.455,
-      "walls": 0
-    },
-    {
-      "track": 18,
-      "level": 0,
-      "mirror": false,
-      "time": 34.8,
-      "offroad": 0.43875,
-      "walls": 0
-    },
-    {
-      "track": 18,
-      "level": 0,
-      "mirror": true,
-      "time": 35.4,
-      "offroad": 0,
-      "walls": 0
-    },
-    {
-      "track": 18,
-      "level": 1,
-      "mirror": false,
-      "time": 31.18,
-      "offroad": 0.4075,
-      "walls": 0
-    },
-    {
-      "track": 18,
-      "level": 1,
-      "mirror": true,
-      "time": 32.18,
-      "offroad": 0.0925,
-      "walls": 0
-    },
-    {
-      "track": 18,
-      "level": 2,
-      "mirror": false,
-      "time": 28.85,
-      "offroad": 1.86125,
-      "walls": 0
-    },
-    {
-      "track": 18,
-      "level": 2,
-      "mirror": true,
-      "time": 28.9,
-      "offroad": 0.96,
-      "walls": 0
-    },
-    {
-      "track": 18,
-      "level": 3,
-      "mirror": false,
-      "time": 28.85,
-      "offroad": 0.18875,
-      "walls": 0
-    },
-    {
-      "track": 18,
-      "level": 3,
-      "mirror": true,
-      "time": 29.15,
-      "offroad": 1.7874999999999999,
+      "offroad": 2.0875,
       "walls": 0
     },
     {
       "track": 19,
       "level": 0,
       "mirror": false,
-      "time": 37.97,
-      "offroad": 0,
+      "time": 36.57,
+      "offroad": 0.1675,
       "walls": 0
     },
     {
       "track": 19,
       "level": 0,
       "mirror": true,
-      "time": 36.67,
-      "offroad": 0.2875,
+      "time": 36.93,
+      "offroad": 0,
       "walls": 0
     },
     {
       "track": 19,
       "level": 1,
       "mirror": false,
-      "time": 35.25,
-      "offroad": 0.64625,
+      "time": 33.78,
+      "offroad": 0,
       "walls": 0
     },
     {
       "track": 19,
       "level": 1,
       "mirror": true,
-      "time": 33.43,
-      "offroad": 0,
+      "time": 36.85,
+      "offroad": 1.065,
       "walls": 0
     },
     {
       "track": 19,
       "level": 2,
       "mirror": false,
-      "time": 32.93,
-      "offroad": 0.42374999999999996,
+      "time": 33.12,
+      "offroad": 0.21625,
       "walls": 0
     },
     {
       "track": 19,
       "level": 2,
       "mirror": true,
-      "time": 32.25,
-      "offroad": 0.32375,
+      "time": 31.65,
+      "offroad": 0.0875,
       "walls": 0
     },
     {
       "track": 19,
       "level": 3,
       "mirror": false,
-      "time": 32.22,
-      "offroad": 0.905,
+      "time": 30.97,
+      "offroad": 0,
       "walls": 0
     },
     {
       "track": 19,
       "level": 3,
       "mirror": true,
-      "time": 33.17,
-      "offroad": 0.9924999999999999,
-      "walls": 0
-    },
-    {
-      "track": 20,
-      "level": 0,
-      "mirror": false,
-      "time": 38.98,
-      "offroad": 0,
-      "walls": 0
-    },
-    {
-      "track": 20,
-      "level": 0,
-      "mirror": true,
-      "time": 36.3,
-      "offroad": 0,
-      "walls": 0
-    },
-    {
-      "track": 20,
-      "level": 1,
-      "mirror": false,
       "time": 33,
-      "offroad": 0.2225,
+      "offroad": 0.9187500000000001,
       "walls": 0
     },
     {
       "track": 20,
-      "level": 1,
-      "mirror": true,
-      "time": 33.47,
-      "offroad": 0,
-      "walls": 0
-    },
-    {
-      "track": 20,
-      "level": 2,
-      "mirror": false,
-      "time": 33.5,
-      "offroad": 0.49,
-      "walls": 0
-    },
-    {
-      "track": 20,
-      "level": 2,
-      "mirror": true,
-      "time": 32.05,
-      "offroad": 1.1737499999999998,
-      "walls": 0
-    },
-    {
-      "track": 20,
-      "level": 3,
-      "mirror": false,
-      "time": 32.68,
-      "offroad": 0.41375,
-      "walls": 0
-    },
-    {
-      "track": 20,
-      "level": 3,
-      "mirror": true,
-      "time": 32.22,
-      "offroad": 0.40875,
-      "walls": 0
-    },
-    {
-      "track": 21,
-      "level": 0,
-      "mirror": false,
-      "time": 33.9,
-      "offroad": 0,
-      "walls": 0
-    },
-    {
-      "track": 21,
-      "level": 0,
-      "mirror": true,
-      "time": 34.4,
-      "offroad": 0,
-      "walls": 0
-    },
-    {
-      "track": 21,
-      "level": 1,
-      "mirror": false,
-      "time": 32.38,
-      "offroad": 0.10375,
-      "walls": 0
-    },
-    {
-      "track": 21,
-      "level": 1,
-      "mirror": true,
-      "time": 31.97,
-      "offroad": 0,
-      "walls": 0
-    },
-    {
-      "track": 21,
-      "level": 2,
-      "mirror": false,
-      "time": 28.67,
-      "offroad": 0.8525,
-      "walls": 0
-    },
-    {
-      "track": 21,
-      "level": 2,
-      "mirror": true,
-      "time": 30.57,
-      "offroad": 0.96875,
-      "walls": 0
-    },
-    {
-      "track": 21,
-      "level": 3,
-      "mirror": false,
-      "time": 30.07,
-      "offroad": 1.3025,
-      "walls": 0
-    },
-    {
-      "track": 21,
-      "level": 3,
-      "mirror": true,
-      "time": 29.13,
-      "offroad": 0,
-      "walls": 0
-    },
-    {
-      "track": 22,
-      "level": 0,
-      "mirror": false,
-      "time": 36.42,
-      "offroad": 0.22875,
-      "walls": 0
-    },
-    {
-      "track": 22,
-      "level": 0,
-      "mirror": true,
-      "time": 36.92,
-      "offroad": 0,
-      "walls": 0
-    },
-    {
-      "track": 22,
-      "level": 1,
-      "mirror": false,
-      "time": 32.83,
-      "offroad": 0.5725,
-      "walls": 0
-    },
-    {
-      "track": 22,
-      "level": 1,
-      "mirror": true,
-      "time": 33.55,
-      "offroad": 0.48125,
-      "walls": 0
-    },
-    {
-      "track": 22,
-      "level": 2,
-      "mirror": false,
-      "time": 32.05,
-      "offroad": 0.7625000000000001,
-      "walls": 0
-    },
-    {
-      "track": 22,
-      "level": 2,
-      "mirror": true,
-      "time": 31.15,
-      "offroad": 1.33375,
-      "walls": 0
-    },
-    {
-      "track": 22,
-      "level": 3,
-      "mirror": false,
-      "time": 31.08,
-      "offroad": 1.1175,
-      "walls": 0
-    },
-    {
-      "track": 22,
-      "level": 3,
-      "mirror": true,
-      "time": 30.68,
-      "offroad": 1.5125,
-      "walls": 0
-    },
-    {
-      "track": 23,
       "level": 0,
       "mirror": false,
       "time": 36.98,
@@ -1532,386 +1340,578 @@
       "walls": 0
     },
     {
-      "track": 23,
+      "track": 20,
       "level": 0,
       "mirror": true,
-      "time": 39.47,
+      "time": 37.32,
+      "offroad": 0.2525,
+      "walls": 0
+    },
+    {
+      "track": 20,
+      "level": 1,
+      "mirror": false,
+      "time": 34.07,
+      "offroad": 1.4212500000000001,
+      "walls": 0
+    },
+    {
+      "track": 20,
+      "level": 1,
+      "mirror": true,
+      "time": 39.67,
+      "offroad": 2.58625,
+      "walls": 46
+    },
+    {
+      "track": 20,
+      "level": 2,
+      "mirror": false,
+      "time": 31.85,
+      "offroad": 0.2475,
+      "walls": 0
+    },
+    {
+      "track": 20,
+      "level": 2,
+      "mirror": true,
+      "time": 32.07,
+      "offroad": 0.75125,
+      "walls": 0
+    },
+    {
+      "track": 20,
+      "level": 3,
+      "mirror": false,
+      "time": 32.07,
+      "offroad": 2.04875,
+      "walls": 0
+    },
+    {
+      "track": 20,
+      "level": 3,
+      "mirror": true,
+      "time": 33.9,
+      "offroad": 2.44875,
+      "walls": 0
+    },
+    {
+      "track": 21,
+      "level": 0,
+      "mirror": false,
+      "time": 34.2,
       "offroad": 0,
+      "walls": 0
+    },
+    {
+      "track": 21,
+      "level": 0,
+      "mirror": true,
+      "time": 34.62,
+      "offroad": 0,
+      "walls": 0
+    },
+    {
+      "track": 21,
+      "level": 1,
+      "mirror": false,
+      "time": 38.72,
+      "offroad": 3.1149999999999998,
+      "walls": 63
+    },
+    {
+      "track": 21,
+      "level": 1,
+      "mirror": true,
+      "time": 32.67,
+      "offroad": 0.4075,
+      "walls": 0
+    },
+    {
+      "track": 21,
+      "level": 2,
+      "mirror": false,
+      "time": 31.12,
+      "offroad": 1.3075,
+      "walls": 0
+    },
+    {
+      "track": 21,
+      "level": 2,
+      "mirror": true,
+      "time": 30.85,
+      "offroad": 1.1475,
+      "walls": 0
+    },
+    {
+      "track": 21,
+      "level": 3,
+      "mirror": false,
+      "time": 30.58,
+      "offroad": 1.135,
+      "walls": 0
+    },
+    {
+      "track": 21,
+      "level": 3,
+      "mirror": true,
+      "time": 29.6,
+      "offroad": 1.33375,
+      "walls": 0
+    },
+    {
+      "track": 22,
+      "level": 0,
+      "mirror": false,
+      "time": 38.58,
+      "offroad": 0.11125,
+      "walls": 0
+    },
+    {
+      "track": 22,
+      "level": 0,
+      "mirror": true,
+      "time": 35.87,
+      "offroad": 0.39375,
+      "walls": 0
+    },
+    {
+      "track": 22,
+      "level": 1,
+      "mirror": false,
+      "time": 34.18,
+      "offroad": 1.2,
+      "walls": 0
+    },
+    {
+      "track": 22,
+      "level": 1,
+      "mirror": true,
+      "time": 32.97,
+      "offroad": 1.59,
+      "walls": 0
+    },
+    {
+      "track": 22,
+      "level": 2,
+      "mirror": false,
+      "time": 31.85,
+      "offroad": 2.2,
+      "walls": 0
+    },
+    {
+      "track": 22,
+      "level": 2,
+      "mirror": true,
+      "time": 32.23,
+      "offroad": 1.015,
+      "walls": 0
+    },
+    {
+      "track": 22,
+      "level": 3,
+      "mirror": false,
+      "time": 30.15,
+      "offroad": 2.0975,
+      "walls": 0
+    },
+    {
+      "track": 22,
+      "level": 3,
+      "mirror": true,
+      "time": 30.38,
+      "offroad": 1.76125,
       "walls": 0
     },
     {
       "track": 23,
-      "level": 1,
-      "mirror": false,
-      "time": 36.43,
-      "offroad": 0,
-      "walls": 0
-    },
-    {
-      "track": 23,
-      "level": 1,
-      "mirror": true,
-      "time": 35.25,
-      "offroad": 0.7575,
-      "walls": 0
-    },
-    {
-      "track": 23,
-      "level": 2,
-      "mirror": false,
-      "time": 31.48,
-      "offroad": 0.125,
-      "walls": 0
-    },
-    {
-      "track": 23,
-      "level": 2,
-      "mirror": true,
-      "time": 32.13,
-      "offroad": 0.05,
-      "walls": 0
-    },
-    {
-      "track": 23,
-      "level": 3,
-      "mirror": false,
-      "time": 34.05,
-      "offroad": 0.09375,
-      "walls": 0
-    },
-    {
-      "track": 23,
-      "level": 3,
-      "mirror": true,
-      "time": 32.93,
-      "offroad": 0.79,
-      "walls": 0
-    },
-    {
-      "track": 24,
-      "level": 0,
-      "mirror": false,
-      "time": 36.03,
-      "offroad": 0,
-      "walls": 0
-    },
-    {
-      "track": 24,
-      "level": 0,
-      "mirror": true,
-      "time": 36.12,
-      "offroad": 0,
-      "walls": 0
-    },
-    {
-      "track": 24,
-      "level": 1,
-      "mirror": false,
-      "time": 31.2,
-      "offroad": 0,
-      "walls": 0
-    },
-    {
-      "track": 24,
-      "level": 1,
-      "mirror": true,
-      "time": 32.93,
-      "offroad": 0.26625,
-      "walls": 0
-    },
-    {
-      "track": 24,
-      "level": 2,
-      "mirror": false,
-      "time": 31.48,
-      "offroad": 0.92875,
-      "walls": 0
-    },
-    {
-      "track": 24,
-      "level": 2,
-      "mirror": true,
-      "time": 29.95,
-      "offroad": 0,
-      "walls": 0
-    },
-    {
-      "track": 24,
-      "level": 3,
-      "mirror": false,
-      "time": 30.5,
-      "offroad": 0.17875,
-      "walls": 0
-    },
-    {
-      "track": 24,
-      "level": 3,
-      "mirror": true,
-      "time": 30.78,
-      "offroad": 0.28,
-      "walls": 0
-    },
-    {
-      "track": 25,
-      "level": 0,
-      "mirror": false,
-      "time": 42.52,
-      "offroad": 0.26125,
-      "walls": 0
-    },
-    {
-      "track": 25,
-      "level": 0,
-      "mirror": true,
-      "time": 39.18,
-      "offroad": 0.095,
-      "walls": 0
-    },
-    {
-      "track": 25,
-      "level": 1,
-      "mirror": false,
-      "time": 37.75,
-      "offroad": 0.6287499999999999,
-      "walls": 0
-    },
-    {
-      "track": 25,
-      "level": 1,
-      "mirror": true,
-      "time": 39.1,
-      "offroad": 1.75125,
-      "walls": 0
-    },
-    {
-      "track": 25,
-      "level": 2,
-      "mirror": false,
-      "time": 36.17,
-      "offroad": 1.0775,
-      "walls": 0
-    },
-    {
-      "track": 25,
-      "level": 2,
-      "mirror": true,
-      "time": 37.65,
-      "offroad": 0.3125,
-      "walls": 0
-    },
-    {
-      "track": 25,
-      "level": 3,
-      "mirror": false,
-      "time": 35.68,
-      "offroad": 0.17,
-      "walls": 0
-    },
-    {
-      "track": 25,
-      "level": 3,
-      "mirror": true,
-      "time": 38.47,
-      "offroad": 0.4825,
-      "walls": 0
-    },
-    {
-      "track": 26,
-      "level": 0,
-      "mirror": false,
-      "time": 34.78,
-      "offroad": 0.16,
-      "walls": 0
-    },
-    {
-      "track": 26,
-      "level": 0,
-      "mirror": true,
-      "time": 35.22,
-      "offroad": 0,
-      "walls": 0
-    },
-    {
-      "track": 26,
-      "level": 1,
-      "mirror": false,
-      "time": 31.38,
-      "offroad": 0.09,
-      "walls": 0
-    },
-    {
-      "track": 26,
-      "level": 1,
-      "mirror": true,
-      "time": 30.93,
-      "offroad": 0,
-      "walls": 0
-    },
-    {
-      "track": 26,
-      "level": 2,
-      "mirror": false,
-      "time": 30.65,
-      "offroad": 0.16,
-      "walls": 0
-    },
-    {
-      "track": 26,
-      "level": 2,
-      "mirror": true,
-      "time": 29.38,
-      "offroad": 1.145,
-      "walls": 0
-    },
-    {
-      "track": 26,
-      "level": 3,
-      "mirror": false,
-      "time": 29.43,
-      "offroad": 0.99875,
-      "walls": 0
-    },
-    {
-      "track": 26,
-      "level": 3,
-      "mirror": true,
-      "time": 29,
-      "offroad": 0.32375,
-      "walls": 0
-    },
-    {
-      "track": 27,
       "level": 0,
       "mirror": false,
       "time": 37.23,
+      "offroad": 0.4125,
+      "walls": 0
+    },
+    {
+      "track": 23,
+      "level": 0,
+      "mirror": true,
+      "time": 37.8,
+      "offroad": 0.295,
+      "walls": 0
+    },
+    {
+      "track": 23,
+      "level": 1,
+      "mirror": false,
+      "time": 34.65,
       "offroad": 0,
       "walls": 0
     },
     {
-      "track": 27,
-      "level": 0,
-      "mirror": true,
-      "time": 38.45,
-      "offroad": 0.5225,
-      "walls": 0
-    },
-    {
-      "track": 27,
-      "level": 1,
-      "mirror": false,
-      "time": 33.45,
-      "offroad": 0.5575,
-      "walls": 0
-    },
-    {
-      "track": 27,
+      "track": 23,
       "level": 1,
       "mirror": true,
-      "time": 34.02,
-      "offroad": 0.99,
+      "time": 35.02,
+      "offroad": 0,
       "walls": 0
     },
     {
-      "track": 27,
+      "track": 23,
       "level": 2,
       "mirror": false,
-      "time": 31.9,
-      "offroad": 1.3275,
+      "time": 33.58,
+      "offroad": 1.17875,
       "walls": 0
     },
     {
-      "track": 27,
+      "track": 23,
       "level": 2,
       "mirror": true,
-      "time": 31.87,
-      "offroad": 0.3525,
+      "time": 32.63,
+      "offroad": 0,
       "walls": 0
     },
     {
-      "track": 27,
+      "track": 23,
       "level": 3,
       "mirror": false,
-      "time": 31.67,
+      "time": 32.15,
+      "offroad": 0,
+      "walls": 0
+    },
+    {
+      "track": 23,
+      "level": 3,
+      "mirror": true,
+      "time": 33.35,
+      "offroad": 0.44,
+      "walls": 0
+    },
+    {
+      "track": 24,
+      "level": 0,
+      "mirror": false,
+      "time": 40.33,
+      "offroad": 1.7975,
+      "walls": 23
+    },
+    {
+      "track": 24,
+      "level": 0,
+      "mirror": true,
+      "time": 38.17,
+      "offroad": 0.61,
+      "walls": 0
+    },
+    {
+      "track": 24,
+      "level": 1,
+      "mirror": false,
+      "time": 31.93,
+      "offroad": 0.2025,
+      "walls": 0
+    },
+    {
+      "track": 24,
+      "level": 1,
+      "mirror": true,
+      "time": 32.73,
+      "offroad": 0.1925,
+      "walls": 0
+    },
+    {
+      "track": 24,
+      "level": 2,
+      "mirror": false,
+      "time": 30.65,
       "offroad": 0.4225,
       "walls": 0
     },
     {
+      "track": 24,
+      "level": 2,
+      "mirror": true,
+      "time": 30.95,
+      "offroad": 1.1275,
+      "walls": 0
+    },
+    {
+      "track": 24,
+      "level": 3,
+      "mirror": false,
+      "time": 30.23,
+      "offroad": 0,
+      "walls": 0
+    },
+    {
+      "track": 24,
+      "level": 3,
+      "mirror": true,
+      "time": 31.15,
+      "offroad": 1.16125,
+      "walls": 0
+    },
+    {
+      "track": 25,
+      "level": 0,
+      "mirror": false,
+      "time": 39.35,
+      "offroad": 0.4,
+      "walls": 0
+    },
+    {
+      "track": 25,
+      "level": 0,
+      "mirror": true,
+      "time": 44.73,
+      "offroad": 0,
+      "walls": 0
+    },
+    {
+      "track": 25,
+      "level": 1,
+      "mirror": false,
+      "time": 36.65,
+      "offroad": 2.17125,
+      "walls": 0
+    },
+    {
+      "track": 25,
+      "level": 1,
+      "mirror": true,
+      "time": 39.02,
+      "offroad": 0.06375,
+      "walls": 0
+    },
+    {
+      "track": 25,
+      "level": 2,
+      "mirror": false,
+      "time": 34,
+      "offroad": 1.6949999999999998,
+      "walls": 0
+    },
+    {
+      "track": 25,
+      "level": 2,
+      "mirror": true,
+      "time": 34.73,
+      "offroad": 0,
+      "walls": 0
+    },
+    {
+      "track": 25,
+      "level": 3,
+      "mirror": false,
+      "time": 36.22,
+      "offroad": 2.8725,
+      "walls": 0
+    },
+    {
+      "track": 25,
+      "level": 3,
+      "mirror": true,
+      "time": 35.53,
+      "offroad": 1.56125,
+      "walls": 0
+    },
+    {
+      "track": 26,
+      "level": 0,
+      "mirror": false,
+      "time": 34.85,
+      "offroad": 0,
+      "walls": 0
+    },
+    {
+      "track": 26,
+      "level": 0,
+      "mirror": true,
+      "time": 37.72,
+      "offroad": 1.20125,
+      "walls": 6
+    },
+    {
+      "track": 26,
+      "level": 1,
+      "mirror": false,
+      "time": 35.87,
+      "offroad": 1.3,
+      "walls": 6
+    },
+    {
+      "track": 26,
+      "level": 1,
+      "mirror": true,
+      "time": 31.03,
+      "offroad": 0.61,
+      "walls": 0
+    },
+    {
+      "track": 26,
+      "level": 2,
+      "mirror": false,
+      "time": 30.03,
+      "offroad": 1.3425,
+      "walls": 0
+    },
+    {
+      "track": 26,
+      "level": 2,
+      "mirror": true,
+      "time": 29.63,
+      "offroad": 0.36,
+      "walls": 0
+    },
+    {
+      "track": 26,
+      "level": 3,
+      "mirror": false,
+      "time": 30.55,
+      "offroad": 0.84125,
+      "walls": 0
+    },
+    {
+      "track": 26,
+      "level": 3,
+      "mirror": true,
+      "time": 28.77,
+      "offroad": 0.20125,
+      "walls": 0
+    },
+    {
+      "track": 27,
+      "level": 0,
+      "mirror": false,
+      "time": 37.05,
+      "offroad": 0,
+      "walls": 0
+    },
+    {
+      "track": 27,
+      "level": 0,
+      "mirror": true,
+      "time": 36.45,
+      "offroad": 0,
+      "walls": 0
+    },
+    {
+      "track": 27,
+      "level": 1,
+      "mirror": false,
+      "time": 32.43,
+      "offroad": 0,
+      "walls": 0
+    },
+    {
+      "track": 27,
+      "level": 1,
+      "mirror": true,
+      "time": 34.55,
+      "offroad": 0.4825,
+      "walls": 0
+    },
+    {
+      "track": 27,
+      "level": 2,
+      "mirror": false,
+      "time": 33,
+      "offroad": 2.12,
+      "walls": 0
+    },
+    {
+      "track": 27,
+      "level": 2,
+      "mirror": true,
+      "time": 32.62,
+      "offroad": 0.63,
+      "walls": 0
+    },
+    {
+      "track": 27,
+      "level": 3,
+      "mirror": false,
+      "time": 31.57,
+      "offroad": 0.03,
+      "walls": 0
+    },
+    {
       "track": 27,
       "level": 3,
       "mirror": true,
-      "time": 32.28,
-      "offroad": 1.025,
+      "time": 31.72,
+      "offroad": 0.6075,
       "walls": 0
     },
     {
       "track": 28,
       "level": 0,
       "mirror": false,
-      "time": 38.42,
-      "offroad": 0.3,
+      "time": 39.07,
+      "offroad": 0.14875,
       "walls": 0
     },
     {
       "track": 28,
       "level": 0,
       "mirror": true,
-      "time": 37.65,
+      "time": 38.12,
+      "offroad": 0.1775,
+      "walls": 0
+    },
+    {
+      "track": 28,
+      "level": 1,
+      "mirror": false,
+      "time": 35.23,
+      "offroad": 0.16875,
+      "walls": 0
+    },
+    {
+      "track": 28,
+      "level": 1,
+      "mirror": true,
+      "time": 43.33,
+      "offroad": 2.77,
+      "walls": 72
+    },
+    {
+      "track": 28,
+      "level": 2,
+      "mirror": false,
+      "time": 34.05,
       "offroad": 0,
       "walls": 0
     },
     {
       "track": 28,
-      "level": 1,
-      "mirror": false,
-      "time": 36.92,
-      "offroad": 0.21625,
-      "walls": 0
-    },
-    {
-      "track": 28,
-      "level": 1,
-      "mirror": true,
-      "time": 35.6,
-      "offroad": 0.1375,
-      "walls": 0
-    },
-    {
-      "track": 28,
-      "level": 2,
-      "mirror": false,
-      "time": 34.43,
-      "offroad": 0.35,
-      "walls": 0
-    },
-    {
-      "track": 28,
       "level": 2,
       "mirror": true,
-      "time": 37.52,
-      "offroad": 0.79875,
+      "time": 33.12,
+      "offroad": 0.27625,
       "walls": 0
     },
     {
       "track": 28,
       "level": 3,
       "mirror": false,
-      "time": 33.48,
-      "offroad": 0.39875,
+      "time": 33.22,
+      "offroad": 0.52625,
       "walls": 0
     },
     {
       "track": 28,
       "level": 3,
       "mirror": true,
-      "time": 34.77,
-      "offroad": 1.03625,
+      "time": 35.22,
+      "offroad": 2.0237499999999997,
       "walls": 0
     },
     {
       "track": 29,
       "level": 0,
       "mirror": false,
-      "time": 39.63,
+      "time": 38.55,
       "offroad": 0,
       "walls": 0
     },
@@ -1919,23 +1919,23 @@
       "track": 29,
       "level": 0,
       "mirror": true,
-      "time": 38.25,
-      "offroad": 0.5325,
+      "time": 39.98,
+      "offroad": 0,
       "walls": 0
     },
     {
       "track": 29,
       "level": 1,
       "mirror": false,
-      "time": 38.27,
-      "offroad": 0.45875,
+      "time": 35.03,
+      "offroad": 0,
       "walls": 0
     },
     {
       "track": 29,
       "level": 1,
       "mirror": true,
-      "time": 35.2,
+      "time": 35.72,
       "offroad": 0,
       "walls": 0
     },
@@ -1943,16 +1943,16 @@
       "track": 29,
       "level": 2,
       "mirror": false,
-      "time": 32.7,
-      "offroad": 0.56,
+      "time": 33.58,
+      "offroad": 1.37375,
       "walls": 0
     },
     {
       "track": 29,
       "level": 2,
       "mirror": true,
-      "time": 33.65,
-      "offroad": 0.635,
+      "time": 34.27,
+      "offroad": 0.37375,
       "walls": 0
     },
     {
@@ -1960,15 +1960,15 @@
       "level": 3,
       "mirror": false,
       "time": 32.77,
-      "offroad": 0.16125,
+      "offroad": 0,
       "walls": 0
     },
     {
       "track": 29,
       "level": 3,
       "mirror": true,
-      "time": 33,
-      "offroad": 0.04875,
+      "time": 33.25,
+      "offroad": 0.27125,
       "walls": 0
     }
   ]

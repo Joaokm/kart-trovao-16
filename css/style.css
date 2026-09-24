@@ -112,7 +112,10 @@ body{width:100%;padding:12px;background:#090f18;}
 #race-menu .driver-button small{font-size:8px;}
 #race-menu .driver-button[aria-pressed=true]{background:#3c3729;border-color:var(--yellow);color:var(--yellow);}
 .driver-button:disabled canvas{filter:grayscale(1);opacity:.4;}
-.driver-stats{display:flex;gap:12px;margin:13px 0 20px;}
+.driver-stats{display:flex;flex-wrap:wrap;gap:10px 12px;margin:13px 0 20px;}
+.driver-stats span{min-width:80px;}
+.driver-passive{flex-basis:100%;margin:2px 0 0;font-size:11px;line-height:1.4;color:var(--muted);}
+.driver-passive strong{color:var(--yellow);margin-right:4px;}
 .driver-stats span{flex:1;font-size:10px;color:var(--muted);}
 .driver-stats meter{display:block;width:100%;height:10px;margin-top:4px;accent-color:#8ce1dc;}
 .setup-fields{display:grid;grid-template-columns:1fr 1fr;gap:10px 12px;}
