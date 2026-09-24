@@ -20,9 +20,9 @@ KT.DRIVERS = [
 
 KT.Kart = (function () {
 
-  var TOP = 305;          /* velocidade base no asfalto (unidades/s) */
-  var ACCEL = 185;
-  var BRAKE = 300;
+  var TOP = 250;          /* velocidade base no asfalto (unidades/s); era 305, mais lento para dar controle */
+  var ACCEL = 150;
+  var BRAKE = 260;
   var REVERSE = 105;
   var RADIUS = 13;        /* raio de colisao */
 
@@ -168,7 +168,7 @@ KT.Kart = (function () {
         this.sp -= BRAKE * c.brake * dt;
         if (this.sp < -REVERSE) this.sp = -REVERSE;
       } else {
-        this.sp = KT.approach(this.sp, 0, 95 * dt);
+        this.sp = KT.approach(this.sp, 0, 80 * dt);
       }
       /* excesso de velocidade fora do asfalto cai rapido */
       if (this.sp > top) this.sp = KT.approach(this.sp, top, 260 * dt);

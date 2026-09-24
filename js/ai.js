@@ -3,7 +3,7 @@
   "use strict";
   KT.Kart.prototype.aiControls=function(dt,race){
     var Tk=KT.Track,N=Tk.N,pts=Tk.pts,L=KT.LEVELS[race.level==null?1:race.level];
-    var top=305*this.driver.vel*this.aiSkill,sp=Math.max(0,this.sp),ahead=Math.round(12+sp*.075);
+    var top=KT.Kart.TOP*this.driver.vel*this.aiSkill,sp=Math.max(0,this.sp),ahead=Math.round(12+sp*.075);
     var ti=(this.idx+ahead)%N;
     var turn=KT.angDiff(pts[(ti+12)%N].ang,pts[(ti+N-12)%N].ang);
     this.aiLineTimer-=dt;
@@ -38,10 +38,10 @@
       var ix=(this.idx+q)%N,p=pts[ix],curvature=p.curv/Math.max(8,14*p.len);
       curv=Math.max(curv,p.curv);
       var safe=Math.min(top,(1.05+.25*L.skill)*this.driver.grip/Math.max(.001,curvature));
-      desired=Math.min(desired,Math.sqrt(safe*safe+2*230*Math.max(0,(q-8)*p.len)));
+      desired=Math.min(desired,Math.sqrt(safe*safe+2*200*Math.max(0,(q-8)*p.len)));
     }
     if(Math.abs(diff)>1)desired=Math.min(desired,110);
-    var ratio=KT.clamp(sp/(305*this.driver.vel),0,1),rate=2.35*(.42+.58*(1-ratio*.75))*this.driver.grip*Tk.PROPS[this.terrain].grip;
+    var ratio=KT.clamp(sp/(KT.Kart.TOP*this.driver.vel),0,1),rate=2.35*(.42+.58*(1-ratio*.75))*this.driver.grip*Tk.PROPS[this.terrain].grip;
     var angError=KT.angDiff(this.moveAng,this.ang);
     var steer=KT.clamp((2*sp*Math.sin(diff)/dist+angError*1.2)/Math.max(.4,rate),-1,1);
     /* Histerese: sustenta o drift numa curva e libera ao endireitar. */
