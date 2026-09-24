@@ -72,6 +72,10 @@ Equilíbrio medido com cada piloto sozinho, IA no volante, nível ÁS, 3 voltas 
 
 O desenho não usa sorteio: o hash de determinismo do QA é o mesmo da fase 3 (`a1101d80`).
 
+## Fase 5: caixas e poderes (24/09/2026)
+
+Muda só a aparência e o som, sem mexer em raio, tempo nem sorteio. `js/itens-arte.js` desenha a caixa como um cubo girando em 8 quadros e 4 tons, com halo pulsante. A caixa reaparece crescendo no último meio segundo e estoura em confete colorido. A Esfera de Plasma ganhou brilho girando e rastro, e o piche ganhou bolhas. Os seis poderes têm ícones novos, e a roleta do HUD mostra os seis passando e freando até o sorteado dar um salto. Mola e Ímã ganharam som próprio e só tocam para o jogador. O hash de determinismo continua `a1101d80`.
+
 ## Limites conhecidos
 
 - Online depende de PeerServer Cloud e da viabilidade da conexão WebRTC. Entre redes diferentes, quando a ligação direta falha, é preciso preencher `iceUrl` em `js/online-config.js` com um TURN (Metered ou Cloudflare, passo a passo no PUBLICAR.md). Sem isso, a reserva é o TURN público do PeerJS, que costuma estar fora do ar.

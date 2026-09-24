@@ -86,13 +86,21 @@ KT.HUD = (function () {
     var bx = W / 2 - 15;
     panel(ctx, bx, 4, 30, 30, p.item ? "#ffd24a" : "#5a5a8c");
     if (p.itemRoll > 0) {
-      var keys = ["turbo", "orb", "goo", "shield"];
-      var k = keys[Math.floor(race.time * 22) % 4];
-      ctx.globalAlpha = 0.85;
-      ctx.drawImage(icons[k], bx + 5, 9);
-      ctx.globalAlpha = 1;
+      /* roleta: os seis ícones passam de baixo para cima e vão freando */
+      var keys = ["turbo", "orb", "goo", "shield", "spring", "magnet"];
+      var t = 0.85 - p.itemRoll, pos = 30 * t - 15 * t * t, frac = pos - Math.floor(pos);
+      var k = keys[Math.floor(pos) % keys.length], k2 = keys[(Math.floor(pos) + 1) % keys.length];
+      ctx.save();
+      ctx.beginPath(); ctx.rect(bx + 2, 7, 26, 24); ctx.clip();
+      ctx.drawImage(icons[k], bx + 5, Math.round(9 - frac * 22));
+      ctx.drawImage(icons[k2], bx + 5, Math.round(31 - frac * 22));
+      ctx.restore();
+      p.hudItem = null;
     } else if (p.item) {
-      ctx.drawImage(icons[p.item], bx + 5, 9);
+      /* o item "salta" ao ser sorteado */
+      if (p.hudItem !== p.item) { p.hudItem = p.item; p.hudPop = race.time; }
+      var pop = 1 + 0.45 * Math.max(0, 1 - (race.time - p.hudPop) / 0.25), sz = Math.round(20 * pop);
+      ctx.drawImage(icons[p.item], Math.round(bx + 15 - sz / 2), Math.round(19 - sz / 2), sz, sz);
     }
 
     /* nome do item */

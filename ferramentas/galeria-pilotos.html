@@ -19,6 +19,7 @@
 <script src="../js/content.js"></script>
 <script src="../js/sprites.js"></script>
 <script src="../js/animais.js"></script>
+<script src="../js/itens-arte.js"></script>
 <script src="../js/kart.js"></script>
 <script>
   var raiz = document.getElementById("galeria"), Z = 2;
@@ -38,6 +39,22 @@
     linha.appendChild(c);
     raiz.appendChild(linha);
   });
+  /* itens: caixa (8 quadros de um tom), esfera, piche e ícones do HUD */
+  function mostrar(rotulo, lista) {
+    var linha = document.createElement("div"); linha.className = "linha";
+    var nome = document.createElement("div"); nome.className = "nome"; nome.textContent = rotulo; linha.appendChild(nome);
+    lista.forEach(function (f) {
+      var c = document.createElement("canvas"); c.width = f.width * Z; c.height = f.height * Z; c.className = "rosto";
+      var x = c.getContext("2d"); x.imageSmoothingEnabled = false; x.drawImage(f, 0, 0, c.width, c.height);
+      linha.appendChild(c);
+    });
+    raiz.appendChild(linha);
+  }
+  var caixas = KT.Sprites.buildItemBox();
+  mostrar("caixa", caixas[0]);
+  mostrar("tons", caixas.map(function (t) { return t[0]; }).concat(KT.Sprites.buildOrb(), KT.Sprites.buildGoo()));
+  var ic = KT.Sprites.buildIcons();
+  mostrar("ícones", Object.keys(ic).map(function (k) { return ic[k]; }));
 </script>
 </body>
 </html>

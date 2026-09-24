@@ -174,8 +174,8 @@
     k.metr.itens[it] = (k.metr.itens[it] || 0) + 1;
     if (it === "shield" && !orbeAmeacando(k)) k.metr.escudoOcioso++;
     if (it === "orb") race.metr.orbes.disparadas++;
-    if(it==="spring"){k.air=1.5;k.hop=1;k.boost=Math.max(k.boost,.35);KT.Audio.play("boost");}
-    if(it==="magnet"){k.magnet=4;KT.Audio.play("shield");}
+    if(it==="spring"){k.air=1.5;k.hop=1;k.boost=Math.max(k.boost,.35);if(k.isPlayer)KT.Audio.play("spring");}
+    if(it==="magnet"){k.magnet=4;if(k.isPlayer)KT.Audio.play("magnet");}
     if (it === "turbo") { k.boost = Math.max(k.boost, 1.5); if (k.isPlayer) KT.Audio.play("boost"); }
     else if (it === "orb") { race.orbs.push(new KT.Items.Orb(k)); if (k.isPlayer) KT.Audio.play("fire"); }
     else if (it === "goo") { race.hazards.push(new KT.Items.Goo(k)); if (k.isPlayer) KT.Audio.play("drop"); }
@@ -260,11 +260,12 @@
           b.active = false; b.timer = 5;
           kk.itemRoll = 0.85;
           if (kk.isPlayer) KT.Audio.play("itemGet");
-          for (var q = 0; q < 10; q++) {
+          /* confete colorido ao estourar a caixa */
+          for (var q = 0; q < 16; q++) {
             race.particles.push({
               x: b.x, y: b.y, z: 8 + KT.rngVis() * 12,
-              vx: KT.randV(-60, 60), vy: KT.randV(-60, 60), vz: KT.randV(20, 70),
-              life: 0.5, max: 0.5, size: 2, col: "#7de0ff"
+              vx: KT.randV(-80, 80), vy: KT.randV(-80, 80), vz: KT.randV(30, 90),
+              life: 0.6, max: 0.6, size: q % 3 ? 2 : 3, col: ["#ffd23f", "#ff5fb0", "#6fe8ff", "#a9f093"][q % 4]
             });
           }
           break;
@@ -483,7 +484,8 @@
     /* caixas de item */
     var boxes = KT.Track.itemBoxes;
     for (i = 0; i < boxes.length; i++) {
-      if (!boxes[i].active || race.mode==="tt") continue;
+      /* caixa recolhida reaparece crescendo no último meio segundo */
+      if (race.mode==="tt" || (!boxes[i].active && !(boxes[i].timer > 0 && boxes[i].timer < 0.5))) continue;
       pr = KT.Mode7.project(cam, boxes[i].x, boxes[i].y, W);
       if (!pr || pr.fwd > 700 || pr.fwd<45) continue;
       list.push({ f: pr.fwd, kind: "box", o: boxes[i], p: pr });
@@ -594,16 +596,39 @@
 
   function drawBox(b, pr) {
     var s = Math.min(pr.scale,2.7);
-    var d = Math.max(4, Math.round(20 * s));
+    var grow = b.active ? 1 : KT.clamp(1 - b.timer / 0.5, 0, 1);
+    var d = Math.max(3, Math.round(24 * s * grow));
     var bob = Math.sin(race.time * 3 + b.x * 0.05) * 3 * s;
-    var f = boxSprites[Math.floor(race.time * 8) % boxSprites.length];
+    var set = boxSprites[Math.floor(race.time * 1.5 + b.i * 0.01) % boxSprites.length];
+    var f = set[Math.floor(race.time * 10) % set.length];
+    var cy = pr.y - d * 0.55 - 4 * s + bob;
+    /* halo pulsando */
+    ctx.save();
+    ctx.globalAlpha *= 0.22 + 0.12 * Math.sin(race.time * 6 + b.x * 0.1);
+    ctx.fillStyle = "#fff3b0";
+    ctx.beginPath(); ctx.ellipse(pr.x, cy, d * 0.7, d * 0.7, 0, 0, KT.TAU); ctx.fill();
+    ctx.restore();
     shadow(pr.x, pr.y - 1, d * 0.35, Math.max(1, d * 0.12));
     ctx.drawImage(f, Math.round(pr.x - d / 2), Math.round(pr.y - d - 4 * s + bob), d, d);
   }
 
   function drawOrb(o, pr) {
     var s = pr.scale;
-    var d = Math.max(3, Math.round(15 * s));
+    var d = Math.max(3, Math.round(16 * s));
+    /* rastro: posições dos últimos quadros desenhados (só visual) */
+    o.rastro = o.rastro || [];
+    o.rastro.unshift([o.x, o.y]);
+    if (o.rastro.length > 7) o.rastro.length = 7;
+    ctx.save();
+    for (var t = o.rastro.length - 1; t > 0; t--) {
+      var q = KT.Mode7.project(cam, o.rastro[t][0], o.rastro[t][1], W);
+      if (!q) continue;
+      var r = Math.max(1, Math.round(d * 0.45 * (1 - t / 7)));
+      ctx.globalAlpha = 0.6 * (1 - t / 7);
+      ctx.fillStyle = t % 2 ? "#5ce1ff" : "#e8fcff";
+      ctx.fillRect(Math.round(q.x - r / 2), Math.round(q.y - d * 0.55 - 2 * s - r / 2), r, r);
+    }
+    ctx.restore();
     var f = orbSprites[Math.floor(o.anim * 14) % orbSprites.length];
     ctx.drawImage(f, Math.round(pr.x - d / 2), Math.round(pr.y - d - 2 * s), d, d);
   }
@@ -611,7 +636,7 @@
   function drawGoo(g, pr) {
     var s = pr.scale;
     var dw = Math.max(4, Math.round(28 * s)), dh = Math.max(2, Math.round(11 * s));
-    ctx.drawImage(gooSprite, Math.round(pr.x - dw / 2), Math.round(pr.y - dh * 0.7), dw, dh);
+    ctx.drawImage(gooSprite[Math.floor(race.time * 3) % gooSprite.length], Math.round(pr.x - dw / 2), Math.round(pr.y - dh * 0.7), dw, dh);
   }
 
   function drawDanger(h,p){

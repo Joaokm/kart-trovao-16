@@ -116,6 +116,8 @@ KT.Audio = (function () {
     bump: function () { noiseBurst(0.12, 0.3, 260, 1.5); },
     fire: function () { blip(1200, 0.22, "sawtooth", 0.25, 350); },
     drop: function () { blip(240, 0.18, "triangle", 0.25, 120); },
+    spring: function () { blip(220, 0.12, "square", 0.24, 660); setTimeout(function () { blip(440, 0.18, "triangle", 0.2, 990); }, 110); },
+    magnet: function () { blip(180, 0.5, "sawtooth", 0.14, 520); blip(360, 0.5, "sine", 0.12, 1040); },
     slip: function () { blip(500, 0.3, "sine", 0.22, 160); },
     lap: function () { blip(880, 0.08, "square", 0.28); setTimeout(function () { blip(1320, 0.14, "square", 0.28); }, 90); },
     shield: function () { blip(500, 0.1, "sine", 0.2, 1200); setTimeout(function () { blip(900, 0.2, "sine", 0.16, 1500); }, 90); },
