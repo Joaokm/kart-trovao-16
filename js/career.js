@@ -84,7 +84,7 @@
     price:function(i){return [120,180,260][data.parts[i]]||0;},
     buy:function(i){if(!Number.isInteger(i)||i<0||i>2)return false;var price=this.price(i);if(!price||data.bolts<price)return false;data.bolts-=price;data.parts[i]++;save();return true;},
     paint:function(i){if(!Number.isInteger(i)||i<0||i>=paints.length)return false;data.paint=i;save();return true;},paints:paints,
-    tune:function(k,stock){if(stock)return;k.driver=Object.assign({},k.driver);var p=data.parts;k.driver.vel*=1+p[0]*.018-p[2]*.007;k.driver.acel*=1+p[2]*.035-p[0]*.009;k.driver.grip*=1+p[1]*.035;k.mass*=1+p[0]*.035-p[2]*.06;if(paints[data.paint])k.driver.cor=paints[data.paint];k.sprites=KT.Sprites.buildKart(k.driver.cor,k.driver.capacete,k.driver.pele);},
+    tune:function(k,stock){if(stock)return;k.driver=Object.assign({},k.driver);var p=data.parts;k.driver.vel*=1+p[0]*.018-p[2]*.007;k.driver.acel*=1+p[2]*.035-p[0]*.009;k.driver.grip*=1+p[1]*.035;k.mass*=1+p[0]*.035-p[2]*.06;if(paints[data.paint])k.driver.cor=paints[data.paint];k.sprites=KT.Sprites.buildKart(k.driver,k.driver.cor);},
     exportSave:function(){return JSON.stringify(data,null,2);},
     importSave:function(raw){var value=JSON.parse(raw);if(!value||(value.version!==2&&value.version!==3))throw Error("Arquivo de save incompatível.");data=clean(value);return save();}
   };

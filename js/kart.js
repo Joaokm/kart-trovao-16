@@ -6,18 +6,18 @@
    massa entra nas colisões; carga multiplica a velocidade de encher a Carga Trovão.
    passiva: efeito leve (até 30% numa situação específica), igual para humano e IA. */
 KT.DRIVERS = [
-  { nome: "ZECA TURBO",  animal: "LEÃO",              veiculo: "Muscle car Juba",         cor: "#e0492a", capacete: "#ffd24a", pele: "#c98b60", vel: 1.06, acel: 0.93, grip: 0.96, massa: 1.25, carga: 1.00, perfil: "VELOCISTA",     passiva: "juba" },
-  { nome: "LUNA VOLT",   animal: "RAPOSA",            veiculo: "Esportivo Cauda de Fogo", cor: "#2ad0e0", capacete: "#f2f4ff", pele: "#e0b08a", vel: 1.00, acel: 1.00, grip: 1.00, massa: 1.00, carga: 1.00, perfil: "EQUILIBRADA",   passiva: "faro" },
-  { nome: "KIKA NEON",   animal: "COELHA",            veiculo: "Buggy Cenoura",           cor: "#ee5aa8", capacete: "#3a2a55", pele: "#8a5a3c", vel: 0.97, acel: 1.12, grip: 1.03, massa: 0.80, carga: 1.05, perfil: "ARRANCADA",     passiva: "salto" },
-  { nome: "BRUTO FERRO", animal: "RINOCERONTE",       veiculo: "Trator Blindado",         cor: "#c07a2a", capacete: "#5a4a3a", pele: "#a8724a", vel: 1.065, acel: 0.86, grip: 0.92, massa: 1.55, carga: 0.90, perfil: "PESO PESADO",   passiva: "casco" },
-  { nome: "DR. PARAFUSO",animal: "CASTOR",            veiculo: "Engenhoca de Madeira",    cor: "#8a5ad0", capacete: "#c9d0ff", pele: "#d8a882", vel: 0.99, acel: 1.00, grip: 1.10, massa: 1.15, carga: 1.00, perfil: "ADERÊNCIA",     passiva: "mecanico" },
-  { nome: "TAINÁ VENTO", animal: "ARARA",             veiculo: "Planador de Folhas",      cor: "#4ac06a", capacete: "#ffe0a8", pele: "#7a4c30", vel: 0.985, acel: 1.08, grip: 1.04, massa: 0.75, carga: 1.05, perfil: "LEVE",          passiva: "asas" },
-  { nome: "BENTO MARÉ",  animal: "TARTARUGA-MARINHA", veiculo: "Hidroplano Casco",        cor: "#277ac0", capacete: "#ffd78a", pele: "#ab704b", vel: 1.02, acel: 0.98, grip: 0.99, massa: 1.20, carga: 1.00, perfil: "NAVEGADOR",     passiva: "nadador" },
-  { nome: "NARA POLAR",  animal: "PINGUIM",           veiculo: "Trenó Polar",             cor: "#a6dce8", capacete: "#3d5d92", pele: "#e6ba99", vel: 0.98, acel: 1.05, grip: 1.08, massa: 0.95, carga: 1.10, perfil: "PRECISÃO",      passiva: "treno" },
-  { nome: "IARA FLUXO",  animal: "BOTO-COR-DE-ROSA",  veiculo: "Jet-ski Anfíbio",         cor: "#8fe0b3", capacete: "#e2ff93", pele: "#895c48", vel: 1.03, acel: 1.03, grip: 1.03, massa: 0.90, carga: 1.05, perfil: "5 VITÓRIAS",    passiva: "anfibio" },
-  { nome: "DONA BRASA",  animal: "DRAGÃO-DE-KOMODO",  veiculo: "Kart Fornalha",           cor: "#e67e43", capacete: "#ffe3a6", pele: "#946242", vel: 1.06, acel: 0.94, grip: 1.02, massa: 1.30, carga: 1.00, perfil: "RIVAL FAÍSCA",  passiva: "brasa" },
-  { nome: "CAIO CICLONE",animal: "FALCÃO",            veiculo: "Aerokart de Asas",        cor: "#56c4c9", capacete: "#e5e7f9", pele: "#c08d65", vel: 1.03, acel: 1.02, grip: 1.06, massa: 1.05, carga: 1.08, perfil: "RIVAL CICLONE", passiva: "mergulho" },
-  { nome: "MAESTRA RAIO",animal: "ONÇA-PINTADA",      veiculo: "Kart Relâmpago",          cor: "#ac83e7", capacete: "#fff099", pele: "#815840", vel: 1.05, acel: 1.00, grip: 1.05, massa: 1.20, carga: 1.12, perfil: "RIVAL TROVÃO",  passiva: "bote" }
+  { nome: "ZECA TURBO",  animal: "LEÃO",              veiculo: "Muscle car Juba",         cor: "#e0492a", capacete: "#ffd24a", pele: "#c98b60", vel: 1.06, acel: 0.93, grip: 0.96, massa: 1.25, carga: 1.00, perfil: "VELOCISTA",     passiva: "juba", especie: "leao", veiculoArte: "muscle" },
+  { nome: "LUNA VOLT",   animal: "RAPOSA",            veiculo: "Esportivo Cauda de Fogo", cor: "#2ad0e0", capacete: "#f2f4ff", pele: "#e0b08a", vel: 1.00, acel: 1.00, grip: 1.00, massa: 1.00, carga: 1.00, perfil: "EQUILIBRADA",   passiva: "faro", especie: "raposa", veiculoArte: "esportivo" },
+  { nome: "KIKA NEON",   animal: "COELHA",            veiculo: "Buggy Cenoura",           cor: "#ee5aa8", capacete: "#3a2a55", pele: "#8a5a3c", vel: 0.97, acel: 1.12, grip: 1.03, massa: 0.80, carga: 1.05, perfil: "ARRANCADA",     passiva: "salto", especie: "coelha", veiculoArte: "buggy" },
+  { nome: "BRUTO FERRO", animal: "RINOCERONTE",       veiculo: "Trator Blindado",         cor: "#c07a2a", capacete: "#5a4a3a", pele: "#a8724a", vel: 1.065, acel: 0.86, grip: 0.92, massa: 1.55, carga: 0.90, perfil: "PESO PESADO",   passiva: "casco", especie: "rinoceronte", veiculoArte: "trator" },
+  { nome: "DR. PARAFUSO",animal: "CASTOR",            veiculo: "Engenhoca de Madeira",    cor: "#8a5ad0", capacete: "#c9d0ff", pele: "#d8a882", vel: 0.99, acel: 1.00, grip: 1.10, massa: 1.15, carga: 1.00, perfil: "ADERÊNCIA",     passiva: "mecanico", especie: "castor", veiculoArte: "engenhoca" },
+  { nome: "TAINÁ VENTO", animal: "ARARA",             veiculo: "Planador de Folhas",      cor: "#4ac06a", capacete: "#ffe0a8", pele: "#7a4c30", vel: 0.985, acel: 1.08, grip: 1.04, massa: 0.75, carga: 1.05, perfil: "LEVE",          passiva: "asas", especie: "arara", veiculoArte: "planador" },
+  { nome: "BENTO MARÉ",  animal: "TARTARUGA-MARINHA", veiculo: "Hidroplano Casco",        cor: "#277ac0", capacete: "#ffd78a", pele: "#ab704b", vel: 1.02, acel: 0.98, grip: 0.99, massa: 1.20, carga: 1.00, perfil: "NAVEGADOR",     passiva: "nadador", especie: "tartaruga", veiculoArte: "hidroplano" },
+  { nome: "NARA POLAR",  animal: "PINGUIM",           veiculo: "Trenó Polar",             cor: "#a6dce8", capacete: "#3d5d92", pele: "#e6ba99", vel: 0.98, acel: 1.05, grip: 1.08, massa: 0.95, carga: 1.10, perfil: "PRECISÃO",      passiva: "treno", especie: "pinguim", veiculoArte: "treno" },
+  { nome: "IARA FLUXO",  animal: "BOTO-COR-DE-ROSA",  veiculo: "Jet-ski Anfíbio",         cor: "#8fe0b3", capacete: "#e2ff93", pele: "#895c48", vel: 1.03, acel: 1.03, grip: 1.03, massa: 0.90, carga: 1.05, perfil: "5 VITÓRIAS",    passiva: "anfibio", especie: "boto", veiculoArte: "jetski" },
+  { nome: "DONA BRASA",  animal: "DRAGÃO-DE-KOMODO",  veiculo: "Kart Fornalha",           cor: "#e67e43", capacete: "#ffe3a6", pele: "#946242", vel: 1.06, acel: 0.94, grip: 1.02, massa: 1.30, carga: 1.00, perfil: "RIVAL FAÍSCA",  passiva: "brasa", especie: "komodo", veiculoArte: "fornalha" },
+  { nome: "CAIO CICLONE",animal: "FALCÃO",            veiculo: "Aerokart de Asas",        cor: "#56c4c9", capacete: "#e5e7f9", pele: "#c08d65", vel: 1.03, acel: 1.02, grip: 1.06, massa: 1.05, carga: 1.08, perfil: "RIVAL CICLONE", passiva: "mergulho", especie: "falcao", veiculoArte: "aerokart" },
+  { nome: "MAESTRA RAIO",animal: "ONÇA-PINTADA",      veiculo: "Kart Relâmpago",          cor: "#ac83e7", capacete: "#fff099", pele: "#815840", vel: 1.05, acel: 1.00, grip: 1.05, massa: 1.20, carga: 1.12, perfil: "RIVAL TROVÃO",  passiva: "bote", especie: "onca", veiculoArte: "raio" }
 ];
 
 /* Efeitos das passivas. Campos ausentes usam FX_PADRAO. */
@@ -53,7 +53,7 @@ KT.Kart = (function () {
     this.air = 0; this.rescue = 0; this.magnet = 0; this.dangerCooldown = 0;
     this.di = driverIndex;
     this.isPlayer = !!isPlayer;
-    this.sprites = KT.Sprites.buildKart(d.cor, d.capacete, d.pele);
+    this.sprites = KT.Sprites.buildKart(d, d.cor);
 
     this.x = 0; this.y = 0;
     this.ang = 0;         /* direcao para onde o kart aponta */

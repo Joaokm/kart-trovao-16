@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Galeria de pilotos</title>
+<style>
+  body { margin: 0; padding: 12px; background: #1b2233; color: #dfe6f5; font: 12px monospace; }
+  .linha { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
+  .nome { width: 150px; }
+  canvas { image-rendering: pixelated; background: #3a4a36; }
+  .rosto { background: #26324a; }
+</style>
+</head>
+<body>
+<div id="galeria"></div>
+<!-- Mostra as 5 vistas de cada kart (2×) e o retrato. Abra com node ferramentas/serve.js. -->
+<script>window.KT = {};</script>
+<script src="../js/utils.js"></script>
+<script src="../js/content.js"></script>
+<script src="../js/sprites.js"></script>
+<script src="../js/animais.js"></script>
+<script src="../js/kart.js"></script>
+<script>
+  var raiz = document.getElementById("galeria"), Z = 2;
+  KT.DRIVERS.forEach(function (d) {
+    var linha = document.createElement("div"); linha.className = "linha";
+    var nome = document.createElement("div"); nome.className = "nome"; nome.textContent = d.animal + " · " + d.veiculoArte;
+    linha.appendChild(nome);
+    var set = KT.Sprites.buildKart(d, d.cor);
+    set.right.forEach(function (f) {
+      var c = document.createElement("canvas"); c.width = f.width * Z; c.height = f.height * Z;
+      var x = c.getContext("2d"); x.imageSmoothingEnabled = false; x.drawImage(f, 0, 0, c.width, c.height);
+      linha.appendChild(c);
+    });
+    var r = KT.Sprites.buildFace(d), c = document.createElement("canvas"); c.className = "rosto";
+    c.width = 24 * Z; c.height = 24 * Z;
+    var x = c.getContext("2d"); x.imageSmoothingEnabled = false; x.drawImage(r, 0, 0, c.width, c.height);
+    linha.appendChild(c);
+    raiz.appendChild(linha);
+  });
+</script>
+</body>
+</html>

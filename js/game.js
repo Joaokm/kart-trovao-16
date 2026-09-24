@@ -550,8 +550,8 @@
 
   function drawKart(k, pr) {
     var s = pr.scale;
-    var dw = Math.max(4, Math.round(26 * s));
-    var dh = Math.max(3, Math.round(17 * s));
+    var dw = Math.max(4, Math.round(30 * s));
+    var dh = Math.max(3, Math.round(22.5 * s));
     var rel = KT.angDiff(k.ang, cam.ang);
     var frame = KT.Sprites.kartFrame(k.sprites, rel);
     var hopY = k.hop > 0 ? -Math.sin(k.hop * Math.PI) * 5 * s : 0;
@@ -861,7 +861,7 @@
     gooSprite = KT.Sprites.buildGoo();
     for (var i = 0; i < KT.DRIVERS.length; i++) {
       var d = KT.DRIVERS[i];
-      portraits.push(KT.Sprites.buildFace(d.cor, d.capacete, d.pele));
+      portraits.push(KT.Sprites.buildFace(d));
     }
 
     /* corrida de fundo do modo atrativo */

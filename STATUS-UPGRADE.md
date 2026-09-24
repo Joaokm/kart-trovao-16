@@ -66,6 +66,12 @@ Os 12 pilotos viraram animais, cada um com veículo, peso, velocidade de Carga T
 
 Equilíbrio medido com cada piloto sozinho, IA no volante, nível ÁS, 3 voltas numa pista de cada perigo (9 pistas). O tempo em relação à média vai de −3,9% (rinoceronte) a +4,3% (castor). Com os pilotos antigos, a mesma medição dava de −4,5% a +5,3%. A medição não inclui trombadas nem itens, onde os leves e as passivas de corrida contam a favor.
 
+## Fase 4: arte dos animais (24/09/2026)
+
+`js/animais.js` desenha cada piloto e veículo por código, numa grade de caracteres com contorno automático, em 32×24 (antes 24×16), com cinco vistas e retrato 24×24. Na pista o kart aparece 15% mais largo e 30% mais alto. A pintura da Oficina muda a cor da lataria; o pelo do animal não muda. A galeria em `ferramentas/galeria-pilotos.html` mostra todas as vistas.
+
+O desenho não usa sorteio: o hash de determinismo do QA é o mesmo da fase 3 (`a1101d80`).
+
 ## Limites conhecidos
 
 - Online depende de PeerServer Cloud e da viabilidade da conexão WebRTC. Entre redes diferentes, quando a ligação direta falha, é preciso preencher `iceUrl` em `js/online-config.js` com um TURN (Metered ou Cloudflare, passo a passo no PUBLICAR.md). Sem isso, a reserva é o TURN público do PeerJS, que costuma estar fora do ar.
