@@ -33,6 +33,29 @@ Sem TURN, a sala só liga jogadores da mesma rede ou atrás de roteador simples.
 
 O jogo busca credenciais temporárias no endereço de `iceUrl`, em `js/online-config.js`. Se esse endereço falhar, ele segue só com STUN e continua funcionando na mesma rede.
 
+### Qual caminho usar
+
+| Caminho | Custo | O que cada jogador faz | Quando usar |
+|---|---|---|---|
+| Só STUN (padrão atual) | zero | nada | Primeiro teste. Duas casas com internet fixa comum costumam ligar direto. |
+| Rede virtual: Radmin VPN, ZeroTier ou Tailscale | zero, sem limite de dados | instala o programa e entra na mesma rede virtual antes de jogar | Quando o STUN falhar. Para o navegador, todos ficam na mesma rede e a ligação é direta. Ainda não testado com o jogo. |
+| TURN da Cloudflare (opção 2 abaixo) | grátis até 1000 GB/mês | nada | Quando o jogo tiver mais gente e ninguém quiser instalar programa. A chave fica escondida no Worker. |
+| TURN do Metered (opção 1 abaixo) | 500 MB/mês sem cartão; 20 GB/mês com cartão | nada | Solução rápida. A chave fica visível no site. |
+
+### Quanto o TURN consome
+
+O TURN só entra quando a ligação direta falha. Aí todo o tráfego daquele jogador passa pelo servidor e conta na franquia.
+
+O anfitrião manda o estado dos 8 karts 20 vezes por segundo (`js/network.js`, `afterStep`). Cada envio leva 21 campos numéricos por kart, com 4 casas decimais, além de itens e caixas: de 3 a 4 KB. Isso dá cerca de 60 a 80 KB/s, ou uns 250 MB por hora para cada amigo retransmitido. A conta saiu do código e ainda não foi medida. O painel do provedor mostra o consumo real depois da primeira partida.
+
+Com 500 MB, a franquia rende cerca de 2 horas com um amigo retransmitido, ou 40 minutos com três. Arredondar os números, mandar só os campos que mudaram e baixar para 15 envios por segundo deve reduzir esse volume de 5 a 10 vezes. Não foi implementado.
+
+### Estado em 24/09/2026
+
+- O jogo publicado usa só STUN (`iceUrl` vazio). Plano: testar assim com os amigos e partir para a rede virtual ou o TURN apenas se a ligação falhar.
+- Existe uma conta no Metered com o app `jkjogos`, no plano Global de 500 MB sem cartão (renova todo dia 24), e a credencial `kart`. A chave não foi publicada. Ela fica no painel em **TURN Server → Credenciais TURN → Mostrar chave da API**.
+- Deixar o repositório privado não esconde a chave. No plano grátis do GitHub, repositório privado tira o GitHub Pages do ar. Nos planos pagos o site continua público, e o navegador de cada jogador precisa baixar a chave para conectar.
+
 ### Opção 1: Metered (mais simples, 20 GB por mês grátis)
 
 1. Crie uma conta em [metered.ca](https://www.metered.ca/tools/openrelay/) e um app TURN.

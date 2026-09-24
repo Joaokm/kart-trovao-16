@@ -33,13 +33,20 @@ Para desenvolvimento, rode `node ferramentas/serve.js` e abra `http://127.0.0.1:
 4. Os amigos abrem o convite ou usam **Entrar na sala**.
 5. Com pelo menos duas pessoas na sala, o anfitrião clica em **Iniciar corrida**.
 
+**Se o amigo não conectar**, o jogo mostra "A sala existe, mas as redes não se ligaram direto". A rede de alguém bloqueou a ligação direta; é comum no 4G e em rede de empresa ou faculdade. Tentem nesta ordem:
+
+1. Trocar quem é anfitrião. Às vezes a ligação só funciona num sentido.
+2. Sair do 4G ou da rede da empresa e usar a internet de casa.
+3. Todos instalam o Radmin VPN (ou ZeroTier/Tailscale), entram na mesma rede virtual e abrem o jogo de novo.
+4. Configurar um TURN. O passo a passo e o consumo estimado estão no [PUBLICAR.md](PUBLICAR.md).
+
 **Grand Prix online:** em **Formato**, o anfitrião escolhe **Grand Prix**, a liga e o tamanho: 4 pistas (parte 1, 2 ou 3 da liga) ou a liga completa com 10. Cada corrida soma 15, 12, 10, 8, 6, 4, 2 e 1 pontos do 1º ao 8º, inclusive para a IA. Quem não termina em 5 minutos pontua pela posição em que estava. Entre as corridas aparece a classificação acumulada; depois da última, o pódio. Quem sai no meio continua na tabela, pilotado pela IA. Ninguém entra no meio do GP. O GP online não altera as copas do modo solo.
 
 Até quatro humanos participam. A IA preenche os lugares restantes. Peças padrão para todos. Quem desconectar é substituído por IA; se o anfitrião sair, a conexão termina para todos. Depois do resultado, o anfitrião pode voltar à mesma sala e iniciar outra partida.
 
 O jogo usa WebRTC e sinalização do PeerServer Cloud. A simulação roda no anfitrião; os convidados enviam controles e recebem posições e resultados. Não há câmera, microfone, cadastro ou chat. Mantenha a aba do anfitrião em primeiro plano. O modo online não pausa.
 
-**Limites:** internet e disponibilidade do serviço de sinalização são necessárias. Para jogar entre redes diferentes é preciso configurar TURN em `js/online-config.js`; o passo a passo está em [PUBLICAR.md](PUBLICAR.md). Não existe migração automática de anfitrião nem reconexão no meio da corrida; entre novamente quando a sala voltar ao lobby. O modo solo continua funcionando sem esses serviços.
+**Limites:** internet e disponibilidade do serviço de sinalização são necessárias. Entre redes diferentes, quando a ligação direta falha, é preciso uma rede virtual ou um TURN em `js/online-config.js`; o passo a passo está em [PUBLICAR.md](PUBLICAR.md). Não existe migração automática de anfitrião nem reconexão no meio da corrida; entre novamente quando a sala voltar ao lobby. O modo solo continua funcionando sem esses serviços.
 
 **127.0.0.1 e localhost não são links públicos.** Para jogar de computadores em redes diferentes, publique o jogo. Veja `PUBLICAR.md`.
 
