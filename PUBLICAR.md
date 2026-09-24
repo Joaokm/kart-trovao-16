@@ -53,7 +53,7 @@ Com 500 MB, a franquia rende cerca de 2 horas com um amigo retransmitido, ou 40 
 ### Estado em 24/09/2026
 
 - Só STUN falhou no primeiro teste entre redes diferentes: o amigo achava a sala e caía ao conectar.
-- O jogo passou a usar o TURN do Metered (app `jkjogos`, plano Global de 500 MB sem cartão, renova todo dia 24) com a credencial estática em `iceServers`, em `js/online-config.js`. Ela fica visível no site. Se alguém abusar, apague a credencial no painel em **TURN Server → Credenciais TURN**, crie outra e troque no arquivo.
+- O TURN do Metered foi testado em 24/09/2026: a credencial gerava candidato `relay` no teste Trickle ICE, mas o amigo continuou sem entrar e a mensagem de erro não foi registrada. A credencial foi removida do jogo e apagada no painel; o jogo voltou a usar só STUN.
 - Deixar o repositório privado não esconde a chave. No plano grátis do GitHub, repositório privado tira o GitHub Pages do ar. Nos planos pagos o site continua público, e o navegador de cada jogador precisa baixar a chave para conectar.
 
 ### Opção 1: Metered (mais simples, 20 GB por mês grátis)
