@@ -124,6 +124,7 @@ if (require.main !== module) {
 if (opcao("--gravar-referencia")) {
   const raiz = path.resolve(valor("--raiz", PROJETO));
   const KT = carregarJogo(raiz);
+  KT.Track.build(0, false, { escala: 1, largura: 1 });
   fs.mkdirSync(REF_DIR, { recursive: true });
   const arq = path.join(REF_DIR, "vulcano.json");
   fs.writeFileSync(arq, JSON.stringify(assinaturaPista(KT), null, 1));
@@ -164,7 +165,10 @@ teste("regressão: geometria e terreno do Circuito Vulcano", () => {
   const arq = path.join(REF_DIR, "vulcano.json");
   exigir(fs.existsSync(arq), "referência ausente: rode --gravar-referencia");
   const ref = JSON.parse(fs.readFileSync(arq, "utf8"));
+  /* A referência é o traçado original: escala 1 prova que a fórmula não mudou. */
+  KT.Track.build(0, false, { escala: 1, largura: 1 });
   const cur = assinaturaPista(KT);
+  KT.Track.build(0);
   for (const k of Object.keys(ref)) {
     exigir(JSON.stringify(ref[k]) === JSON.stringify(cur[k]),
       "campo '" + k + "' mudou:\n        ref " + JSON.stringify(ref[k]).slice(0, 160) +

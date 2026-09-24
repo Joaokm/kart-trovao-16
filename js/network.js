@@ -2,8 +2,8 @@
    PeerJS 1.5.5 (MIT) é carregado apenas ao abrir uma conexão online. */
 (function(){
   'use strict';
-  /* VERSION 3: GP online. PREFIX fica em v2 para quem está desatualizado achar a sala e ler o aviso de versão. */
-  var VERSION=3,MAX=4,PREFIX='kart16-v2-',gp=null,source=typeof document!=='undefined'&&document.currentScript?document.currentScript.src:'';
+  /* VERSION 4: pistas esticadas (fase 2). VERSION 3: GP online. PREFIX fica em v2 para quem está desatualizado achar a sala e ler o aviso de versão. */
+  var VERSION=4,MAX=4,PREFIX='kart16-v2-',gp=null,source=typeof document!=='undefined'&&document.currentScript?document.currentScript.src:'';
   var peer=null,links=new Map(),role='',phase='idle',code='',myId='',roster=[],settings={},message='',generation=0,epoch=0;
   var target=null,lastSequence=-1,sequence=0,sendClock=0,lastHeard=0,inputClock=0,inputSequence=0,timeout=null,loading=null,pingTimer=null,latency=0;
   var fields=['x','y','ang','moveAng','sp','lap','pos','progress','idx','boost','spin','shield','slowTimer','hop','driftCharge','air','rescue','magnet','finishTime','lapStart','terrain'];

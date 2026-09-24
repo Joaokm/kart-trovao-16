@@ -40,7 +40,7 @@ Para desenvolvimento, rode `node ferramentas/serve.js` e abra `http://127.0.0.1:
 3. Todos instalam o Radmin VPN (ou ZeroTier/Tailscale), entram na mesma rede virtual e abrem o jogo de novo.
 4. Configurar um TURN. O passo a passo e o consumo estimado estão no [PUBLICAR.md](PUBLICAR.md).
 
-**Grand Prix online:** em **Formato**, o anfitrião escolhe **Grand Prix**, a liga e o tamanho: 4 pistas (parte 1, 2 ou 3 da liga) ou a liga completa com 10. Cada corrida soma 15, 12, 10, 8, 6, 4, 2 e 1 pontos do 1º ao 8º, inclusive para a IA. Quem não termina em 5 minutos pontua pela posição em que estava. Entre as corridas aparece a classificação acumulada; depois da última, o pódio. Quem sai no meio continua na tabela, pilotado pela IA. Ninguém entra no meio do GP. O GP online não altera as copas do modo solo.
+**Grand Prix online:** em **Formato**, o anfitrião escolhe **Grand Prix**, a liga e o tamanho: 4 pistas (parte 1, 2 ou 3 da liga) ou a liga completa com 10. Cada corrida soma 15, 12, 10, 8, 6, 4, 2 e 1 pontos do 1º ao 8º, inclusive para a IA. Quem não termina no tempo-limite pontua pela posição em que estava: 5 minutos, ou 1 minuto mais 75 segundos por volta quando a corrida é longa. Entre as corridas aparece a classificação acumulada; depois da última, o pódio. Quem sai no meio continua na tabela, pilotado pela IA. Ninguém entra no meio do GP. O GP online não altera as copas do modo solo.
 
 Até quatro humanos participam. A IA preenche os lugares restantes. Peças padrão para todos. Quem desconectar é substituído por IA; se o anfitrião sair, a conexão termina para todos. Depois do resultado, o anfitrião pode voltar à mesma sala e iniciar outra partida.
 
@@ -69,7 +69,7 @@ Largada relâmpago: acelere no último instante da contagem. Menus também aceit
 
 ## Save e progressão
 
-O progresso fica no `localStorage` deste navegador, chave `kart-trovao-16-v2`. Em **Opções**, exporte ou importe um JSON. Importar substitui o progresso atual. Em navegadores com armazenamento bloqueado, a sessão continua em memória e o menu orienta a exportação.
+O progresso fica no `localStorage` deste navegador, chave `kart-trovao-16-v3`. Um save da versão anterior (`-v2`, ou um arquivo exportado dela) é aproveitado inteiro, menos os recordes do contrarrelógio: as pistas mudaram de tamanho e aqueles tempos e fantasmas não valem mais. Em **Opções**, exporte ou importe um JSON. Importar substitui o progresso atual. Em navegadores com armazenamento bloqueado, a sessão continua em memória e o menu orienta a exportação.
 
 A mesma semente reproduz a simulação. `rngSim` e `rngVis` separam resultado e aparência. Testes automáticos não alteram o save do jogador. Os testes de navegador usam saves próprios em memória.
 

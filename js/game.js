@@ -408,7 +408,7 @@
     /* fim de corrida */
     if(race.mode==='online'){
       var complete=race.karts.every(function(k){return k.finished;});
-      if(complete||race.time>300)finishRace();
+      if(complete||race.time>Math.max(300,60+75*race.totalLaps))finishRace();
       return;
     }
     if (pl.finished) {

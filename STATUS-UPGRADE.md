@@ -30,6 +30,21 @@ Comparação de oito sementes com seis karts e três voltas. O comportamento inc
 | Cargas nível 2 liberadas | 0 | 6 |
 | Contatos com muro por volta | 0 | 0 |
 
+## Fases 1 e 2 do upgrade de jogabilidade (24/09/2026)
+
+O dono achou o kart rápido demais e a corrida curta. Mudanças:
+
+- **Fase 1, velocidade:** máxima 305→250, aceleração 185→150, freio 300→260. A IA lê `Kart.TOP` e a Esfera de Plasma caiu para 360.
+- **Fase 2, pistas:** os 30 traçados ficaram 2× maiores (`ESCALA` em `js/track.js`) e a pista 15% mais larga (`LARGURA`). A textura cresce com a pista, até 2752 px. Distâncias medidas em amostras (IA, grid, faixa de turbo, decoração) foram convertidas pela escala. O save passou para v3 e migra o v2 sem os recordes. O online subiu para `VERSION=4`, e o tempo-limite do GP passou a ser 300 s ou 60 s + 75 s por volta, o que for maior.
+
+| Métrica (Circuito Vulcano, 6 karts) | Antes (2 sementes) | Fase 1 (8) | Fase 2 (8) |
+|---|---:|---:|---:|
+| Volta média da IA | 17,46 s | 18,23 s | 29,5 s |
+| Fora da pista | 0,6% | 0,7% | 0,3% |
+| Contato com outro kart | 17,7% | 8,9% | 4,3% |
+
+A regressão compara o Vulcano com escala 1 e largura 1 contra a referência original, com os mesmos hashes. As 240 corridas terminam.
+
 ## Limites conhecidos
 
 - Online depende de PeerServer Cloud e da viabilidade da conexão WebRTC. Entre redes diferentes, quando a ligação direta falha, é preciso preencher `iceUrl` em `js/online-config.js` com um TURN (Metered ou Cloudflare, passo a passo no PUBLICAR.md). Sem isso, a reserva é o TURN público do PeerJS, que costuma estar fora do ar.

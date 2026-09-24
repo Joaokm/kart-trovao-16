@@ -6,10 +6,10 @@ const results=[];
 function test(name,fn){try{const detail=fn();console.log('OK '+name+(detail?' · '+detail:''));results.push({name,ok:true});}catch(e){console.error('FALHA '+name+' · '+e.stack);results.push({name,ok:false,error:e.message});}}
 test('30 traçados distintos, finitos e dentro do mapa',()=>{
   const hashes=new Set();
-  for(const t of KT.TRACKS){KT.Track.build(t.id);const signature=assinaturaPista(KT);assert(!hashes.has(signature.hashPontos),'traçado duplicado '+t.name);hashes.add(signature.hashPontos);assert(KT.Track.pts.every(p=>Number.isFinite(p.x)&&Number.isFinite(p.y)&&p.x>140&&p.x<1396&&p.y>140&&p.y<1396),t.name);assert.equal(KT.Track.startGrid.length,8);assert.equal(KT.Track.checkpoints.length,24);}
+  for(const t of KT.TRACKS){KT.Track.build(t.id);const signature=assinaturaPista(KT);assert(!hashes.has(signature.hashPontos),'traçado duplicado '+t.name);hashes.add(signature.hashPontos);assert(KT.Track.pts.every(p=>Number.isFinite(p.x)&&Number.isFinite(p.y)&&p.x>KT.Track.EDGE_A&&p.x<KT.Track.SIZE-KT.Track.EDGE_A&&p.y>KT.Track.EDGE_A&&p.y<KT.Track.SIZE-KT.Track.EDGE_A),t.name);assert.equal(KT.Track.startGrid.length,8);assert.equal(KT.Track.checkpoints.length,24);}
   return hashes.size+' circuitos';
 });
-test('espelho reflete a geometria e preserva comprimento',()=>{KT.Track.build(12);const x=KT.Track.pts.map(p=>[p.x,p.y]),len=KT.Track.total;KT.Track.build(12,true);KT.Track.pts.forEach((p,i)=>{assert(Math.abs(p.x+x[i][0]-1536)<1e-7);assert.equal(p.y,x[i][1]);});assert(Math.abs(KT.Track.total-len)<1e-6);});
+test('espelho reflete a geometria e preserva comprimento',()=>{KT.Track.build(12);const x=KT.Track.pts.map(p=>[p.x,p.y]),len=KT.Track.total;KT.Track.build(12,true);KT.Track.pts.forEach((p,i)=>{assert(Math.abs(p.x+x[i][0]-2*KT.Track.CX)<1e-7);assert.equal(p.y,x[i][1]);});assert(Math.abs(KT.Track.total-len)<1e-6);});
 const runs=[];
 test('todos terminam: 30 pistas × 4 dificuldades × 2 sentidos',()=>{
   for(const t of KT.TRACKS){for(let level=0;level<4;level++)for(const mirror of [false,true]){
@@ -23,6 +23,7 @@ test('determinismo em pista com perigos',()=>{const cfg={pista:25,nivel:2,voltas
 test('contrarrelógio sem timeout de último colocado nem itens',()=>{const r=KT.Teste.preparar({pista:1,modo:'tt'});assert.equal(r.karts.length,1);KT.simular(4000);assert.equal(KT.Game.state,'race');assert.equal(r.player.item,null);assert.equal(r.finishTimer,0);});
 test('economia: compra limitada por saldo e nível',()=>{const d=KT.Career.data;d.bolts=119;assert.equal(KT.Career.buy(0),false);d.bolts=1000;for(let i=0;i<3;i++)assert.equal(KT.Career.buy(0),true);assert.equal(KT.Career.buy(0),false);assert.equal(d.parts[0],3);assert.equal(d.bolts,440);});
 test('save inválido, obsoleto e dados corrompidos',()=>{assert.equal(KT.Career.clean({version:1}).bolts,150);const c=KT.Career.clean({version:2,bolts:-100,parts:[99,'3',null],activeCup:{stage:200}});assert.equal(c.bolts,150);assert.equal(c.parts.join(','),'0,0,0');assert.equal(c.activeCup,null);assert.throws(()=>KT.Career.importSave('not json'));assert.throws(()=>KT.Career.importSave('{"version":1}'));});
+test('save v2 migra para v3 sem recordes da pista antiga',()=>{const rec={time:50,samples:[[0,700,700,0]]};const m=KT.Career.clean({version:2,bolts:777,wins:3,parts:[1,2,0],records:{'0:1:0':rec}});assert.equal(m.version,3);assert.equal(m.bolts,777);assert.equal(m.wins,3);assert.equal(m.parts.join(','),'1,2,0');assert.equal(Object.keys(m.records).length,0);const v3=KT.Career.clean({version:3,records:{'0:1:0':{time:50,samples:[[0,2000,2000,0]]}}});assert.equal(Object.keys(v3.records).length,1);});
 test('campeonato: pontuação, save retomável e recompensa única',()=>{
   const d=KT.Career.data;d.activeCup=null;d.cups={};assert.equal(KT.Career.beginCup(1,1,1),null);assert(KT.Career.beginCup(0,1,1));
   for(let stage=0;stage<10;stage++){

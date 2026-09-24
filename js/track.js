@@ -7,6 +7,10 @@
    ============================================================ */
 KT.Track = (function () {
 
+  /* Fase 2: traçados esticados e pista mais larga. Com escala 1 e largura 1 a geometria
+     é idêntica à original (a regressão do QA confere isso). */
+  var ESCALA = 2.0, LARGURA = 1.15;
+  var escala = ESCALA, largura = LARGURA;
   var SIZE = 1536;
   var CX = 768, CY = 768;
   var ROAD = 88;            /* largura do asfalto */
@@ -57,16 +61,17 @@ KT.Track = (function () {
 
   function buildPath() {
     pts.length = 0;
-    var i, th, r;
+    var i, th, r, raw = [], reach = 0;
     for (i = 0; i < N; i++) {
       th = (i / N) * KT.TAU;
-      r = radius(th);
-      pts.push({
-        x: CX + Math.cos(th) * r * definition.sx * (mirrored ? -1 : 1),
-        y: CY + Math.sin(th) * r * definition.sy,
-        ang: 0, s: 0, len: 0, curv: 0
-      });
+      r = radius(th) * escala;
+      raw.push([Math.cos(th) * r * definition.sx * (mirrored ? -1 : 1), Math.sin(th) * r * definition.sy]);
+      reach = Math.max(reach, Math.abs(raw[i][0]), Math.abs(raw[i][1]));
     }
+    /* A textura cresce com o traçado; nunca fica menor que a original. */
+    SIZE = Math.max(1536, Math.ceil(2 * (reach + EDGE_A + 40) / 64) * 64);
+    CX = CY = SIZE / 2;
+    for (i = 0; i < N; i++) pts.push({ x: CX + raw[i][0], y: CY + raw[i][1], ang: 0, s: 0, len: 0, curv: 0 });
     total = 0;
     for (i = 0; i < N; i++) {
       var a = pts[i], b = pts[(i + 1) % N];
@@ -115,7 +120,8 @@ KT.Track = (function () {
     x.fillStyle = "#171020";
     x.fillRect(0, 0, SIZE, SIZE);
     var rv = KT.rngVis;
-    for (i = 0; i < 24000; i++) {
+    var area = (SIZE / 1536) * (SIZE / 1536);
+    for (i = 0; i < 24000 * area; i++) {
       x.fillStyle = rv() > 0.5 ? "#221729" : "#120c1a";
       x.fillRect(rv() * SIZE | 0, rv() * SIZE | 0, 2, 2);
     }
@@ -162,7 +168,7 @@ KT.Track = (function () {
     for (i = 0; i < N; i++) {
       var pn = pts[i];
       var nnx = Math.cos(pn.ang), nny = -Math.sin(pn.ang);
-      for (var dn = 0; dn < 44; dn++) {
+      for (var dn = 0; dn < 44 * escala * largura; dn++) {
         var lat = KT.randV(-EDGE_A, EDGE_A);
         var al = Math.abs(lat);
         var col;
@@ -240,7 +246,7 @@ KT.Track = (function () {
       x.lineWidth=2*EDGE;x.lineCap="butt";
       for(i=0;i<N;i++){var pa=pts[i],pb=pts[(i+1)%N];x.strokeStyle=Math.floor(i/9)%2?"#e8ebed":theme.curb;x.beginPath();x.moveTo(pa.x,pa.y);x.lineTo(pb.x,pb.y);x.stroke();}
       strokeAll(x,"#dce2e1",ROAD);strokeAll(x,theme.road,ROAD-6);
-      for(i=0;i<14000;i++){var pp2=pts[(rv()*N)|0],lat2=KT.randV(-EDGE_A,EDGE_A);x.fillStyle=Math.abs(lat2)<HALF?"#ffffff":"#101f2b";x.globalAlpha=.12;x.fillRect(pp2.x+Math.cos(pp2.ang)*lat2,pp2.y-Math.sin(pp2.ang)*lat2,2,2);}x.globalAlpha=1;
+      for(i=0;i<14000*escala*largura;i++){var pp2=pts[(rv()*N)|0],lat2=KT.randV(-EDGE_A,EDGE_A);x.fillStyle=Math.abs(lat2)<HALF?"#ffffff":"#101f2b";x.globalAlpha=.12;x.fillRect(pp2.x+Math.cos(pp2.ang)*lat2,pp2.y-Math.sin(pp2.ang)*lat2,2,2);}x.globalAlpha=1;
       /* Turbo, chegada e setores perigosos pertencem à geometria da pista. */
       boostPads.forEach(function(idx){var p=pts[idx];x.save();x.translate(p.x,p.y);x.rotate(-p.ang);x.fillStyle="#18232e";x.fillRect(-HALF+8,-16,ROAD-16,32);for(var a=0;a<3;a++){x.fillStyle=theme.accent;x.beginPath();x.moveTo(-HALF+12,-10+a*9);x.lineTo(0,-15+a*9);x.lineTo(HALF-12,-10+a*9);x.lineWidth=3;x.strokeStyle=theme.accent;x.stroke();}x.restore();});
       var pstart=pts[0];x.save();x.translate(pstart.x,pstart.y);x.rotate(-pstart.ang);for(var rr=0;rr<4;rr++)for(var cc=0;cc<12;cc++){x.fillStyle=(rr+cc)%2?"#172330":"#ffffff";x.fillRect(-HALF+cc*ROAD/12,-10+rr*5,ROAD/12+1,5);}x.restore();
@@ -263,45 +269,49 @@ KT.Track = (function () {
       var nx = Math.cos(p.ang), ny = -Math.sin(p.ang);
       for (var k = -1; k <= 1; k++) {
         itemBoxes.push({
-          x: p.x + nx * k * 27, y: p.y + ny * k * 27,
+          x: p.x + nx * k * 27 * largura, y: p.y + ny * k * 27 * largura,
           active: true, timer: 0, i: idx
         });
       }
     }
 
-    for (var i = 0; i < N; i += 38) {
+    var passoDeco = Math.round(38 / escala);
+    for (var i = 0; i < N; i += passoDeco) {
       var q = pts[i];
       var qx = Math.cos(q.ang), qy = -Math.sin(q.ang);
       var off = EDGE_A - 10;
-      var kind = (i / 38) % 3 === 0 ? "totem" : "tocha";
+      var kind = (i / passoDeco) % 3 === 0 ? "totem" : "tocha";
       props.push({ x: q.x + qx * off, y: q.y + qy * off, type: kind, ph: KT.rngVis() * 6 });
       props.push({ x: q.x - qx * off, y: q.y - qy * off, type: kind === "totem" ? "tocha" : "totem", ph: KT.rngVis() * 6 });
     }
 
     startGrid.length = 0;
     for (var g = 0; g < GRID; g++) {
-      var gi = (N - 16 - g * 12) % N;
+      var gi = (N - Math.round(16 / escala) - g * Math.round(12 / escala)) % N;
       var gp = pts[gi];
       var gx = Math.cos(gp.ang), gy = -Math.sin(gp.ang);
-      var lateral = (g % 2 === 0) ? -20 : 20;
+      var lateral = ((g % 2 === 0) ? -20 : 20) * largura;
       startGrid.push({ x: gp.x + gx * lateral, y: gp.y + gy * lateral, ang: gp.ang, i: gi });
     }
   }
 
-  function build(id, mirror) {
+  /* opts.escala / opts.largura só existem para o QA comparar com a geometria original. */
+  function build(id, mirror, opts) {
     definition=KT.TRACKS[id || 0] || KT.TRACKS[0];mirrored=!!mirror;
-    ROAD=definition.width;HALF=ROAD/2;EDGE=HALF+CURB;EDGE_G=EDGE+GRASS;EDGE_A=EDGE_G+ASH;
+    escala=opts&&opts.escala!=null?opts.escala:ESCALA;largura=opts&&opts.largura!=null?opts.largura:LARGURA;
+    ROAD=definition.width*largura;HALF=ROAD/2;EDGE=HALF+CURB;EDGE_G=EDGE+GRASS*largura;EDGE_A=EDGE_G+ASH*largura;
     KT.seedVis(definition.seed);
     buildPath();
     boostPads = definition.pads.slice();
-    /* cobertura das faixas de turbo por amostra (|i - pad| <= 7) */
+    /* cobertura das faixas de turbo por amostra: ~18 unidades para cada lado */
     turboZone = new Uint8Array(N);
+    var zona = Math.round(7 / escala);
     for (var b = 0; b < boostPads.length; b++)
-      for (var k = -7; k <= 7; k++) turboZone[(boostPads[b] + k + N) % N] = 1;
+      for (var k = -zona; k <= zona; k++) turboZone[(boostPads[b] + k + N) % N] = 1;
     buildObjects();
     dangers=[];
     if(definition.hazard && definition.hazard!=="fall" && definition.hazard!=="wind") {
-      [285,635,980].forEach(function(i,n){var p=pointAt(i,(n%2?1:-1)*(HALF*.37));dangers.push({i:i,x:p.x,y:p.y,kind:definition.hazard,radius:definition.hazard==="rocks"?12:19,phase:n*1.7});});
+      [285,635,980].forEach(function(i,n){var p=pointAt(i,(n%2?1:-1)*(HALF*.37));dangers.push({i:i,x:p.x,y:p.y,kind:definition.hazard,radius:(definition.hazard==="rocks"?12:19)*largura,phase:n*1.7});});
     }
     buildTexture();
     checkpoints.length = 0;
@@ -367,6 +377,7 @@ KT.Track = (function () {
     get definition(){return definition;},get mirror(){return mirrored;},get dangers(){return dangers;},
     /* getters: dimensoes passam a depender da pista carregada */
     get SIZE() { return SIZE; }, get N() { return N; }, get ROAD() { return ROAD; },
+    get CX() { return CX; }, get escala() { return escala; }, get largura() { return largura; },
     get HALF() { return HALF; }, get EDGE() { return EDGE; },
     get EDGE_G() { return EDGE_G; }, get EDGE_A() { return EDGE_A; },
     T: T, PROPS: PROPS,

@@ -1,12 +1,13 @@
 /* Save versionado, economia e campeonato. Não depende do DOM nem da corrida. */
 (function () {
   "use strict";
-  var KEY="kart-trovao-16-v2", storageOK=true, POINTS=[15,12,10,8,6,4,2,1];
-  function fresh() { return {version:2,bolts:150,wins:0,races:0,cups:{},records:{},parts:[0,0,0],paint:0,settings:{volume:70,crt:true,motion:true},activeCup:null}; }
+  /* v3 (fase 2): pistas esticadas. Um save v2 é migrado mantendo tudo, menos os recordes e fantasmas. */
+  var KEY="kart-trovao-16-v3", OLD_KEY="kart-trovao-16-v2", storageOK=true, POINTS=[15,12,10,8,6,4,2,1];
+  function fresh() { return {version:3,bolts:150,wins:0,races:0,cups:{},records:{},parts:[0,0,0],paint:0,settings:{volume:70,crt:true,motion:true},activeCup:null}; }
   function integer(n,min,max,fallback) { return Number.isInteger(n)&&n>=min&&n<=max?n:fallback; }
   function clean(raw) {
     var d=fresh();
-    if (!raw || raw.version!==2) return d;
+    if (!raw || (raw.version!==2&&raw.version!==3)) return d;
     d.bolts=integer(raw.bolts,0,999999,150); d.wins=integer(raw.wins,0,999999,0); d.races=integer(raw.races,0,999999,0);
     d.parts=d.parts.map(function(_,i){return integer(raw.parts&&raw.parts[i],0,3,0);});
     d.paint=integer(raw.paint,0,5,0);
@@ -14,9 +15,9 @@
       var key=c+":"+l,v=raw.cups&&raw.cups[key];
       if (Number.isInteger(v)&&v>=1&&v<=8) d.cups[key]=v;
     }
-    if(raw.records && typeof raw.records==="object") Object.keys(raw.records).slice(0,720).forEach(function(k){
+    if(raw.version===3 && raw.records && typeof raw.records==="object") Object.keys(raw.records).slice(0,720).forEach(function(k){
       var r=raw.records[k];
-      if(/^\d{1,2}:\d{1,2}:[01]$/.test(k) && r && Number.isFinite(r.time)&&r.time>0&&r.time<900 && Array.isArray(r.samples) && r.samples.length<=9000 && r.samples.every(function(p){return Array.isArray(p)&&p.length===4&&p.every(Number.isFinite)&&p[0]>=0&&p[0]<=900&&p[1]>=0&&p[1]<=1536&&p[2]>=0&&p[2]<=1536;})) d.records[k]=r;
+      if(/^\d{1,2}:\d{1,2}:[01]$/.test(k) && r && Number.isFinite(r.time)&&r.time>0&&r.time<900 && Array.isArray(r.samples) && r.samples.length<=9000 && r.samples.every(function(p){return Array.isArray(p)&&p.length===4&&p.every(Number.isFinite)&&p[0]>=0&&p[0]<=900&&p[1]>=0&&p[1]<=4096&&p[2]>=0&&p[2]<=4096;})) d.records[k]=r;
     });
     if(raw.settings) {
       d.settings.volume=integer(raw.settings.volume,0,100,70);
@@ -27,7 +28,7 @@
     return d;
   }
   var data=fresh();
-  try { data=clean(JSON.parse(localStorage.getItem(KEY))); } catch(e) { storageOK=false; }
+  try { var saved=localStorage.getItem(KEY); if(saved==null)saved=localStorage.getItem(OLD_KEY); data=clean(JSON.parse(saved)); } catch(e) { storageOK=false; }
   function save(){try{localStorage.setItem(KEY,JSON.stringify(data));storageOK=true;return true;}catch(e){storageOK=false;return false;}}
   function won(c,l){return (data.cups[c+":"+l]||99)<=3;}
   function unlockedCup(c){return c===0||[0,1,2,3].some(function(l){return won(c-1,l);});}
@@ -68,7 +69,7 @@
   }
   /* GP online: só pontos entre amigos, nunca toca em activeCup nem em data.cups.
      A tabela é indexada pelo slot do grid (0..7), porque dois amigos podem usar o mesmo piloto.
-     No online, quem não termina em 300 s pontua pela posição em que estava. */
+     No online, quem não termina no tempo-limite (300 s, ou 60 s + 75 s por volta se for maior) pontua pela posição em que estava. */
   var GP_LEGS=[[0,1,2,3],[4,5,6,7],[6,7,8,9]];
   KT.GP={POINTS:POINTS,LEGS:GP_LEGS,
     tracks:function(liga,tamanho,parte){return (tamanho===10?[0,1,2,3,4,5,6,7,8,9]:GP_LEGS[parte]).map(function(i){return liga*10+i;});},
@@ -85,7 +86,7 @@
     paint:function(i){if(!Number.isInteger(i)||i<0||i>=paints.length)return false;data.paint=i;save();return true;},paints:paints,
     tune:function(k,stock){if(stock)return;k.driver=Object.assign({},k.driver);var p=data.parts;k.driver.vel*=1+p[0]*.018-p[2]*.007;k.driver.acel*=1+p[2]*.035-p[0]*.009;k.driver.grip*=1+p[1]*.035;k.mass*=1+p[0]*.035-p[2]*.06;if(paints[data.paint])k.driver.cor=paints[data.paint];k.sprites=KT.Sprites.buildKart(k.driver.cor,k.driver.capacete,k.driver.pele);},
     exportSave:function(){return JSON.stringify(data,null,2);},
-    importSave:function(raw){var value=JSON.parse(raw);if(!value||value.version!==2)throw Error("Arquivo de save incompatível.");data=clean(value);return save();}
+    importSave:function(raw){var value=JSON.parse(raw);if(!value||(value.version!==2&&value.version!==3))throw Error("Arquivo de save incompatível.");data=clean(value);return save();}
   };
   KT.Ghost={
     key:function(r){return r.trackId+":"+r.player.di+":"+(r.mirror?1:0);},

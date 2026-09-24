@@ -3,9 +3,11 @@
   "use strict";
   KT.Kart.prototype.aiControls=function(dt,race){
     var Tk=KT.Track,N=Tk.N,pts=Tk.pts,L=KT.LEVELS[race.level==null?1:race.level];
-    var top=KT.Kart.TOP*this.driver.vel*this.aiSkill,sp=Math.max(0,this.sp),ahead=Math.round(12+sp*.075);
+    /* Distâncias abaixo foram calibradas em amostras da pista original; k converte para a pista esticada. */
+    var k=1/Tk.escala,s12=Math.round(12*k);
+    var top=KT.Kart.TOP*this.driver.vel*this.aiSkill,sp=Math.max(0,this.sp),ahead=Math.round((12+sp*.075)*k);
     var ti=(this.idx+ahead)%N;
-    var turn=KT.angDiff(pts[(ti+12)%N].ang,pts[(ti+N-12)%N].ang);
+    var turn=KT.angDiff(pts[(ti+s12)%N].ang,pts[(ti+N-s12)%N].ang);
     this.aiLineTimer-=dt;
     if(this.aiLineTimer<=0){this.aiLineTimer=KT.rand(2.4,4.2);this.aiLine=KT.rand(-1,1)*(1-L.skill)*16;}
     var lateral=KT.sign(turn)*Math.min(14,Math.abs(turn)*55)+this.aiLine;
@@ -13,21 +15,21 @@
     for(var j=0;j<race.karts.length;j++){
       var other=race.karts[j];if(other===this)continue;
       var dd=(other.idx-this.idx+N)%N;
-      if(dd>0&&dd<ahead+12){var ol=Tk.lateralOffset(other.x,other.y,other.idx);if(Math.abs(ol-myLat)<29){
+      if(dd>0&&dd<ahead+s12){var ol=Tk.lateralOffset(other.x,other.y,other.idx);if(Math.abs(ol-myLat)<29){
         var side=myLat>=ol?1:-1;if(Math.abs(ol+side*31)>Tk.halfAt(ti)-10)side=-side;
         lateral=ol+side*31;
-        if(dd<12&&Math.abs(ol-myLat)<20)trafficLimit=Math.max(90,other.sp*.94);
+        if(dd<s12&&Math.abs(ol-myLat)<20)trafficLimit=Math.max(90,other.sp*.94);
       }}
     }
     if(!this.item&&race.mode!=="tt"){
       var best=null,bestScore=1e9;
-      Tk.itemBoxes.forEach(function(b){var d=(b.i-this.idx+N)%N;if(b.active&&d>8&&d<65){var lat=Tk.lateralOffset(b.x,b.y,b.i),score=d+Math.abs(lat-lateral)*1.5;if(score<bestScore){best=b;bestScore=score;}}},this);
+      Tk.itemBoxes.forEach(function(b){var d=(b.i-this.idx+N)%N;if(b.active&&d>8*k&&d<65*k){var lat=Tk.lateralOffset(b.x,b.y,b.i),score=d/k+Math.abs(lat-lateral)*1.5;if(score<bestScore){best=b;bestScore=score;}}},this);
       if(best)lateral=KT.lerp(lateral,Tk.lateralOffset(best.x,best.y,best.i),.85);
     }
     var obstacles=race.hazards.concat(Tk.dangers);
     for(var h=0;h<obstacles.length;h++){
       var hz=obstacles[h],hd=(hz.i-this.idx+N)%N;
-      if(hd>0&&hd<ahead+25){var hl=Tk.lateralOffset(hz.x,hz.y,hz.i);if(Math.abs(hl-lateral)<(hz.radius||16)+14)lateral=hl+(hl>=0?-1:1)*((hz.radius||16)+18);}
+      if(hd>0&&hd<ahead+25*k){var hl=Tk.lateralOffset(hz.x,hz.y,hz.i);if(Math.abs(hl-lateral)<(hz.radius||16)+14)lateral=hl+(hl>=0?-1:1)*((hz.radius||16)+18);}
     }
     lateral=KT.clamp(lateral,-Tk.halfAt(ti)+10,Tk.halfAt(ti)-10);
     var target=Tk.pointAt(ti,lateral),dist=Math.max(12,Math.hypot(target.x-this.x,target.y-this.y));
@@ -57,7 +59,7 @@
       if(this.item==="orb")use=race.hasTargetAhead(this);
       if(this.item==="goo")use=race.hasTargetBehind(this);
       if(this.item==="turbo")use=curv<.19&&!this.drifting&&Math.abs(myLat)<Tk.halfAt(this.idx);
-      if(this.item==="spring")use=obstacles.some(function(h){var d=(h.i-this.idx+N)%N;return d<35;},this)||Tk.definition.hazard==="fall";
+      if(this.item==="spring")use=obstacles.some(function(h){var d=(h.i-this.idx+N)%N;return d<35*k;},this)||Tk.definition.hazard==="fall";
       if(this.item==="magnet")use=race.hasTargetAhead(this);
     }
     return {throttle:sp>desired+8?0:1,brake:sp>desired+8?.65:0,steer:steer,drift:drift,useItem:use};
