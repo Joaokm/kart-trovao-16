@@ -89,7 +89,7 @@ QA: 11/11 na regressão e 13/13 no upgrade; o hash de determinismo continua `a11
 
 - Online passa pelo servidor de salas em `servidor/` (Cloudflare Worker) desde 24/09/2026, versão de protocolo 5. Depende da cota diária do plano grátis; conta e publicação no PUBLICAR.md.
 - GP online (22/09/2026): testado com 4 jogadores reais em 4 corridas no mesmo computador, incluindo saída no meio e atrasado recusado. Falta testar com amigos em redes diferentes.
-- Em 24/09/2026 o WebRTC (STUN e depois TURN do Metered) não ligou dois jogadores em redes diferentes. O PeerJS saiu e o online foi para o servidor de salas. Com ele, as baterias online (11) e GP (23) passaram localmente contra `wrangler dev`; falta o teste com amigos em redes diferentes.
+- Em 24/09/2026 o WebRTC (STUN e depois TURN do Metered) não ligou dois jogadores em redes diferentes. O PeerJS saiu e o online foi para o servidor de salas. Com ele, as baterias online (11) e GP (23) passaram localmente contra `wrangler dev`. Em 25/09/2026, dois jogadores em redes diferentes (uma fechada, outra aberta) jogaram pelo servidor publicado.
 - O anfitrião deve manter a aba aberta e em primeiro plano. Não há migração de anfitrião nem retorno durante uma corrida já iniciada.
 - Gamepad foi implementado para o mapeamento padrão. A confirmação com controle físico depende de hardware disponível.
 - Save é local ao navegador, com exportação/importação manual; não há conta nem sincronização em nuvem.
